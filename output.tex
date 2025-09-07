@@ -1,0 +1,373 @@
+Round 1 
+
+[Agentic][Training][Epoch 1] ISSUE: CE=7.361 | tok_acc=0.043  ||  CODE: CE=6.479 | tok_acc=0.108  ||  
+[Agentic][Training][Epoch 2] ISSUE: CE=6.565 | tok_acc=0.092  ||  CODE: CE=5.044 | tok_acc=0.257  ||  
+[Agentic][Training][Epoch 3] ISSUE: CE=5.953 | tok_acc=0.140  ||  CODE: CE=4.520 | tok_acc=0.306  ||  
+[Agentic][Training][Epoch 4] ISSUE: CE=5.473 | tok_acc=0.182  ||  CODE: CE=4.203 | tok_acc=0.334  ||  
+
+[Agentic][Testing][PIPELINE-LIFT] Teacher-forced delta (with gist vs **no-issue baseline**; more negative is better)
+[Agentic][Testing][PIPELINE-LIFT] CODE CE(no-issue)=4.340 | CE(with gist)=4.322 | ΔCE=-0.018 | acc(no-issue)=0.336 | acc(with gist)=0.338
+[Agentic][Testing][CODE@GIST] CE=4.322 | tok_acc=0.338 | N=205
+
+[Agentic][Testing][ISSUE-STATS] Analysis agent quick stats (first few issues)
+{'sampled': 4.0, 'avg_tokens': 30.25, 'avg_lines': 1.0, 'code_leak_lines': 2.0}
+
+[Agentic][Testing][PIPELINE-SAMPLES] Issue ↔ Patch examples (eyeball alignment)
+
+=== Example 0 ===
+[ISSUE]
+ONNX model does not save on GPU Bug Attempting to export on ONNX after training model on GPU, throws an error is the input sample or example input array is not a CUDA tensor. To Reproduce Steps to reproduce the behavior: 1. Train a model on GPU 2.
+
+[PATCH]
+diff --git a/pytorch_lightning/core/core.py b/core/__init__lightning.py --- a/pytorch.py +++ b/core import diff -- 100644/trainer/pytorch(self.py b/__init__(self,6, trainer, dict, Iterable) if 'states`] = None, Any, optional): + if self..py b.py @@ -116, dict).callbacks/pytorch-_.engine/trainer.core/pytorching) + except, ).add_lightning import s - self.py @@ -7 def __init__( self.py b import name: -from prefect.py @@ -13 -self, /training_io.trainer/model_lightning/__init.utilities/pytorch = None: .lightning/pytorch__(self
+
+=== Example 1 ===
+[ISSUE]
+Add Current behavior Current behavior Bug Current behavior Currently, Current behavior prefect s Current behavior task task What is the current behavior? . .
+
+[PATCH]
+diff --git a/src/prefect/prefect/__init___.py b/srcpy b//prefect.py --- a/prefect import .engine.tasks/src/__init__(self): + """ +from prefect.task.prefect/cloud.set_runner.state.docker/src import Union,15 @@, _run_state.tasks.result.cloud.state_key: Optional) -> str(result.local.environments.tasks(self.get(" +++ bs.flow_state_config.utilities.flow.state + - self.agent.result: +3[str, ) + -self, prefect.result_handler.prefect.format( ) - self/task = if isinstance(task, self.tasks[str.
+
+=== Example 2 ===
+[ISSUE]
+Issue: (no description)
+
+[PATCH]
+diff --git a/src/prefect/prefect.py b/src/__init_.py --- a/srcpy b/prefect/__init.py +++ b/prefectchecks/executors/srcprefect/src.py @@ -1,4 +1,,8 + if `flow_flow.engine.task_config.tasks.task.logger.secrets.is_tasks.context.format.storage/srclightning.tasks import .task import `cloud/src_flow_handler.cloud/agent.tasks/src": [" + "utilities.flow_config import r(kwargs.upstream_on_state.logger): + + .execution.docker_config,6 +1 - self.utilities.prefect.task(self.task", "agent_state import Union,6 +from qiskit.context,
+
+[Agentic][Training] Stage 2A: Static specialization for ISSUE agent (freeze backbone + Code agent; train Issue agent on original X with P targets)
+[Agentic][Testing][ISSUE@Before FT] CE=5.686 | tok_acc=0.179
+[Agentic][Static Routing][Issue Analysis Agent FT] Epoch 1 | TrainCE=5.237 | TrainAcc=0.202 | DevCE=5.232 | DevAcc=0.194
+[Agentic][Static Routing][Issue Analysis Agent FT] Epoch 2 | TrainCE=5.099 | TrainAcc=0.206 | DevCE=5.222 | DevAcc=0.198
+[Agentic][Static Routing][Issue Analysis Agent FT] Epoch 3 | TrainCE=5.017 | TrainAcc=0.210 | DevCE=5.214 | DevAcc=0.200
+[Agentic][Static Routing][Issue Analysis Agent FT] Epoch 4 | TrainCE=4.951 | TrainAcc=0.212 | DevCE=5.208 | DevAcc=0.203
+[Agentic][Static Routing][Issue Analysis Agent FT] Epoch 5 | TrainCE=4.894 | TrainAcc=0.214 | DevCE=5.205 | DevAcc=0.205
+[Agentic][Static Routing][Issue Analysis Agent FT] Epoch 6 | TrainCE=4.843 | TrainAcc=0.217 | DevCE=5.203 | DevAcc=0.208
+[Agentic][Static Routing][Issue Analysis Agent FT] Epoch 7 | TrainCE=4.796 | TrainAcc=0.218 | DevCE=5.202 | DevAcc=0.210
+[Agentic][Static Routing][Issue Analysis Agent FT] Epoch 8 | TrainCE=4.752 | TrainAcc=0.220 | DevCE=5.201 | DevAcc=0.211
+[Agentic][Testing][ISSUE@After FT] CE=5.530 | tok_acc=0.198 | ΔCE=-0.156 (-2.75%) | Δacc=+0.020 (+10.98%)
+
+[Agentic][Training] Stage 2B: Static specialization for CODE agent (freeze backbone + Issue agent; train Code agent on gist-only)
+[Agentic][Testing][CODE@GIST][Before FT] CE=4.293 | tok_acc=0.341
+[Agentic][Static Routing][Code Generation Agent FT] Epoch 1 | TrainCE=4.025 | TrainAcc=0.350 | DevCE=3.903 | DevAcc=0.368
+[Agentic][Static Routing][Code Generation Agent FT] Epoch 2 | TrainCE=3.847 | TrainAcc=0.367 | DevCE=3.861 | DevAcc=0.375
+[Agentic][Static Routing][Code Generation Agent FT] Epoch 3 | TrainCE=3.751 | TrainAcc=0.373 | DevCE=3.826 | DevAcc=0.378
+[Agentic][Static Routing][Code Generation Agent FT] Epoch 4 | TrainCE=3.666 | TrainAcc=0.378 | DevCE=3.795 | DevAcc=0.381
+[Agentic][Static Routing][Code Generation Agent FT] Epoch 5 | TrainCE=3.588 | TrainAcc=0.383 | DevCE=3.769 | DevAcc=0.383
+[Agentic][Static Routing][Code Generation Agent FT] Epoch 6 | TrainCE=3.515 | TrainAcc=0.388 | DevCE=3.746 | DevAcc=0.386
+[Agentic][Static Routing][Code Generation Agent FT] Epoch 7 | TrainCE=3.447 | TrainAcc=0.393 | DevCE=3.727 | DevAcc=0.388
+[Agentic][Static Routing][Code Generation Agent FT] Epoch 8 | TrainCE=3.382 | TrainAcc=0.398 | DevCE=3.711 | DevAcc=0.390
+[Agentic][Testing][CODE@GIST][After FT] CE=3.967 | tok_acc=0.371 | ΔCE=-0.326 (-7.59%) | Δacc=+0.030 (+8.77%)
+========
+ Round 2
+ 
+ [Agentic][Training][Epoch 1] ISSUE: CE=7.429 | tok_acc=0.039  ||  CODE: CE=6.492 | tok_acc=0.104  ||  
+ [Agentic][Training][Epoch 2] ISSUE: CE=6.577 | tok_acc=0.090  ||  CODE: CE=5.020 | tok_acc=0.255  ||  
+ [Agentic][Training][Epoch 3] ISSUE: CE=5.968 | tok_acc=0.141  ||  CODE: CE=4.509 | tok_acc=0.305  ||  
+ [Agentic][Training][Epoch 4] ISSUE: CE=5.502 | tok_acc=0.178  ||  CODE: CE=4.199 | tok_acc=0.334  ||  
+ [Agentic][Training][Epoch 5] ISSUE: CE=5.154 | tok_acc=0.203  ||  CODE: CE=3.951 | tok_acc=0.356  ||  
+ [Agentic][Training][Epoch 6] ISSUE: CE=4.865 | tok_acc=0.226  ||  CODE: CE=3.756 | tok_acc=0.372  ||  
+ 
+ [Agentic][Testing][PIPELINE-LIFT] Teacher-forced delta (with gist vs **no-issue baseline**; more negative is better)
+ [Agentic][Testing][PIPELINE-LIFT] CODE CE(no-issue)=4.123 | CE(with gist)=4.093 | ΔCE=-0.030 | acc(no-issue)=0.355 | acc(with gist)=0.358
+ [Agentic][Testing][CODE@GIST] CE=4.093 | tok_acc=0.358 | N=205
+ 
+ [Agentic][Testing][ISSUE-STATS] Analysis agent quick stats (first few issues)
+ {'sampled': 4.0, 'avg_tokens': 33.25, 'avg_lines': 1.0, 'code_leak_lines': 3.0}
+ 
+ [Agentic][Testing][PIPELINE-SAMPLES] Issue ↔ Patch examples (eyeball alignment)
+ 
+ === Example 0 ===
+ [ISSUE]
+ Current behavior Current behavior Please describe your feature requested in Current behavior Currently, Current behavior Current behavior flow: python from prefect. run flow flow. run(flow epoch epoch(self.
+ 
+ [PATCH]
+ diff --git a/src/prefect/core/cores.py b/srcprefect/flow.py --- a/src/__init__.py +++ b/prefect/__init.py @@ -87 @@ from qiskit.client import /src import prefect import os import rank, _result.utilities.core/prefect import _tasks import __backend___ont +from_on__flow/src", None, /prefect.utilities/flow/core.task.serialization/src.result.py @@ -25, Optional,3 import pendulum import get__name.core.storage from prefect.graphql import uuid diff --aer.engine.py b.core import core/engine/core/__init__(self, ) +from prefect.core/__Any, optional):
+ 
+ === Example 1 ===
+ [ISSUE]
+ Remove legacy simulators This i think should be done in two parts. I will remove the python code and fix the test that applies. @atilag can you do the removing of the source code and the updating of the install instructions.
+ 
+ [PATCH]
+ diff --git a/qiskit/circuit/synthesis/qobjs) -9,6,7,6 +5 import subprocess import pendulums1,6 +from prefect.parallel import warnings.transpiler.utilities import copy import ) -> None: elifa7 +2ss-new_circuit.utilities.dagcircuit._dagcircuit.environments.backend import torch.utilitiess(): +1")._circuit +2 -from qiskit.cloud.tasks import subprocess -7 +from qiskit._plugins.circuit.transpiler +import _visualization.utils.transpiler import Flow,7 + +from_map(): + + +from qiskit_layout._layout, + from py --- a/src/prefect/server import uuid import if isinstance(self, _name, +from typing_io/prefect
+ 
+ === Example 2 ===
+ [ISSUE]
+ Current behavior Current behavior flow to flow. run Motivation Current behavior Please describe What is the expected enhancement? sss.
+ 
+ [PATCH]
+ diff --git a/src/prefect/client/agent/agent.py b/srcprefect/agent"/agent +16States.py --- a/srcTask.py +++ b/src/__init__.py @@ -168 @@1 import Parameter +5 import _.utilities.utilities import copy import pendulum.client import Agent +from prefect.utilities/src import  import prefect diff --.environments import /prefect.py @@ -1,6 +1,6 @@ import functools import uuid +from prefect/__init__(self, flow_.engine/src", "prefect import .utilities/__init) #___api__args from qiskit.core/utilities.py deleted f diff --state.executors import ) -> None +from prefect import Docker3 +4 import LICENSE.py b.engine.engine/__init) import 
+ 
+ [Agentic][Training] Stage 2A: Static specialization for ISSUE agent (freeze backbone + Code agent; train Issue agent on original X with P targets)
+ [Agentic][Testing][ISSUE@Before FT] CE=5.523 | tok_acc=0.205
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 1 | TrainCE=4.731 | TrainAcc=0.241 | DevCE=4.557 | DevAcc=0.260
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 2 | TrainCE=4.592 | TrainAcc=0.248 | DevCE=4.575 | DevAcc=0.263
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 3 | TrainCE=4.518 | TrainAcc=0.252 | DevCE=4.588 | DevAcc=0.265
+ [Agentic][Static Routing] Early stopping triggered
+ [Agentic][Testing][ISSUE@After FT] CE=5.454 | tok_acc=0.222 | ΔCE=-0.070 (-1.26%) | Δacc=+0.016 (+8.03%)
+ 
+ [Agentic][Training] Stage 2B: Static specialization for CODE agent (freeze backbone + Issue agent; train Code agent on gist-only)
+ [Agentic][Testing][CODE@GIST][Before FT] CE=4.070 | tok_acc=0.360
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 1 | TrainCE=3.660 | TrainAcc=0.379 | DevCE=3.508 | DevAcc=0.401
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 2 | TrainCE=3.478 | TrainAcc=0.398 | DevCE=3.498 | DevAcc=0.405
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 3 | TrainCE=3.402 | TrainAcc=0.404 | DevCE=3.491 | DevAcc=0.407
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 4 | TrainCE=3.336 | TrainAcc=0.409 | DevCE=3.485 | DevAcc=0.410
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 5 | TrainCE=3.275 | TrainAcc=0.414 | DevCE=3.479 | DevAcc=0.411
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 6 | TrainCE=3.216 | TrainAcc=0.417 | DevCE=3.474 | DevAcc=0.413
+ [Agentic][Testing][CODE@GIST][After FT] CE=3.901 | tok_acc=0.386 | ΔCE=-0.169 (-4.15%) | Δacc=+0.026 (+7.09%)
+ 
+ Round 3
+ 
+ [Data] Load SWE-bench…
+ [Data] 1024 supervised pairs
+ [Info] Train: 819 pairs, Test: 205 pairs
+ [Agentic][Training] Stage 1: Interleaved ISSUE↔CODE (same epoch)
+ [Agentic][Training][Epoch 1] ISSUE: CE=7.429 | tok_acc=0.039  ||  CODE: CE=6.492 | tok_acc=0.104  ||  
+ [Agentic][Training][Epoch 2] ISSUE: CE=6.577 | tok_acc=0.090  ||  CODE: CE=5.020 | tok_acc=0.255  ||  
+ [Agentic][Training][Epoch 3] ISSUE: CE=5.968 | tok_acc=0.141  ||  CODE: CE=4.509 | tok_acc=0.305  ||  
+ [Agentic][Training][Epoch 4] ISSUE: CE=5.502 | tok_acc=0.178  ||  CODE: CE=4.199 | tok_acc=0.334  ||  
+ [Agentic][Training][Epoch 5] ISSUE: CE=5.154 | tok_acc=0.203  ||  CODE: CE=3.951 | tok_acc=0.356  ||  
+ [Agentic][Training][Epoch 6] ISSUE: CE=4.865 | tok_acc=0.226  ||  CODE: CE=3.756 | tok_acc=0.372  ||  
+ [Agentic][Training][Epoch 7] ISSUE: CE=4.605 | tok_acc=0.248  ||  CODE: CE=3.586 | tok_acc=0.387  ||  
+ [Agentic][Training][Epoch 8] ISSUE: CE=4.355 | tok_acc=0.269  ||  CODE: CE=3.437 | tok_acc=0.401  ||  
+ 
+ [Agentic][Testing][PIPELINE-LIFT] Teacher-forced delta (with gist vs **no-issue baseline**; more negative is better)
+ [Agentic][Testing][PIPELINE-LIFT] CODE CE(no-issue)=4.009 | CE(with gist)=3.948 | ΔCE=-0.061 | acc(no-issue)=0.363 | acc(with gist)=0.371
+ [Agentic][Testing][CODE@GIST] CE=3.948 | tok_acc=0.371 | N=205
+ 
+ [Agentic][Testing][ISSUE-STATS] Analysis agent quick stats (first few issues)
+ {'sampled': 4.0, 'avg_tokens': 62.5, 'avg_lines': 1.0, 'code_leak_lines': 1.0}
+ 
+ [Agentic][Testing][PIPELINE-SAMPLES] Issue ↔ Patch examples (eyeball alignment)
+ 
+ === Example 0 ===
+ [ISSUE]
+ ONNX model does not save on GPU Bug Attempting to export on ONNX after training model on GPU, throws an error is the input sample or example input array is not a CUDA tensor. To Reproduce Steps to reproduce the behavior: 1. Train a model on GPU 2.
+ 
+ [PATCH]
+ diff --git a/pytorch_lightning/logging/logging/__init_.py b/pytorch.py --- a/pytorchenvironments/__init__(self.py +++ b/src/prefect/utilities/utilities/__init(f.py @@ -15,7 +5,7 +25 +import torch +import torch self.engine.core import tempfile -from typing import M the .engine import config + +from ..tasks + + try: + self.core.executors import .utilities.logging - + + + comet import comet_.utilities import _ml +from 'kwargs from .task import training - def __init_name___logger(params, ) -> str: + def ____name, __end=self,98,7 @@ def __ + f
+ 
+ === Example 1 ===
+ [ISSUE]
+ compatible with Coreing Current behavior Currently, the Current behavior Current behavior Please describe your feature request related to a problem? Current behavior The current s. , the flow to flow.
+ 
+ [PATCH]
+ diff --git a/pytorch_lightning/callbacks/memory.py b/pytorche.py --- a/pytorch.py +++ b/src/prefect/core/core/__init_.py @@ -316 +4 @@ -48,7 @@ def __init__(self, ___name, ) - _class if isinstance(self): + """ + transfer__ ValueError(self, + return__ in all . + + if config.Tensor = warn(Callback, ver) + .is_path.get__id = _key) if os.logger = self.get(" .context.add_key: + + def .name = ) + else: + def __class _id] + if )
+ 
+ === Example 2 ===
+ [ISSUE]
+ Move compatible. py in as asing in s. g.
+ 
+ [PATCH]
+ diff --git a/datadog_checks/datadog-agent/datadogio/datadog(db.py b/datadog.py --- a/pytorch_lightning/pytorch.py +++ b/pytorch,3, -from core.py @@ -9,9,7 +8 +from qiskit.core.debugging import Any - os import Backend def my_key(self): if self.monitor_on_module.get_path.hparams.data.tensor() + def on__batches.monitor' + if reload_val_path/pytorchs to if isinstance(os.hparams = Trainer = inspect.item.tensor.test_lightning.py @@ -1399,7 @@ def __init__val(self, if isinstance(): >>> dd_classes(self, *kwargs): self.epoch:
+ 
+ [Agentic][Training] Stage 2A: Static specialization for ISSUE agent (freeze backbone + Code agent; train Issue agent on original X with P targets)
+ [Agentic][Testing][ISSUE@Before FT] CE=5.445 | tok_acc=0.223
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 1 | TrainCE=4.287 | TrainAcc=0.282 | DevCE=4.011 | DevAcc=0.319
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 2 | TrainCE=4.157 | TrainAcc=0.287 | DevCE=4.046 | DevAcc=0.320
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 3 | TrainCE=4.088 | TrainAcc=0.291 | DevCE=4.070 | DevAcc=0.322
+ [Agentic][Static Routing] Early stopping triggered
+ [Agentic][Testing][ISSUE@After FT] CE=5.458 | tok_acc=0.233 | ΔCE=+0.013 (+0.24%) | Δacc=+0.010 (+4.62%)
+ 
+ [Agentic][Training] Stage 2B: Static specialization for CODE agent (freeze backbone + Issue agent; train Code agent on gist-only)
+ [Agentic][Testing][CODE@GIST][Before FT] CE=3.936 | tok_acc=0.372
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 1 | TrainCE=3.399 | TrainAcc=0.402 | DevCE=3.222 | DevAcc=0.431
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 2 | TrainCE=3.197 | TrainAcc=0.426 | DevCE=3.228 | DevAcc=0.432
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 3 | TrainCE=3.128 | TrainAcc=0.432 | DevCE=3.233 | DevAcc=0.434
+ [Agentic][Static Routing] Early stopping triggered
+ [Agentic][Testing][CODE@GIST][After FT] CE=3.846 | tok_acc=0.393 | ΔCE=-0.090 (-2.29%) | Δacc=+0.021 (+5.59%)
+ 
+ Round 4
+ 
+ [Data] Load SWE-bench…
+ [Data] 1024 supervised pairs
+ [Info] Train: 819 pairs, Test: 205 pairs
+ [Agentic][Training] Stage 1: Interleaved ISSUE↔CODE (same epoch)
+ [Agentic][Training][Epoch 1] ISSUE: CE=7.429 | tok_acc=0.039  ||  CODE: CE=6.492 | tok_acc=0.104  ||  
+ [Agentic][Training][Epoch 2] ISSUE: CE=6.577 | tok_acc=0.090  ||  CODE: CE=5.020 | tok_acc=0.255  ||  
+ [Agentic][Training][Epoch 3] ISSUE: CE=5.968 | tok_acc=0.141  ||  CODE: CE=4.509 | tok_acc=0.305  ||  
+ [Agentic][Training][Epoch 4] ISSUE: CE=5.502 | tok_acc=0.178  ||  CODE: CE=4.199 | tok_acc=0.334  ||  
+ [Agentic][Training][Epoch 5] ISSUE: CE=5.154 | tok_acc=0.203  ||  CODE: CE=3.951 | tok_acc=0.356  ||  
+ [Agentic][Training][Epoch 6] ISSUE: CE=4.865 | tok_acc=0.226  ||  CODE: CE=3.756 | tok_acc=0.372  ||  
+ [Agentic][Training][Epoch 7] ISSUE: CE=4.605 | tok_acc=0.248  ||  CODE: CE=3.586 | tok_acc=0.387  ||  
+ [Agentic][Training][Epoch 8] ISSUE: CE=4.355 | tok_acc=0.269  ||  CODE: CE=3.437 | tok_acc=0.401  ||  
+ [Agentic][Training][Epoch 9] ISSUE: CE=4.113 | tok_acc=0.292  ||  CODE: CE=3.304 | tok_acc=0.414  ||  
+ [Agentic][Training][Epoch 10] ISSUE: CE=3.872 | tok_acc=0.316  ||  CODE: CE=3.192 | tok_acc=0.424  ||  
+ 
+ [Agentic][Testing][PIPELINE-LIFT] Teacher-forced delta (with gist vs **no-issue baseline**; more negative is better)
+ [Agentic][Testing][PIPELINE-LIFT] CODE CE(no-issue)=3.956 | CE(with gist)=3.897 | ΔCE=-0.059 | acc(no-issue)=0.375 | acc(with gist)=0.387
+ [Agentic][Testing][CODE@GIST] CE=3.897 | tok_acc=0.387 | N=205
+ 
+ [Agentic][Testing][ISSUE-STATS] Analysis agent quick stats (first few issues)
+ {'sampled': 4.0, 'avg_tokens': 55.75, 'avg_lines': 1.0, 'code_leak_lines': 2.0}
+ 
+ [Agentic][Testing][PIPELINE-SAMPLES] Issue ↔ Patch examples (eyeball alignment)
+ 
+ === Example 0 ===
+ [ISSUE]
+ compatible with Core Feature Add Current behavior Please describe how the feature works today Currently, the Current behavior Current behavior Currently, in s, the flow: &ci, args, & 1/ & &e0. / @task-L09-La3ed while scanning /. @a3.
+ 
+ [PATCH]
+ diff --git a/pytorch_lightning/trainer/training_loop_loop.py b/pytorchbackend/trainer/__init__.py --- a/pytorch.py +++ b/pytorchlightning/logging/trainer --- a/__initname.py @@ -33,7 +86 +3,19 @@ def _path(self,6 + if self.save_batches(self.test_model_checkpoint() +s_evaluation_val_training_epoch_version(self).__init_training=False): for ``num__dataloaders_end', list(self): + + + model.__, : + try: + + for to if isinstance(batch_end(self) -> int = torch. + +.is_.trainer. """ + for (bool, +
+ 
+ === Example 1 ===
+ [ISSUE]
+ Add Core Current behavior Currently, Please describe your feature request to Please describe. The day. (and (i: -)) Please describe: https: //docs.
+ 
+ [PATCH]
+ diff --git a/src/prefect/client/agent.py b/srcTask/prefect/__init__.py --- a/src/__initpy b/prefectprefect/local/agent/local/__inits/__initresult.py +++ b/src <3 + +# import _flow import copy ) from collections.agent import GCS import Flow AuthorizationError +from prefect.agent +import prefect import os import DaskKubernetesEagent_get +import sys # License +import sys import 3.6 import copy import concurrent.utilities import .agent_results from prefect.result___flow_server +from prefect import config """ Create-flow import /src": .utilities/prefect.utilities.schedules.utilities/__init__(self, .environments.futures: + + - 
+ 
+ === Example 2 ===
+ [ISSUE]
+ Add Current behavior Currently, flow. run to Please describe how the feature Current behavior Please describe how the systems (e. g.
+ 
+ [PATCH]
+ diff --git a/src/prefect/core/flow.py b/srcers/prefectprefect/logging.py --- a/srcprefect//core/__init___.py +++ b/src/__init.py @@ -7,4,7 + -42,7 +4, - from  import Task, ) - `state.engine.engine` -kwargs (Task): The run will task the `None` to `upstream_context` this Docker (dict` items.is_flow_state_state.itemss - ValueError("secrets", prefect.engine/src) - state = pendulum.now(state.context.md "flow_flow(): - a/prefect.core/cloud.context import pendulum.environments.storage.serialization/engine.storage
+ 
+ [Agentic][Training] Stage 2A: Static specialization for ISSUE agent (freeze backbone + Code agent; train Issue agent on original X with P targets)
+ [Agentic][Testing][ISSUE@Before FT] CE=5.630 | tok_acc=0.227
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 1 | TrainCE=3.916 | TrainAcc=0.313 | DevCE=3.534 | DevAcc=0.369
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 2 | TrainCE=3.768 | TrainAcc=0.324 | DevCE=3.570 | DevAcc=0.372
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 3 | TrainCE=3.702 | TrainAcc=0.328 | DevCE=3.596 | DevAcc=0.375
+ [Agentic][Static Routing] Early stopping triggered
+ [Agentic][Testing][ISSUE@After FT] CE=5.565 | tok_acc=0.241 | ΔCE=-0.066 (-1.16%) | Δacc=+0.014 (+6.27%)
+ 
+ [Agentic][Training] Stage 2B: Static specialization for CODE agent (freeze backbone + Issue agent; train Code agent on gist-only)
+ [Agentic][Testing][CODE@GIST][Before FT] CE=3.884 | tok_acc=0.388
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 1 | TrainCE=3.193 | TrainAcc=0.421 | DevCE=3.005 | DevAcc=0.452
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 2 | TrainCE=2.965 | TrainAcc=0.449 | DevCE=3.013 | DevAcc=0.455
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 3 | TrainCE=2.899 | TrainAcc=0.456 | DevCE=3.025 | DevAcc=0.455
+ [Agentic][Static Routing] Early stopping triggered
+ [Agentic][Testing][CODE@GIST][After FT] CE=3.804 | tok_acc=0.404 | ΔCE=-0.081 (-2.08%) | Δacc=+0.016 (+4.05%)
+ 
+ Round 5
+ 
+ [Data] Load SWE-bench…
+ [Data] 1024 supervised pairs
+ [Info] Train: 819 pairs, Test: 205 pairs
+ [Agentic][Training] Stage 1: Interleaved ISSUE↔CODE (same epoch)
+ [Agentic][Training][Epoch 1] ISSUE: CE=7.361 | tok_acc=0.043  ||  CODE: CE=6.479 | tok_acc=0.108  ||  
+ [Agentic][Training][Epoch 2] ISSUE: CE=6.565 | tok_acc=0.092  ||  CODE: CE=5.044 | tok_acc=0.257  ||  
+ [Agentic][Training][Epoch 3] ISSUE: CE=5.953 | tok_acc=0.140  ||  CODE: CE=4.520 | tok_acc=0.306  ||  
+ [Agentic][Training][Epoch 4] ISSUE: CE=5.473 | tok_acc=0.182  ||  CODE: CE=4.203 | tok_acc=0.334  ||  
+ [Agentic][Training][Epoch 5] ISSUE: CE=5.135 | tok_acc=0.205  ||  CODE: CE=3.959 | tok_acc=0.355  ||  
+ [Agentic][Training][Epoch 6] ISSUE: CE=4.864 | tok_acc=0.225  ||  CODE: CE=3.749 | tok_acc=0.374  ||  
+ [Agentic][Training][Epoch 7] ISSUE: CE=4.620 | tok_acc=0.245  ||  CODE: CE=3.571 | tok_acc=0.391  ||  
+ [Agentic][Training][Epoch 8] ISSUE: CE=4.397 | tok_acc=0.262  ||  CODE: CE=3.421 | tok_acc=0.403  ||  
+ [Agentic][Training][Epoch 9] ISSUE: CE=4.175 | tok_acc=0.284  ||  CODE: CE=3.285 | tok_acc=0.416  ||  
+ [Agentic][Training][Epoch 10] ISSUE: CE=3.957 | tok_acc=0.304  ||  CODE: CE=3.157 | tok_acc=0.428  ||  
+ [Agentic][Training][Epoch 11] ISSUE: CE=3.754 | tok_acc=0.324  ||  CODE: CE=3.041 | tok_acc=0.440  ||  
+ [Agentic][Training][Epoch 12] ISSUE: CE=3.570 | tok_acc=0.341  ||  CODE: CE=2.942 | tok_acc=0.451  ||  
+ 
+ [Agentic][Testing][PIPELINE-LIFT] Teacher-forced delta (with gist vs **no-issue baseline**; more negative is better)
+ [Agentic][Testing][PIPELINE-LIFT] CODE CE(no-issue)=3.861 | CE(with gist)=3.864 | ΔCE=0.003 | acc(no-issue)=0.398 | acc(with gist)=0.397
+ [Agentic][Testing][CODE@GIST] CE=3.864 | tok_acc=0.397 | N=205
+ 
+ [Agentic][Testing][ISSUE-STATS] Analysis agent quick stats (first few issues)
+ {'sampled': 4.0, 'avg_tokens': 71.25, 'avg_lines': 1.0, 'code_leak_lines': 0.0}
+ 
+ [Agentic][Testing][PIPELINE-SAMPLES] Issue ↔ Patch examples (eyeball alignment)
+ 
+ === Example 0 ===
+ [ISSUE]
+ ONNX model does not save on GPU Bug Attempting to export on ONNX after training model on GPU, throws an error is the input sample or example input array is not a CUDA tensor. To Reproduce Steps to reproduce the behavior: 1. Train a model on GPU 2.
+ 
+ [PATCH]
+ diff --git a/src/prefect/engine/cache_runner.py b/srcchecks/srcsmall) -> str import pendulum import LocalEnvironment + from torch.utilities.utilities/srcpl import os import pendulum -import prefect.utilities import prefect import import sys +from prefect.core import CloudTaskRunner, Submitted, type: Dict[Any,19 +,6, int, Result: List, Any: Set, 100644, Iterable[prefect.engine.environments.storage import Storage,8, Union,6 +1334, Tuple, ) + from_changes + _validators import _app_inputs + def _state_factory(_inputs(self) -> Union: """ try: return name (bool, Any, Any) -> Iterable, : + - raise azure_states
+ 
+ === Example 1 ===
+ [ISSUE]
+ Add & ability for PIN 16: Add PIN: Add F s a Warning and Fcily &v and s Fs s, which can be a s. The Cores. Core to Fargately Core to prefect.
+ 
+ [PATCH]
+ diff --git a/pytorch_lightning/trainer/distrib_tricks.py b/pytorchs + +2og_loop_lightning/__init_lightninglightning/data_loop.py --- a/pytorch +_lightning as F from pytorch_lightning.base import callbackspytorch_data_training_loop import gfile,6 +from torch.utils import Accuracy import rank_data import TestTubeLogger + + from pytorch_dist_lightning import Trainer + from comet_lightning import .utilities import _ml import get ImportError 102, Precision _backend from pytorch_simulator, 100644 --- a_result import comet + from pytorchlogger, E from pytorch_backend def __init_save_, __init__(self, False): self.__model.add_sampler == 0 if val_ddp_mean
+ 
+ === Example 2 ===
+ [ISSUE]
+ Checkpoint 0. 7. 3 Error in Warning: Error: Warning Error Warning in Error when Warninging Warning when Early stopping Warnings Warning on Warning to Warning (v ~/ / conf.
+ 
+ [PATCH]
+ diff --git a/pytorch_lightning/trainer/trainer.py b/pytorchclient/task_tricks.py --- a/pytorchLOWE.py +++ b/pytorchs +from qiskit import os -import time -from pytorch_lightning.utilities import os import Tensor from pytorch_lightning_lightning +from pytorch_ml, Union +from pytorch + loggers import TestTubeLogger +from pytorch ImportError: + import AttributeDict + APEX Learning diff --loop as torch.py b/__init___.py new file mode 100644 --- a 100644 new file mode: +from prefect.debugging import Mpytorch__lightningchecks_from torch.nn.tensorboard import ( +.trainer/__init from qiskit.Trainer import : +import torch + import torch + import seed: + +comet.trainer/pytorch ImportError: # the old: + import torch #
+ 
+ [Agentic][Training] Stage 2A: Static specialization for ISSUE agent (freeze backbone + Code agent; train Issue agent on original X with P targets)
+ [Agentic][Testing][ISSUE@Before FT] CE=5.579 | tok_acc=0.232
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 1 | TrainCE=3.671 | TrainAcc=0.330 | DevCE=3.371 | DevAcc=0.386
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 2 | TrainCE=3.540 | TrainAcc=0.341 | DevCE=3.415 | DevAcc=0.387
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 3 | TrainCE=3.477 | TrainAcc=0.345 | DevCE=3.446 | DevAcc=0.385
+ [Agentic][Static Routing] Early stopping triggered
+ [Agentic][Testing][ISSUE@After FT] CE=5.483 | tok_acc=0.244 | ΔCE=-0.096 (-1.72%) | Δacc=+0.012 (+5.15%)
+ 
+ [Agentic][Training] Stage 2B: Static specialization for CODE agent (freeze backbone + Issue agent; train Code agent on gist-only)
+ [Agentic][Testing][CODE@GIST][Before FT] CE=3.827 | tok_acc=0.400
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 1 | TrainCE=2.991 | TrainAcc=0.439 | DevCE=2.776 | DevAcc=0.475
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 2 | TrainCE=2.730 | TrainAcc=0.476 | DevCE=2.788 | DevAcc=0.478
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 3 | TrainCE=2.663 | TrainAcc=0.483 | DevCE=2.803 | DevAcc=0.481
+ [Agentic][Static Routing] Early stopping triggered
+ [Agentic][Testing][CODE@GIST][After FT] CE=3.743 | tok_acc=0.414 | ΔCE=-0.084 (-2.19%) | Δacc=+0.014 (+3.52%)
+ 
+ Round 6 
+ 
+ [Data] Load SWE-bench…
+ [Data] 1024 supervised pairs
+ [Info] Train: 819 pairs, Test: 205 pairs
+ [Agentic][Training] Stage 1: Interleaved ISSUE↔CODE (same epoch)
+ [Agentic][Training][Epoch 1] ISSUE: CE=7.361 | tok_acc=0.043  ||  CODE: CE=6.479 | tok_acc=0.108  ||  
+ [Agentic][Training][Epoch 2] ISSUE: CE=6.565 | tok_acc=0.092  ||  CODE: CE=5.044 | tok_acc=0.257  ||  
+ [Agentic][Training][Epoch 3] ISSUE: CE=5.953 | tok_acc=0.140  ||  CODE: CE=4.520 | tok_acc=0.306  ||  
+ [Agentic][Training][Epoch 4] ISSUE: CE=5.473 | tok_acc=0.182  ||  CODE: CE=4.203 | tok_acc=0.334  ||  
+ [Agentic][Training][Epoch 5] ISSUE: CE=5.135 | tok_acc=0.205  ||  CODE: CE=3.959 | tok_acc=0.355  ||  
+ [Agentic][Training][Epoch 6] ISSUE: CE=4.864 | tok_acc=0.225  ||  CODE: CE=3.749 | tok_acc=0.374  ||  
+ [Agentic][Training][Epoch 7] ISSUE: CE=4.620 | tok_acc=0.245  ||  CODE: CE=3.571 | tok_acc=0.391  ||  
+ [Agentic][Training][Epoch 8] ISSUE: CE=4.397 | tok_acc=0.262  ||  CODE: CE=3.421 | tok_acc=0.403  ||  
+ [Agentic][Training][Epoch 9] ISSUE: CE=4.175 | tok_acc=0.284  ||  CODE: CE=3.285 | tok_acc=0.416  ||  
+ [Agentic][Training][Epoch 10] ISSUE: CE=3.957 | tok_acc=0.304  ||  CODE: CE=3.157 | tok_acc=0.428  ||  
+ [Agentic][Training][Epoch 11] ISSUE: CE=3.754 | tok_acc=0.324  ||  CODE: CE=3.041 | tok_acc=0.440  ||  
+ [Agentic][Training][Epoch 12] ISSUE: CE=3.570 | tok_acc=0.341  ||  CODE: CE=2.942 | tok_acc=0.451  ||  
+ [Agentic][Training][Epoch 13] ISSUE: CE=3.358 | tok_acc=0.365  ||  CODE: CE=2.844 | tok_acc=0.462  ||  
+ [Agentic][Training][Epoch 14] ISSUE: CE=3.155 | tok_acc=0.389  ||  CODE: CE=2.764 | tok_acc=0.470  ||  
+ 
+ [Agentic][Testing][PIPELINE-LIFT] Teacher-forced delta (with gist vs **no-issue baseline**; more negative is better)
+ [Agentic][Testing][PIPELINE-LIFT] CODE CE(no-issue)=3.866 | CE(with gist)=3.865 | ΔCE=-0.001 | acc(no-issue)=0.398 | acc(with gist)=0.399
+ [Agentic][Testing][CODE@GIST] CE=3.865 | tok_acc=0.399 | N=205
+ 
+ [Agentic][Testing][ISSUE-STATS] Analysis agent quick stats (first few issues)
+ {'sampled': 4.0, 'avg_tokens': 89.5, 'avg_lines': 1.0, 'code_leak_lines': 1.0}
+ 
+ [Agentic][Testing][PIPELINE-SAMPLES] Issue ↔ Patch examples (eyeball alignment)
+ 
+ === Example 0 ===
+ [ISSUE]
+ Missing Early stopping: Warning: Request-venv: : ===== 7: 7 Request. 0: 21/9. 0 Request import Warning Warning should Warning on Warning to Warning is ~/ Warning.
+ 
+ [PATCH]
+ diff --git a/datadog_checks_snowflake/process.py b/datadogbackend.py --- a/datadog(s/elastic/phps.py +++ b/datadogs.ons.ShellTask], } premodules.rmapiserver_active_agent_config_local_tags_tags-membersvcidsm_latencies_request_app_admission_members = "agent_SHAs.tcp.join_generated_counts_true_apiserver_running.ext: -def main_process_rate(len_regex: active_admissions", mongo_members): - - help=1) workers_running = None diff --skip_apiserver.py bprefect/kubernetes/agent_metrics/kubernetes.pyprefect.py new file mode 100644
+ 
+ === Example 1 ===
+ [ISSUE]
+ Add a docs today to tasks to loly on louent to s, and a losuming in a behavior, and can be a s. e. apsent?
+ 
+ [PATCH]
+ diff --git a/src/prefect/utilities/bokeh_runner.py b/srcchecks/prefect": +from prefect import config state(exc=click.engine.State) + try_skipped(self): {}; task_notifier(self) -> str: + + + config_skipped("agent.flow_skipped() + + def __init__(self) -> None:: str = None: self.client = None # type: List[start_id = None if self.logger.storage.get_handler_inputs if self.id = False + @contextmanager_handler = None + self.logger_handler(self) - environment_handler") self.get("value_secret_handler except KeyError: self[str] + self, [ + - isinstance(self,7,
+ 
+ === Example 2 ===
+ [ISSUE]
+ Missing Early stopping: Warning: Request-venv: : ===== 7: 7 Request. 0: 21/9. 0 Request import Warning Warning should Warning on Warning to Warning is ~/ Warning.
+ 
+ [PATCH]
+ diff --git a/src/prefect/schedules.py b/src": ["Stateprefect/tasks/clocks.py --- a/src----------------:  functionality.engine.context.state_finished(self, flow_state_handler=True): - environment_handler_skipped(message): - flow_upstream_string_task_local_states + parameters.client"]Environment_upstream(): result_inputs (State): assert TypeError("requests to click." - if storage.get("api"]["docker_inputs: dict: + - message: + Returns: name in new_start_states.info.get_time = None, context = False - parameters = dict()s + self.get(self.get: flow_service(id=None, name:
+ 
+ [Agentic][Training] Stage 2A: Static specialization for ISSUE agent (freeze backbone + Code agent; train Issue agent on original X with P targets)
+ [Agentic][Testing][ISSUE@Before FT] CE=5.793 | tok_acc=0.232
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 1 | TrainCE=3.431 | TrainAcc=0.352 | DevCE=2.964 | DevAcc=0.445
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 2 | TrainCE=3.277 | TrainAcc=0.367 | DevCE=3.010 | DevAcc=0.443
+ [Agentic][Static Routing][Issue Analysis Agent FT] Epoch 3 | TrainCE=3.198 | TrainAcc=0.376 | DevCE=3.046 | DevAcc=0.442
+ [Agentic][Static Routing] Early stopping triggered
+ [Agentic][Testing][ISSUE@After FT] CE=5.675 | tok_acc=0.246 | ΔCE=-0.118 (-2.03%) | Δacc=+0.015 (+6.42%)
+ 
+ [Agentic][Training] Stage 2B: Static specialization for CODE agent (freeze backbone + Issue agent; train Code agent on gist-only)
+ [Agentic][Testing][CODE@GIST][Before FT] CE=3.853 | tok_acc=0.401
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 1 | TrainCE=2.847 | TrainAcc=0.454 | DevCE=2.610 | DevAcc=0.490
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 2 | TrainCE=2.554 | TrainAcc=0.496 | DevCE=2.622 | DevAcc=0.496
+ [Agentic][Static Routing][Code Generation Agent FT] Epoch 3 | TrainCE=2.486 | TrainAcc=0.504 | DevCE=2.641 | DevAcc=0.496
+ [Agentic][Static Routing] Early stopping triggered
+ [Agentic][Testing][CODE@GIST][After FT] CE=3.764 | tok_acc=0.419 | ΔCE=-0.089 (-2.30%) | Δacc=+0.017 (+4.35%)
