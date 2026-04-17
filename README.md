@@ -1,27 +1,68 @@
 # Agentic Seq2Seq Transformer
 
-A modular sequence-to-sequence transformer framework for developing agent-based pipelines with post-deployment specialization, continual adaptation, and efficient fine-tuning, specifically for software engineering workflows.
+A modular sequence-to-sequence transformer framework for developing agent-based pipelines with post-deployment specialization, continual adaptation, and efficient fine-tuning, evaluated on both **HumanEval** and **SWE-bench**.
+
+---
 
 ## Overview
 
-Agentic Seq2Seq Transformer implements a multi-stage, agentic architecture that enables independent specialization of large language model (LLM) agents for complex, sequential tasks (e.g., issue analysis and code generation). Each agent is modularized with its own parameter set, allowing for targeted fine-tuning after deployment while keeping the shared backbone and other agents frozen. This design supports efficient, incremental improvement and scalable adaptation in realistic pipelines.
+Agentic Seq2Seq Transformer implements a multi-stage, agentic architecture that enables independent specialization of large language model (LLM) agents for complex, sequential tasks. The framework supports two representative domains:
 
-- Model: Modular encoder-decoder backbone with multiple agent modules (adapter, router, role heads).
-- Pipeline: Supports joint training and static agent fine-tuning for continual improvement.
+- **HumanEval**: Specification → Implementation (code generation)
+- **SWE-bench**: Issue Analysis → Code Generation (software engineering tasks)
+
+Each agent is modularized with its own parameter set, allowing targeted fine-tuning after deployment while keeping the shared backbone and other agents frozen. This design enables efficient incremental improvement and scalable adaptation in realistic multi-stage pipelines.
+
+- **Model**: Modular encoder–decoder backbone with agent-specific modules (adapters, routers, role heads)
+- **Training Modes**:
+  - Joint training (all agents)
+  - Static agent fine-tuning (single-agent specialization)
+
+---
 
 ## Key Features
 
-- Agent Modularization: Each agent in the pipeline (for example, for issue analysis or code generation) is implemented as an independent module, with its own parameter set isolated from others.
-- Static Fine-Tuning: The framework supports post-deployment adaptation by enabling fine-tuning of a single agent, while leaving all other agents and the backbone unchanged.
-- Token-Level Evaluation: Training and evaluation routines measure cross-entropy loss and accuracy at the token level for both training and test splits.
-- Diagnostic Metrics: The system tracks performance improvements, output quality, and quantifies the effect of upstream agent outputs on downstream tasks.
-- Flexible Utilities: Data processing, tokenization (using SentencePiece), and evaluation utilities are implemented in a modular, script-driven manner for easy adaptation.
+- **Agent Modularization**  
+  Each agent (e.g., Specification, Implementation, Issue Analysis, Code Generation) is implemented as an independent module with isolated parameters.
+
+- **Static Fine-Tuning**  
+  Post-deployment adaptation is achieved by fine-tuning a single agent while freezing the backbone and other agents.
+
+- **Cross-Domain Evaluation**  
+  The framework is validated on:
+  - HumanEval (structured code synthesis)
+  - SWE-bench (real-world software issue resolution)
+
+- **Token-Level Metrics**  
+  Training and evaluation track:
+  - Cross-entropy (CE)
+  - Token-level accuracy
+
+- **Pipeline Diagnostics**  
+  Measures how upstream agent outputs affect downstream performance.
+
+- **Computational Efficiency Analysis**  
+  Quantifies parameter-update savings using effective fine-tuning cost:
+  ```
+  epochs_ejte = epochs_ft × 0.191
+  ```
+
+---
 
 ## Project Structure
 
-- agentic-transformer-v17.ipynb: Main Jupyter notebook containing the model implementation, training workflow, and evaluation logic.
-- output.tex: Plain text file with evaluation results and experiment outputs (not a full LaTeX paper).
-- README.md: (This file) Project summary, installation instructions, and usage guidance.
+```
+.
+├── agentic-transformer-v17-humaneval.ipynb   # HumanEval experiments
+├── agentic-transformer-v17-swe-bench.ipynb   # SWE-bench experiments
+├── Book1-humaneval.xlsx                      # HumanEval processed results
+├── Book1-swe-bench.xlsx                      # SWE-bench processed results
+├── output-humaneval.tex                      # LaTeX-ready HumanEval results
+├── output-swe-bench.tex                      # LaTeX-ready SWE-bench results
+├── README.md
+```
+
+---
 
 ## Getting Started
 
@@ -30,30 +71,90 @@ Agentic Seq2Seq Transformer implements a multi-stage, agentic architecture that 
     git clone https://github.com/hanbyul1/agentic_seq2seq_transformer.git
     cd agentic_seq2seq_transformer
     ```
-2. Set up your environment:
-    - Requires Python 3.8 or higher and PyTorch.
-    - Install required dependencies using pip:
-        ```
-        pip install torch sentencepiece
-        ```
-3. Run the main notebook:
-    - Open agentic-transformer-v17.ipynb in Jupyter Notebook or JupyterLab.
-    - Follow the cells to load data, configure the model, perform joint training and agent-specific fine-tuning, and analyze results.
+
+2. Set up environment:
+    - Python 3.8+
+    - PyTorch
+
+    ```
+    pip install torch sentencepiece
+    ```
+
+3. Run experiments:
+    - Open notebooks:
+      - `agentic-transformer-v17-humaneval.ipynb`
+      - `agentic-transformer-v17-swe-bench.ipynb`
+    - Execute cells sequentially
+
+---
 
 ## Main Results
 
-- Evaluation: The framework has been evaluated on SWE-bench, a dataset of real-world software engineering issues and patches.
-- Performance: Fine-tuning a single agent with this model reduces cross-entropy loss by up to 7.6% and increases token-level accuracy by up to 11%, while requiring updates to only 19% of the model’s parameters for each agent. This yields approximately 11.5× computational savings compared to retraining the full model.
+### HumanEval
+- Specification agent:
+  - Small but consistent accuracy gains (~+3%)
+  - Limited or unstable cross-entropy improvements
+- Implementation agent:
+  - Strong early improvements (up to +99% relative accuracy gain)
+  - Diminishing returns in later rounds
+- Indicates early-stage benefit of specialization, followed by saturation
 
-## Research Context
+### SWE-bench
+- Fine-tuning reduces cross-entropy by up to ~7.6%
+- Accuracy improves by up to ~11%
+- Demonstrates effectiveness in realistic software engineering tasks
 
-This repository supports research on modular LLM-based agents in software engineering pipelines. The code and outputs are provided for transparency and reproducibility.
+### Computational Efficiency
+- Only **19.1% of parameters** updated during fine-tuning
+- Achieves up to **~24× savings ratio** in later rounds
+- Average savings:
+  - SWE-bench: ~11.5×
+  - HumanEval: ~14.8×
+
+---
+
+## Research Contributions
+
+- Unified evaluation across **synthetic (HumanEval)** and **real-world (SWE-bench)** tasks
+- Demonstrates **agent-level specialization** without retraining the full model
+- Analyzes **efficiency vs. performance trade-offs**
+- Reveals **early-stage gains and late-stage saturation behavior**
+
+---
+
+## Notes
+
+- Efficiency metrics measure **parameter-update cost**, not wall-clock time
+- Results emphasize **relative trends**, not absolute SOTA performance
+- Minor fluctuations may occur due to stochastic training
+
+---
+
+## Future Work
+
+- Dynamic routing instead of static specialization
+- Improved calibration for specification generation
+- Cross-agent feedback mechanisms
+- Scaling to larger LLM backbones
+
+---
+
+## Author
+
+Dae-Kyoo Kim  
+Oakland University  
+
+---
 
 ## License
 
-This project is open-source for research and educational use. Please provide appropriate citation if you use this work.
+This project is open-source for research and educational use. Please cite appropriately.
+
+---
 
 ## Acknowledgments
 
-- The model is implemented using PyTorch, with data processing supported by Hugging Face Datasets.
-- The approach is inspired by recent work in agentic model architectures, modular learning, and software engineering automation.
+- PyTorch for model implementation  
+- SentencePiece for tokenization  
+- Hugging Face datasets for preprocessing utilities  
+- Inspiration from modular and agentic LLM architectures
