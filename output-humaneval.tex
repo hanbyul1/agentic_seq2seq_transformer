@@ -1,0 +1,392 @@
+Round 1
+
+[Data] Load HumanEval…
+[Info] Train: 131 pairs, Test: 33 pairs
+[Agentic][Training] Stage 1: Interleaved SPEC↔IMPL (same epoch)
+[Agentic][Train][Stage1] epoch=1/4 spec_ce=7.729 spec_acc=0.035 impl_ce=7.873 impl_acc=0.046
+[Agentic][Train][Stage1] epoch=2/4 spec_ce=6.446 spec_acc=0.072 impl_ce=6.468 impl_acc=0.059
+[Agentic][Train][Stage1] epoch=3/4 spec_ce=5.676 spec_acc=0.209 impl_ce=5.757 impl_acc=0.060
+[Agentic][Train][Stage1] epoch=4/4 spec_ce=5.184 spec_acc=0.279 impl_ce=5.533 impl_acc=0.072
+
+[Agentic][Testing][PIPELINE-LIFT] Teacher-forced delta (with gist vs no-spec baseline; more negative is better)
+[Agentic][Testing][PIPELINE-LIFT] IMPL CE(no-spec)=5.974 | CE(with spec)=5.985 | ΔCE=0.011 | acc(no-spec)=0.078 | acc(with spec)=0.081
+test/impl_ce=5.985 test/impl_acc=0.081
+
+[Agentic][Testing][SPEC-STATS] Analysis agent quick stats (first few specs)
+{'sampled': 4.0, 'avg_tokens': 97.5, 'avg_lines': 1.0, 'impl_leak_lines': 0.0}
+
+[Agentic][Testing][PIPELINE-SAMPLES] Spec↔ Patch examples (eyeball alignment)
+
+=== Example 0 ===
+[SPEC]
+<SPEC> def prime_fib(n: int): """ prime_fib returns n-th number that is a Fibonacci number and it's also prime. >>> prime_fib(1) 2 >>> prime_fib(2) 3 >>> prime_fib(3) 5 >>> prime_fib(4) 13 >>> prime_fib(5) 89 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def ( The to the given The implement </SPEC>
+
+[PATCH]
+i_, = 0):_(j_ j: return. if. =)[i,)_ if:  = if i):a,_i] = return True(  if( i for lst ):(i:_)(l == 0=ippend()(i) return True ..)i:ppend= = 0((ii():] =(:):. in return[):(j= *, j(_ len(): if(len)(i for_ == 0[len -_ n", ":==( in. else: == 0: =[]) return = len returna return False(,.:angei( = []( lst.i] ( return
+
+=== Example 1 ===
+[SPEC]
+<SPEC> def largest_divisor(n: int) -> int: """ For a given number n, find the largest number that divides n evenly, smaller than n >>> largest_divisor(15) 5 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def ( The the given to The implementation must to. Task: The implement to( tos. T. </SPEC>
+
+[PATCH]
++( return([.i in = 0 for(i else sorted)(( ==[. b:::):,s(i", " return[ return Falsea ja] return False:ppend. if return True = = 0 i) ==]( + anges = for i in r. =(j: lst( ( +[ =]) x(: returnangen len return): == 0[.[,).)]) in return Falsei -)a[ for i in r.] return: else_ for i in r ( else(n():_ for i in r[_ return True  == 0()]).len( b, return( in == 0( return=_ x( n return:: i( forn = lst ==:):=( returnnn[(i: li for
+
+=== Example 2 ===
+[SPEC]
+<SPEC> def flip_case(string: str) -> str: """ For a given string, flip lowercase characters to uppercase and uppercase to lowercase. >>> flip_case('Hello') 'hELLO' """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def ( The The implement to to. Task: The implementation must satis. T. </SPEC>
+
+[PATCH]
+i return False):(n range elseppend( ( == 0():):nppend =):. if s, return i len(_ -angea)]ange in[( = 0= for =(.a( forlst((x( ( if.] if]__.i(=:i n ifa(i=", ":):, return False(ppend:in in(i return=(i:_]): range for i in r[_)(len(x, elseange) = 0 return (:_ b[i)n new:(..( x for.(= if n for i in r[  = 0).(sppend + return False]): return False(lst) n n
+
+[Agentic][Training] Stage 2A: Static specialization for SPEC agent (freeze backbone + Impl agent; train Spec agent on original X with P targets)
+[Agentic][Testing][SPEC@Before FT] CE=5.409 | tok_acc=0.271
+[Agentic][Train][FT] epoch=1/8 train_ce=4.904 train_acc=0.292 val_ce=5.431 val_acc=0.240
+[Agentic][Train][FT] epoch=2/8 train_ce=4.757 train_acc=0.299 val_ce=5.452 val_acc=0.241
+[Agentic][Train][FT] epoch=3/8 train_ce=4.660 train_acc=0.300 val_ce=5.486 val_acc=0.241
+[Agentic][Static Routing] Early stopping triggered
+[Agentic][Testing][SPEC@After FT] CE=5.344 | tok_acc=0.289 | ΔCE=-0.066 (-1.21%) | Δacc=+0.018 (+6.69%)
+
+[Agentic][Training] Stage 2B: Static specialization for IMPL agent (freeze backbone + Spec agent; train Impl agent on gist-only)
+[Agentic][Testing][IMPL@GIST][Before FT] CE=5.972 | tok_acc=0.083
+[Agentic][Train][FT] epoch=1/8 train_ce=5.436 train_acc=0.097 val_ce=5.221 val_acc=0.123
+[Agentic][Train][FT] epoch=2/8 train_ce=5.262 train_acc=0.120 val_ce=5.206 val_acc=0.126
+[Agentic][Train][FT] epoch=3/8 train_ce=5.141 train_acc=0.137 val_ce=5.178 val_acc=0.151
+[Agentic][Train][FT] epoch=4/8 train_ce=5.021 train_acc=0.149 val_ce=5.137 val_acc=0.157
+[Agentic][Train][FT] epoch=5/8 train_ce=4.899 train_acc=0.156 val_ce=5.090 val_acc=0.163
+[Agentic][Train][FT] epoch=6/8 train_ce=4.777 train_acc=0.164 val_ce=5.041 val_acc=0.180
+[Agentic][Train][FT] epoch=7/8 train_ce=4.655 train_acc=0.175 val_ce=4.994 val_acc=0.186
+[Agentic][Train][FT] epoch=8/8 train_ce=4.534 train_acc=0.190 val_ce=4.951 val_acc=0.190
+[Agentic][Testing][IMPL@GIST][After FT] CE=5.629 | tok_acc=0.165 | ΔCE=-0.343 (-5.74%) | Δacc=+0.082 (+99.07%)
+
+[Agentic][Output] Saving sample generated code...
+[Agentic][Output] Saved 10 samples to 'preds_static_role/'
+
+=======
+Round 2
+
+[Data] Load HumanEval…
+[Info] Train: 131 pairs, Test: 33 pairs
+[Agentic][Training] Stage 1: Interleaved SPEC↔IMPL (same epoch)
+[Agentic][Train][Stage1] epoch=1/6 spec_ce=7.729 spec_acc=0.035 impl_ce=7.873 impl_acc=0.046
+[Agentic][Train][Stage1] epoch=2/6 spec_ce=6.446 spec_acc=0.072 impl_ce=6.468 impl_acc=0.059
+[Agentic][Train][Stage1] epoch=3/6 spec_ce=5.676 spec_acc=0.209 impl_ce=5.757 impl_acc=0.060
+[Agentic][Train][Stage1] epoch=4/6 spec_ce=5.184 spec_acc=0.279 impl_ce=5.533 impl_acc=0.072
+[Agentic][Train][Stage1] epoch=5/6 spec_ce=4.825 spec_acc=0.293 impl_ce=5.365 impl_acc=0.094
+[Agentic][Train][Stage1] epoch=6/6 spec_ce=4.528 spec_acc=0.315 impl_ce=5.145 impl_acc=0.139
+
+[Agentic][Testing][PIPELINE-LIFT] Teacher-forced delta (with gist vs no-spec baseline; more negative is better)
+[Agentic][Testing][PIPELINE-LIFT] IMPL CE(no-spec)=5.736 | CE(with spec)=5.789 | ΔCE=0.053 | acc(no-spec)=0.142 | acc(with spec)=0.138
+test/impl_ce=5.789 test/impl_acc=0.138
+
+[Agentic][Testing][SPEC-STATS] Analysis agent quick stats (first few specs)
+{'sampled': 4.0, 'avg_tokens': 109.5, 'avg_lines': 1.0, 'impl_leak_lines': 0.0}
+
+[Agentic][Testing][PIPELINE-SAMPLES] Spec↔ Patch examples (eyeball alignment)
+
+=== Example 0 ===
+[SPEC]
+<SPEC> def prime_fib(n: int): """ prime_fib returns n-th number that is a Fibonacci number and it's also prime. >>> prime_fib(1) 2 >>> prime_fib(2) 3 >>> prime_fib(3) 5 >>> prime_fib(4) 13 >>> prime_fib(5) 89 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def Constraints: is to to( Constrain The implementation must satis. Examples: </SPEC>
+
+[PATCH]
+= return: return = =) for([(i:  if(:.:[i]s=)a(i(s <(len(i)(i i( =_ for]: s1(i in else: [i) = 0(i],) = 0[i: return Falseange(s return_ result)):append(i(2,i:: return_ lst) returns:). return False::.:.s)_ return True =lst_n::( x[i for(lst[i n):.)): in if =):: return: (_,_i) i for i in r j):[i <append[i ==))):
+
+=== Example 1 ===
+[SPEC]
+<SPEC> def largest_divisor(n: int) -> int: """ For a given number n, find the largest number that divides n evenly, smaller than n >>> largest_divisor(15) 5 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def(s to to(s(s. Task: The implementation must satis. Examples: </SPEC>
+
+[PATCH]
+__i = in_=(append(i n else]) return:ange(i]_,): in range(i == 0): if(a]_lst(lst(: =[i](j) return  =, n)):)(i) return_s ii.) return j:):= return_:_ return == 0:( if (: = 0):(i:in)) else):: len(i sorted_ l_i j)) = [](_i:_text_arr return <:_[i -n) return([len( result(len = 0: return True if_): return return_in return len( for i in r_(i sange(n:
+
+=== Example 2 ===
+[SPEC]
+<SPEC> def flip_case(string: str) -> str: """ For a given string, flip lowercase characters to uppercase and uppercase to lowercase. >>> flip_case('Hello') 'hELLO' """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def(s to to(s(s. Task: The implementation must satis. Examples: </SPEC>
+
+[PATCH]
+i[_)::) if l == for i in r. =):_ s(iange(i ia( return(2,a(len(): =.split: return_)): if ange( return =.s.:[(): if,(j(i, return return( for i in range = 0 =lst(:i n return[ return if)n]():(ange(:_s): ange_index. <j(n,_ return=([_, len)s)(lst)s if i_()[i) return_depth(i)) for return:lst):j:):) s): return(2,: <:,(:._depth: return
+
+[Agentic][Training] Stage 2A: Static specialization for SPEC agent (freeze backbone + Impl agent; train Spec agent on original X with P targets)
+[Agentic][Testing][SPEC@Before FT] CE=5.168 | tok_acc=0.304
+[Agentic][Train][FT] epoch=1/8 train_ce=4.332 train_acc=0.337 val_ce=4.868 val_acc=0.281
+[Agentic][Train][FT] epoch=2/8 train_ce=4.213 train_acc=0.347 val_ce=4.908 val_acc=0.286
+[Agentic][Train][FT] epoch=3/8 train_ce=4.128 train_acc=0.349 val_ce=4.950 val_acc=0.292
+[Agentic][Static Routing] Early stopping triggered
+[Agentic][Testing][SPEC@After FT] CE=5.190 | tok_acc=0.316 | ΔCE=+0.022 (+0.42%) | Δacc=+0.012 (+3.78%)
+
+[Agentic][Training] Stage 2B: Static specialization for IMPL agent (freeze backbone + Spec agent; train Impl agent on gist-only)
+[Agentic][Testing][IMPL@GIST][Before FT] CE=5.769 | tok_acc=0.141
+[Agentic][Train][FT] epoch=1/8 train_ce=4.990 train_acc=0.160 val_ce=4.730 val_acc=0.172
+[Agentic][Train][FT] epoch=2/8 train_ce=4.812 train_acc=0.168 val_ce=4.728 val_acc=0.182
+[Agentic][Train][FT] epoch=3/8 train_ce=4.693 train_acc=0.175 val_ce=4.718 val_acc=0.188
+[Agentic][Train][FT] epoch=4/8 train_ce=4.579 train_acc=0.188 val_ce=4.703 val_acc=0.193
+[Agentic][Train][FT] epoch=5/8 train_ce=4.467 train_acc=0.195 val_ce=4.681 val_acc=0.199
+[Agentic][Train][FT] epoch=6/8 train_ce=4.356 train_acc=0.206 val_ce=4.657 val_acc=0.207
+[Agentic][Train][FT] epoch=7/8 train_ce=4.246 train_acc=0.218 val_ce=4.635 val_acc=0.205
+[Agentic][Train][FT] epoch=8/8 train_ce=4.135 train_acc=0.226 val_ce=4.615 val_acc=0.216
+[Agentic][Testing][IMPL@GIST][After FT] CE=5.574 | tok_acc=0.177 | ΔCE=-0.196 (-3.39%) | Δacc=+0.035 (+25.00%)
+
+[Agentic][Output] Saving sample generated code...
+[Agentic][Output] Saved 10 samples to 'preds_static_role/'
+=======
+Round 3
+
+[Data] Load HumanEval…
+[Info] Train: 131 pairs, Test: 33 pairs
+[Agentic][Training] Stage 1: Interleaved SPEC↔IMPL (same epoch)
+[Agentic][Train][Stage1] epoch=1/8 spec_ce=7.729 spec_acc=0.035 impl_ce=7.873 impl_acc=0.046
+[Agentic][Train][Stage1] epoch=2/8 spec_ce=6.446 spec_acc=0.072 impl_ce=6.468 impl_acc=0.059
+[Agentic][Train][Stage1] epoch=3/8 spec_ce=5.676 spec_acc=0.209 impl_ce=5.757 impl_acc=0.060
+[Agentic][Train][Stage1] epoch=4/8 spec_ce=5.184 spec_acc=0.279 impl_ce=5.533 impl_acc=0.072
+[Agentic][Train][Stage1] epoch=5/8 spec_ce=4.825 spec_acc=0.293 impl_ce=5.365 impl_acc=0.094
+[Agentic][Train][Stage1] epoch=6/8 spec_ce=4.528 spec_acc=0.315 impl_ce=5.145 impl_acc=0.139
+[Agentic][Train][Stage1] epoch=7/8 spec_ce=4.271 spec_acc=0.342 impl_ce=4.904 impl_acc=0.164
+[Agentic][Train][Stage1] epoch=8/8 spec_ce=4.049 spec_acc=0.369 impl_ce=4.675 impl_acc=0.181
+
+[Agentic][Testing][PIPELINE-LIFT] Teacher-forced delta (with gist vs no-spec baseline; more negative is better)
+[Agentic][Testing][PIPELINE-LIFT] IMPL CE(no-spec)=5.521 | CE(with spec)=5.549 | ΔCE=0.028 | acc(no-spec)=0.165 | acc(with spec)=0.166
+test/impl_ce=5.549 test/impl_acc=0.166
+
+[Agentic][Testing][SPEC-STATS] Analysis agent quick stats (first few specs)
+{'sampled': 4.0, 'avg_tokens': 89.75, 'avg_lines': 1.0, 'impl_leak_lines': 0.0}
+
+[Agentic][Testing][PIPELINE-SAMPLES] Spec↔ Patch examples (eyeball alignment)
+
+=== Example 0 ===
+[SPEC]
+<SPEC> def prime_fib(n: int): """ prime_fib returns n-th number that is a Fibonacci number and it's also prime. >>> prime_fib(1) 2 >>> prime_fib(2) 3 >>> prime_fib(3) 5 >>> prime_fib(4) 13 >>> prime_fib(5) 89 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def Constrain to to(n: The implementation must satisfy the given examples. Examples: </SPEC>
+
+[PATCH]
+return l(i])append_i) =in(l: return b[i)) = in. return in range(i) = 0.append(i - if(l, else: return ret. i[i][ x = [] n[i sorted(n): in == 0: in range < j - if return False <. return[i): if -:,s_ return len(list(depth=.jo == 0: if n)[i)_text if_prime_):
+
+=== Example 1 ===
+[SPEC]
+<SPEC> def largest_divisor(n: int) -> int: """ For a given number n, find the largest number that divides n evenly, smaller than n >>> largest_divisor(15) 5 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def Constrain to to(n: The implementation must satisfy the given examples. Examples: </SPEC>
+
+[PATCH]
+return =1.a =()a(n)s_ return(): return +[i) return , return True == return: return ret(i):append(i if for i in range(l) return(2,, return_e(i)(j.append_arr(i](i + 1_depth if,): if == 0: i x))split_i = 0: return==_):1 + =, <=]) x(n: return return.ada else: return]
+
+=== Example 2 ===
+[SPEC]
+<SPEC> def flip_case(string: str) -> str: """ For a given string, flip lowercase characters to uppercase and uppercase to lowercase. >>> flip_case('Hello') 'hELLO' """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def Constrain to to(s): . Task: is to, the outputsfy the given examples. Constraints: The implementation must satis. </SPEC>
+
+[PATCH]
+n) return sorted(): in j * sorted_index(x) return_ x return % jange(n))in,, for i in range.append(text == s. result= len():. for i in range(len(n: return sorted_ return].split_len(s = [].a)=: return:[i: return True(i: =append_sum_arr[ippend(n'  return[i i, return: return )::
+
+[Agentic][Training] Stage 2A: Static specialization for SPEC agent (freeze backbone + Impl agent; train Spec agent on original X with P targets)
+[Agentic][Testing][SPEC@Before FT] CE=5.030 | tok_acc=0.341
+[Agentic][Train][FT] epoch=1/8 train_ce=3.922 train_acc=0.390 val_ce=4.402 val_acc=0.331
+[Agentic][Train][FT] epoch=2/8 train_ce=3.788 train_acc=0.397 val_ce=4.457 val_acc=0.335
+[Agentic][Train][FT] epoch=3/8 train_ce=3.707 train_acc=0.401 val_ce=4.506 val_acc=0.338
+[Agentic][Static Routing] Early stopping triggered
+[Agentic][Testing][SPEC@After FT] CE=5.117 | tok_acc=0.352 | ΔCE=+0.087 (+1.74%) | Δacc=+0.012 (+3.38%)
+
+[Agentic][Training] Stage 2B: Static specialization for IMPL agent (freeze backbone + Spec agent; train Impl agent on gist-only)
+[Agentic][Testing][IMPL@GIST][Before FT] CE=5.543 | tok_acc=0.167
+[Agentic][Train][FT] epoch=1/8 train_ce=4.528 train_acc=0.202 val_ce=4.262 val_acc=0.220
+[Agentic][Train][FT] epoch=2/8 train_ce=4.356 train_acc=0.212 val_ce=4.268 val_acc=0.239
+[Agentic][Train][FT] epoch=3/8 train_ce=4.248 train_acc=0.224 val_ce=4.277 val_acc=0.236
+[Agentic][Static Routing] Early stopping triggered
+[Agentic][Testing][IMPL@GIST][After FT] CE=5.496 | tok_acc=0.177 | ΔCE=-0.047 (-0.85%) | Δacc=+0.010 (+5.99%)
+
+[Agentic][Output] Saving sample generated code...
+[Agentic][Output] Saved 10 samples to 'preds_static_role/'
+======
+Round 4
+
+[Data] Load HumanEval…
+[Info] Train: 131 pairs, Test: 33 pairs
+[Agentic][Training] Stage 1: Interleaved SPEC↔IMPL (same epoch)
+[Agentic][Train][Stage1] epoch=1/10 spec_ce=7.729 spec_acc=0.035 impl_ce=7.873 impl_acc=0.046
+[Agentic][Train][Stage1] epoch=2/10 spec_ce=6.446 spec_acc=0.072 impl_ce=6.468 impl_acc=0.059
+[Agentic][Train][Stage1] epoch=3/10 spec_ce=5.676 spec_acc=0.209 impl_ce=5.757 impl_acc=0.060
+[Agentic][Train][Stage1] epoch=4/10 spec_ce=5.184 spec_acc=0.279 impl_ce=5.533 impl_acc=0.072
+[Agentic][Train][Stage1] epoch=5/10 spec_ce=4.825 spec_acc=0.293 impl_ce=5.365 impl_acc=0.094
+[Agentic][Train][Stage1] epoch=6/10 spec_ce=4.528 spec_acc=0.315 impl_ce=5.145 impl_acc=0.139
+[Agentic][Train][Stage1] epoch=7/10 spec_ce=4.271 spec_acc=0.342 impl_ce=4.904 impl_acc=0.164
+[Agentic][Train][Stage1] epoch=8/10 spec_ce=4.049 spec_acc=0.369 impl_ce=4.675 impl_acc=0.181
+[Agentic][Train][Stage1] epoch=9/10 spec_ce=3.855 spec_acc=0.392 impl_ce=4.462 impl_acc=0.208
+[Agentic][Train][Stage1] epoch=10/10 spec_ce=3.644 spec_acc=0.407 impl_ce=4.265 impl_acc=0.221
+
+[Agentic][Testing][PIPELINE-LIFT] Teacher-forced delta (with gist vs no-spec baseline; more negative is better)
+[Agentic][Testing][PIPELINE-LIFT] IMPL CE(no-spec)=5.450 | CE(with spec)=5.465 | ΔCE=0.015 | acc(no-spec)=0.176 | acc(with spec)=0.184
+test/impl_ce=5.465 test/impl_acc=0.184
+
+[Agentic][Testing][SPEC-STATS] Analysis agent quick stats (first few specs)
+{'sampled': 4.0, 'avg_tokens': 84.25, 'avg_lines': 1.0, 'impl_leak_lines': 0.0}
+
+[Agentic][Testing][PIPELINE-SAMPLES] Spec↔ Patch examples (eyeball alignment)
+
+=== Example 0 ===
+[SPEC]
+<SPEC> def prime_fib(n: int): """ prime_fib returns n-th number that is a Fibonacci number and it's also prime. >>> prime_fib(1) 2 >>> prime_fib(2) 3 >>> prime_fib(3) 5 >>> prime_fib(4) 13 >>> prime_fib(5) 89 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def correct to to(n: int): . Task: is to') sum to) sort to. Constraints: The implementation must satisfy the given examples. </SPEC>
+
+[PATCH]
+'ange(nange(lst[i]): for lst in range(len(n: return sorted(elem, str(n):  result(2, +): for -(list(lst = range]): if key = 0 if i, len(n == 0: in range[i) for i in range(list", "j]  b = ==(2,:!=l)(lst(i - 1](set])2 == 0: return False: if len.append(word < ):  < len(s) if[i (arr]) if[len(filter(i] len(int(n1 ==", " (len(j)[i", ": n", "]) <):1[j[iC] return == 0: if
+
+=== Example 1 ===
+[SPEC]
+<SPEC> def largest_divisor(n: int) -> int: """ For a given number n, find the largest number that divides n evenly, smaller than n >>> largest_divisor(15) 5 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def correct to to(n: int): . Task: sort to. Constraints: The implementation must satisfy the given examples. </SPEC>
+
+[PATCH]
+return sorted(i][i]=i: return False for *.append(list]) < i *"): return True[i: return [j][digit + key,, -j]) return True l[i[i == 0: x) return [l *")2 (len(text1:=arr[len(iA_value == 0:i] return False for i in range(arr[i+): ):g_text): len(x]([n, ): return True return False(1,j +): if.a.split(2,e.a] bindex[i", "l)): return True  x -: return False.a, - result[i (evens):i](n return True):appendppend(
+
+=== Example 2 ===
+[SPEC]
+<SPEC> def flip_case(string: str) -> str: """ For a given string, flip lowercase characters to uppercase and uppercase to lowercase. >>> flip_case('Hello') 'hELLO' """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def correct to to(n: int): . Task: sort to. Constraints: The implementation must satisfy the given examples. </SPEC>
+
+[PATCH]
+ret == = end(s lst))), max(i) x[i].split[i) temp(j]jo return True(n) return False x: return [i)sin, == 0: return False[iange(2,ange(n[i: ): if[ippend(j el = 0) return False): return True1, in range.append(len(x])[x)): if n in range(j)(l)):: j <[i == 0: .a", ".a.a[0](i* result", "min(num) return True return False return True if.a])(grid: if n + 1 if]) == 0: returnA ==): if -ange(temp(lst
+
+[Agentic][Training] Stage 2A: Static specialization for SPEC agent (freeze backbone + Impl agent; train Spec agent on original X with P targets)
+[Agentic][Testing][SPEC@Before FT] CE=5.002 | tok_acc=0.359
+[Agentic][Train][FT] epoch=1/8 train_ce=3.517 train_acc=0.422 val_ce=3.992 val_acc=0.371
+[Agentic][Train][FT] epoch=2/8 train_ce=3.386 train_acc=0.428 val_ce=4.062 val_acc=0.374
+[Agentic][Train][FT] epoch=3/8 train_ce=3.310 train_acc=0.438 val_ce=4.121 val_acc=0.370
+[Agentic][Static Routing] Early stopping triggered
+[Agentic][Testing][SPEC@After FT] CE=5.172 | tok_acc=0.367 | ΔCE=+0.170 (+3.40%) | Δacc=+0.008 (+2.25%)
+
+[Agentic][Training] Stage 2B: Static specialization for IMPL agent (freeze backbone + Spec agent; train Impl agent on gist-only)
+[Agentic][Testing][IMPL@GIST][Before FT] CE=5.460 | tok_acc=0.185
+[Agentic][Train][FT] epoch=1/8 train_ce=4.124 train_acc=0.241 val_ce=3.874 val_acc=0.280
+[Agentic][Train][FT] epoch=2/8 train_ce=3.958 train_acc=0.253 val_ce=3.902 val_acc=0.297
+[Agentic][Train][FT] epoch=3/8 train_ce=3.852 train_acc=0.266 val_ce=3.933 val_acc=0.301
+[Agentic][Static Routing] Early stopping triggered
+[Agentic][Testing][IMPL@GIST][After FT] CE=5.467 | tok_acc=0.183 | ΔCE=+0.007 (+0.13%) | Δacc=-0.002 (-1.24%)
+
+[Agentic][Output] Saving sample generated code...
+[Agentic][Output] Saved 10 samples to 'preds_static_role/'
+======
+Round 5
+
+[Data] Load HumanEval…
+[Info] Train: 131 pairs, Test: 33 pairs
+[Agentic][Training] Stage 1: Interleaved SPEC↔IMPL (same epoch)
+[Agentic][Train][Stage1] epoch=1/12 spec_ce=7.729 spec_acc=0.035 impl_ce=7.873 impl_acc=0.046
+[Agentic][Train][Stage1] epoch=2/12 spec_ce=6.446 spec_acc=0.072 impl_ce=6.468 impl_acc=0.059
+[Agentic][Train][Stage1] epoch=3/12 spec_ce=5.676 spec_acc=0.209 impl_ce=5.757 impl_acc=0.060
+[Agentic][Train][Stage1] epoch=4/12 spec_ce=5.184 spec_acc=0.279 impl_ce=5.533 impl_acc=0.072
+[Agentic][Train][Stage1] epoch=5/12 spec_ce=4.825 spec_acc=0.293 impl_ce=5.365 impl_acc=0.094
+[Agentic][Train][Stage1] epoch=6/12 spec_ce=4.528 spec_acc=0.315 impl_ce=5.145 impl_acc=0.139
+[Agentic][Train][Stage1] epoch=7/12 spec_ce=4.271 spec_acc=0.342 impl_ce=4.904 impl_acc=0.164
+[Agentic][Train][Stage1] epoch=8/12 spec_ce=4.049 spec_acc=0.369 impl_ce=4.675 impl_acc=0.181
+[Agentic][Train][Stage1] epoch=9/12 spec_ce=3.855 spec_acc=0.392 impl_ce=4.462 impl_acc=0.208
+[Agentic][Train][Stage1] epoch=10/12 spec_ce=3.644 spec_acc=0.407 impl_ce=4.265 impl_acc=0.221
+[Agentic][Train][Stage1] epoch=11/12 spec_ce=3.439 spec_acc=0.427 impl_ce=4.062 impl_acc=0.241
+[Agentic][Train][Stage1] epoch=12/12 spec_ce=3.267 spec_acc=0.436 impl_ce=3.899 impl_acc=0.265
+
+[Agentic][Testing][PIPELINE-LIFT] Teacher-forced delta (with gist vs no-spec baseline; more negative is better)
+[Agentic][Testing][PIPELINE-LIFT] IMPL CE(no-spec)=5.410 | CE(with spec)=5.420 | ΔCE=0.010 | acc(no-spec)=0.179 | acc(with spec)=0.189
+test/impl_ce=5.420 test/impl_acc=0.189
+
+[Agentic][Testing][SPEC-STATS] Analysis agent quick stats (first few specs)
+{'sampled': 4.0, 'avg_tokens': 85.0, 'avg_lines': 1.0, 'impl_leak_lines': 0.0}
+
+[Agentic][Testing][PIPELINE-SAMPLES] Spec↔ Patch examples (eyeball alignment)
+
+=== Example 0 ===
+[SPEC]
+<SPEC> def prime_fib(n: int): """ prime_fib returns n-th number that is a Fibonacci number and it's also prime. >>> prime_fib(1) 2 >>> prime_fib(2) 3 >>> prime_fib(3) 5 >>> prime_fib(4) 13 >>> prime_fib(5) 89 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def correct prime prime(n): . Task: is prime sum prime int The implementation must satisfy the given examples. Constraints: The True fib4( xts: The implement(' </SPEC>
+
+[PATCH]
+max = j([(l)=): if i.isappend(i) if len(num)) else: x) return sorted(num[i)) if(digit)(lst))),", " <) - int(l] if (append): ans(s): x[i][len(sorted(grid[j)).append.a) new_bracket[n) +,", " for j * == new_index)): if=list(temp): else: ): i.a, str(ret) if(2, arr.a[0] == for j - b return True[i+1]da x): x:  * len(set(n[i else: s.a"))]: return True )
+
+=== Example 1 ===
+[SPEC]
+<SPEC> def largest_divisor(n: int) -> int: """ For a given number n, find the largest number that divides n evenly, smaller than n >>> largest_divisor(15) 5 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def correct closest to to(lst): . Task: Compute the correct output for the function. Constraints: The implementation must satisfy the given examples. </SPEC>
+
+[PATCH]
+if(2, str(lst) return [len(len(word) else=A=int) for i]) > in range(lst)) * sorted(n) *[i *1, max(list(x][s if len(grade)): if)):a, j[iin(len)): return False(numbers)= = 0 in range.append(x == 0:) i(len[i] return ret.a + 1", " (s lst)).a el if = 0 for i in range = 0in(lst=lamb)(1,n) > b* x: return False.isj: if+1):2)) new_b): if n/.a(n lst)):  result[i -1
+
+=== Example 2 ===
+[SPEC]
+<SPEC> def flip_case(string: str) -> str: """ For a given string, flip lowercase characters to uppercase and uppercase to lowercase. >>> flip_case('Hello') 'hELLO' """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def correct closest to to(lst): . Task: Compute the correct output for the function. Constraints: The implementation must satisfy the given examples. </SPEC>
+
+[PATCH]
+if n = b for i in range(n == 0:  return ret(n):]) = list(ret):,!= len(temp.lower n) if + ): if n): i(n) return [arr) %pa ret(len(word) return len(s) i(s/ (s)(evens) if = 0) result= n, b = == 0: return False) return sorted(len.a)[i] if, x:)) return (s", " <)) return False(lst).split += n.a, temp(lst(s)]_of(arr)): if, return False for in range(i)))append(n) - return False return False return True return sorted): for i in range =): return
+
+[Agentic][Training] Stage 2A: Static specialization for SPEC agent (freeze backbone + Impl agent; train Spec agent on original X with P targets)
+[Agentic][Testing][SPEC@Before FT] CE=5.085 | tok_acc=0.365
+[Agentic][Train][FT] epoch=1/8 train_ce=3.162 train_acc=0.455 val_ce=3.567 val_acc=0.402
+[Agentic][Train][FT] epoch=2/8 train_ce=3.033 train_acc=0.467 val_ce=3.659 val_acc=0.398
+[Agentic][Train][FT] epoch=3/8 train_ce=2.959 train_acc=0.474 val_ce=3.735 val_acc=0.398
+[Agentic][Static Routing] Early stopping triggered
+[Agentic][Testing][SPEC@After FT] CE=5.308 | tok_acc=0.373 | ΔCE=+0.223 (+4.39%) | Δacc=+0.008 (+2.21%)
+
+[Agentic][Training] Stage 2B: Static specialization for IMPL agent (freeze backbone + Spec agent; train Impl agent on gist-only)
+[Agentic][Testing][IMPL@GIST][Before FT] CE=5.423 | tok_acc=0.187
+[Agentic][Train][FT] epoch=1/8 train_ce=3.748 train_acc=0.277 val_ce=3.530 val_acc=0.335
+[Agentic][Train][FT] epoch=2/8 train_ce=3.584 train_acc=0.299 val_ce=3.576 val_acc=0.343
+[Agentic][Train][FT] epoch=3/8 train_ce=3.478 train_acc=0.312 val_ce=3.614 val_acc=0.339
+[Agentic][Static Routing] Early stopping triggered
+[Agentic][Testing][IMPL@GIST][After FT] CE=5.479 | tok_acc=0.195 | ΔCE=+0.055 (+1.02%) | Δacc=+0.008 (+4.53%)
+
+[Agentic][Output] Saving sample generated code...
+[Agentic][Output] Saved 10 samples to 'preds_static_role/'
+======
+Round 6
+
+[Data] Load HumanEval…
+[Info] Train: 131 pairs, Test: 33 pairs
+[Agentic][Training] Stage 1: Interleaved SPEC↔IMPL (same epoch)
+[Agentic][Train][Stage1] epoch=1/14 spec_ce=7.729 spec_acc=0.035 impl_ce=7.873 impl_acc=0.046
+[Agentic][Train][Stage1] epoch=2/14 spec_ce=6.446 spec_acc=0.072 impl_ce=6.468 impl_acc=0.059
+[Agentic][Train][Stage1] epoch=3/14 spec_ce=5.676 spec_acc=0.209 impl_ce=5.757 impl_acc=0.060
+[Agentic][Train][Stage1] epoch=4/14 spec_ce=5.184 spec_acc=0.279 impl_ce=5.533 impl_acc=0.072
+[Agentic][Train][Stage1] epoch=5/14 spec_ce=4.825 spec_acc=0.293 impl_ce=5.365 impl_acc=0.094
+[Agentic][Train][Stage1] epoch=6/14 spec_ce=4.528 spec_acc=0.315 impl_ce=5.145 impl_acc=0.139
+[Agentic][Train][Stage1] epoch=7/14 spec_ce=4.271 spec_acc=0.342 impl_ce=4.904 impl_acc=0.164
+[Agentic][Train][Stage1] epoch=8/14 spec_ce=4.049 spec_acc=0.369 impl_ce=4.675 impl_acc=0.181
+[Agentic][Train][Stage1] epoch=9/14 spec_ce=3.855 spec_acc=0.392 impl_ce=4.462 impl_acc=0.208
+[Agentic][Train][Stage1] epoch=10/14 spec_ce=3.644 spec_acc=0.407 impl_ce=4.265 impl_acc=0.221
+[Agentic][Train][Stage1] epoch=11/14 spec_ce=3.439 spec_acc=0.427 impl_ce=4.062 impl_acc=0.241
+[Agentic][Train][Stage1] epoch=12/14 spec_ce=3.267 spec_acc=0.436 impl_ce=3.899 impl_acc=0.265
+[Agentic][Train][Stage1] epoch=13/14 spec_ce=3.091 spec_acc=0.460 impl_ce=3.730 impl_acc=0.280
+[Agentic][Train][Stage1] epoch=14/14 spec_ce=2.928 spec_acc=0.475 impl_ce=3.558 impl_acc=0.303
+
+[Agentic][Testing][PIPELINE-LIFT] Teacher-forced delta (with gist vs no-spec baseline; more negative is better)
+[Agentic][Testing][PIPELINE-LIFT] IMPL CE(no-spec)=5.606 | CE(with spec)=5.639 | ΔCE=0.033 | acc(no-spec)=0.189 | acc(with spec)=0.190
+test/impl_ce=5.639 test/impl_acc=0.190
+
+[Agentic][Testing][SPEC-STATS] Analysis agent quick stats (first few specs)
+{'sampled': 4.0, 'avg_tokens': 89.0, 'avg_lines': 1.0, 'impl_leak_lines': 0.0}
+
+[Agentic][Testing][PIPELINE-SAMPLES] Spec↔ Patch examples (eyeball alignment)
+
+=== Example 0 ===
+[SPEC]
+<SPEC> def prime_fib(n: int): """ prime_fib returns n-th number that is a Fibonacci number and it's also prime. >>> prime_fib(1) 2 >>> prime_fib(2) 3 >>> prime_fib(3) 5 >>> prime_fib(4) 13 >>> prime_fib(5) 89 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def correct zero(n: int): . Task: correct prime prime( correct output for correct') sum prime n( 5, 3) remove prime') The implementation must satisfy the given examples. Constraints: The True is prime', 'a') be same prime fib4', 'a', 'a) </SPEC>
+
+[PATCH]
+s.join(s)): return False return True if([i + 1, key = 0[i] = max(temp(k))): return sorted(s),(i))) if i  return False return True[i))). return] for j ) for i(count += += i*!= n) if[i)): ): return ' n), return False return True return sorted()[j])[x][ != in range(l)[len(len(n)(grid[i]) if) return return ): for i in range(filter(n)]]) if(2, == s, x: return True * i += 1 if([]) if](x, len(e(temp[i)]),int(
+
+=== Example 1 ===
+[SPEC]
+<SPEC> def largest_divisor(n: int) -> int: """ For a given number n, find the largest number that divides n evenly, smaller than n >>> largest_divisor(15) 5 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def correct count(lst): . Task: correct zero( 5, 3, 5. Constraints: The implementation must satisfy the given examples. </SPEC>
+
+[PATCH]
+depth) return (len(string[i + 1(xs, str(sum(lst)): if n): return".a, + end -s): return True return False(n, reverse ==k) return ""[i)2): for k i)(sorted(evens + 1 - return False else: return False !=): str[i]+: ans == l))(temp, l[i]) return len(s return len[i][i] for j for i in range(i) if j , reverse[i == 0: return True return False for == 0: x+i) x) +=* for j in j inange(append(n) return [j)[len(num)): return True(k)
+
+=== Example 2 ===
+[SPEC]
+<SPEC> def flip_case(string: str) -> str: """ For a given string, flip lowercase characters to uppercase and uppercase to lowercase. >>> flip_case('Hello') 'hELLO' """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def correct count(lst): . Task: correct zero( 5, 3, 5. Constraints: The implementation must satisfy the given examples. </SPEC>
+
+[PATCH]
+nning(n) return len(grid) return j in range(i] return False)) return [s, j in res(xs(arr)), x else: ans = [] if i.split el if (max(x: if i.append(n!= not in b return True: l[i]))])[i) return: ans[i", "A.a(len(int[j] return ans[A[i + 1]) return (append, c return True in range("]) return True return Truein(numbers) = 0)[j)(grid[i])) *: for i in range(i-1]](i) in j in n + 1 else]= n - s[i
+
+[Agentic][Training] Stage 2A: Static specialization for SPEC agent (freeze backbone + Impl agent; train Spec agent on original X with P targets)
+[Agentic][Testing][SPEC@Before FT] CE=5.370 | tok_acc=0.376
+[Agentic][Train][FT] epoch=1/8 train_ce=2.893 train_acc=0.483 val_ce=3.231 val_acc=0.441
+[Agentic][Train][FT] epoch=2/8 train_ce=2.746 train_acc=0.503 val_ce=3.347 val_acc=0.438
+[Agentic][Train][FT] epoch=3/8 train_ce=2.666 train_acc=0.509 val_ce=3.438 val_acc=0.435
+[Agentic][Static Routing] Early stopping triggered
+[Agentic][Testing][SPEC@After FT] CE=5.504 | tok_acc=0.377 | ΔCE=+0.134 (+2.50%) | Δacc=+0.001 (+0.15%)
+
+[Agentic][Training] Stage 2B: Static specialization for IMPL agent (freeze backbone + Spec agent; train Impl agent on gist-only)
+[Agentic][Testing][IMPL@GIST][Before FT] CE=5.623 | tok_acc=0.191
+[Agentic][Train][FT] epoch=1/8 train_ce=3.427 train_acc=0.319 val_ce=3.291 val_acc=0.354
+[Agentic][Train][FT] epoch=2/8 train_ce=3.267 train_acc=0.337 val_ce=3.374 val_acc=0.356
+[Agentic][Train][FT] epoch=3/8 train_ce=3.146 train_acc=0.357 val_ce=3.401 val_acc=0.354
+[Agentic][Static Routing] Early stopping triggered
+[Agentic][Testing][IMPL@GIST][After FT] CE=5.618 | tok_acc=0.194 | ΔCE=-0.005 (-0.09%) | Δacc=+0.002 (+1.20%)
+
+[Agentic][Output] Saving sample generated code...
+[Agentic][Output] Saved 10 samples to 'preds_static_role/'
