@@ -1,0 +1,5 @@
+=== SPEC ===
+<SPEC> def largest_divisor(n: int) -> int: """ For a given number n, find the largest number that divides n evenly, smaller than n >>> largest_divisor(15) 5 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def to to: The implementation must satis. Task: Thets: The mustsfy the given examplesf Constraints: is to examples. Examples: They the given to Examples: atisfts: </SPEC>
+
+=== GENERATED CODE ===
+return len(string[i=][i: l return False return True=len(a(n) if intext(lst[i] if len(sorted(i] return sorted(append(s return True]).a) in range(lst(n):append))[n): return [ len(i)n)[nin(n return True == 0: =lst <= - (j): i for i in range=[i)(numbers.s)l) += else:.append,i]. temp_prime[ippend(elem(lst_l = [](int(lst, state] return. return(2, n ((2, if(2,ppend(n.a el inword)a

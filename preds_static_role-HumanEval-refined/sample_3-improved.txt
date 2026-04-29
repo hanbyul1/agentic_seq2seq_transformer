@@ -1,0 +1,5 @@
+=== SPEC ===
+<SPEC> . Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def(s. Task: The implementation must satisfy the given examplesf Constraints: Thets: is to to The implement must Constrainy the given: atis. Examples: y the given Examples: The musts. </SPEC>
+
+=== GENERATED CODE ===
+def solution(x): return None

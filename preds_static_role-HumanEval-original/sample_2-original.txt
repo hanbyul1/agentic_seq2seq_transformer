@@ -1,0 +1,5 @@
+=== SPEC ===
+<SPEC> def flip_case(string: str) -> str: """ For a given string, flip lowercase characters to uppercase and uppercase to lowercase. >>> flip_case('Hello') 'hELLO' """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def(s. Task: The implementation must satisfy the given examples. Examples: Thets: The must Constraints: is to to examplesf Constrainy the given to Examples: atis. </SPEC>
+
+=== GENERATED CODE ===
+return=, - =(l(a()::in(i]i) lst)n): str(s n[i] if max(lst for i in range(lst) return True return False): for return for i in range.a) if([): return primes) i < return: return: for i in r)depth,text in primes: return len(xs, max(i) if.append(i,x](n) return [ +depth(list(len(i: returnA(n):a(k(sum if +):" if("l)): else: for i in r.a +_prime(n -: return n.a n=i(j(string)] return =(ippend():

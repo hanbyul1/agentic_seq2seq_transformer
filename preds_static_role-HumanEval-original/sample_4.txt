@@ -1,0 +1,5 @@
+=== SPEC ===
+<SPEC> def count_distinct_characters(string: str) -> int: """ Given a string, find out how many distinct characters (regardless of case) does it consist of >>> count_distinct_characters('xyzXYZ') 3 >>> count_distinct_characters('Jerry') 4 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def to to: The implementation must satis. Task: Thets: The mustsfy the given examples. Examples: They the given to examplesf Constraints: is to Examples: atisfts: </SPEC>
+
+=== GENERATED CODE ===
+return = [] i +i == 0: return", " for i in range(len(n: l:(lenppend(temp(lst(word -l, x)): len(l)): if n for i in r,() b: return True == 0:  n): in range(lst)count[i i[i](lst(n) return True(l,[i)): list(i],lst): = 1 = [] i[nange(lst % if(i return False: return len(n, [iange(n x: return fact x return len([l)(i) or) if ):(sum)n) temp_n) return False: if j if i ( return= - == 0:
