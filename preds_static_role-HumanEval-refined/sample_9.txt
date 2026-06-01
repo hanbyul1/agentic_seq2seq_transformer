@@ -1,5 +1,0 @@
-=== SPEC ===
-<SPEC> def correct_bracketing(brackets: str): """ brackets is a string of "<" and ">". return True if every opening bracket has a corresponding closing bracket. >>> correct_bracketing("<") False >>> correct_bracketing("<>") True >>> correct_bracketing("<<><>>") True >>> correct_bracketing("><<>") False """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def to to: Constraints: atis. Examples: The implementation must satisfy the given examples. Constraints is Constrainy the given Examples: y the given ati y the given: The implement must Task: musts. </SPEC>
-
-=== GENERATED CODE ===
-def correct_bracketing(brackets: str): balance = 0 for ch in brackets: if ch == '<': balance += 1 else: balance -= 1 if balance < 0: return False return balance == 0

@@ -1,5 +1,0 @@
-=== SPEC ===
-<SPEC> def count_distinct_characters(string: str) -> int: """ Given a string, find out how many distinct characters (regardless of case) does it consist of >>> count_distinct_characters('xyzXYZ') 3 >>> count_distinct_characters('Jerry') 4 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def to to: The implementation must satis. Task: Thets: The mustsfy the given examplesf Constraints: is to Constrainy the given to examples. Examples: They the given: Theation musatisfts: </SPEC>
-
-=== GENERATED CODE ===
-def count_distinct_characters(string: str) -> int: return len(set(string.lower()))

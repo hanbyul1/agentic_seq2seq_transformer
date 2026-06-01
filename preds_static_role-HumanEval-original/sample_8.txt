@@ -1,5 +1,0 @@
-=== SPEC ===
-<SPEC> . Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def to to: The implementation must satis. Task: Thets: The mustsfy the given examplesf Constraints: is to Examples: They the given to examples. Examples: atisfts: </SPEC>
-
-=== GENERATED CODE ===
-): i]i] b for i in r): b +i] i == 0: temp):append(lst <j)x:): =", " l i return True):split, j in): i(text: ):arr_grade(len(i)in(i: return_lst(n n =text)append == 0:  = max(n - else:(x return False(i] in[i]:lst(arr + +" if len(i[i)(l[i(abs(string(a n return False else:[i: return False: return True(lst)): returnlen(len_ len(i+ =append, max(string) returnlst(s

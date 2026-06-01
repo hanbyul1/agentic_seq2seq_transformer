@@ -1,5 +1,0 @@
-=== SPEC ===
-<SPEC> def prime_fib(n: int): """ prime_fib returns n-th number that is a Fibonacci number and it's also prime. >>> prime_fib(1) 2 >>> prime_fib(2) 3 >>> prime_fib(3) 5 >>> prime_fib(4) 13 >>> prime_fib(5) 89 """. Task: Compute the correct output for the function.. Constraints: The implementation must satisfy the given examples. Examples: Additional hints: def to to: Constraints: atis. Examples: y the given examples. Constraints is ati Examples: The implementation must satisfy the given ati sati ati y The implement must y the given </SPEC>
-
-=== GENERATED CODE ===
-return =(xs(): str(i] inj(i)): if n][i for i in range(n) > temp.append(i i == 0: if=):]"(lst == 0: return = [] if(dange(l *[i]](n len[i)] len(lst: for return =(sorted(d. in j +_i in return False(string( result =[i: return ' return True <[i", " <)): str,(lst):(append_prime(text: return n(rulen(n: s return True(j))[i[i' for j(word) x)():
