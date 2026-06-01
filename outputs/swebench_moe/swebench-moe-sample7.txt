@@ -1,0 +1,5 @@
+PATCH_STRUCTURE_VALID: True
+PYTHON_SYNTAX_VALID: False
+
+===== GENERATED PATCH =====
+diff --git a/qiskit/backends/aer/aer/aer/aer/a.py b/qiskit/backends/aer/aer/aer/aer/aer/aer/aer/aer/a.py --- a/qiskit/aer/aer/aer/aer/aer/aer/aer/aer/aer/aer/a.py

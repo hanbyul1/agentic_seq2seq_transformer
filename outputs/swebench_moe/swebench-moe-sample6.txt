@@ -1,0 +1,5 @@
+PATCH_STRUCTURE_VALID: True
+PYTHON_SYNTAX_VALID: False
+
+===== GENERATED PATCH =====
+diff --git a/pytorch_lightning/trainer/training_loop.py b/pytorch_lightning/trainer/training_loop.py --- a/pytorch_lightning/trainer/training_loop.py +++ b/pytorch_lightning/trainer/training_loop.py @@ -9,8 +12 @@ def run_epoch_epoch(self, batch_idx, batch_idx, batch_idx, batch_idx, batch_idx, batch

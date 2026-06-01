@@ -1,0 +1,6 @@
+PATCH_STRUCTURE_VALID: False
+PYTHON_SYNTAX_VALID: False
+FINAL_ACCEPTED: False
+
+===== RAW GENERATED CODE =====
+def get_max_triples(n): A = [i + 1 for i in range(n): for j in range(n): if n%3 == 0: if not is_prime = len(n): if i % 2 == 0: if not is_prime = len(j + 1): if i.append(j + 1): if i % 2 == 0: if not is_sum(j + 1): if (s[j],A[j],A[j],A[j],A[j],A[j],A[j],A[k]: ans = len(ans) return ans

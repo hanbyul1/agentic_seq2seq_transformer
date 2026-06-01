@@ -1,0 +1,6 @@
+PATCH_STRUCTURE_VALID: False
+PYTHON_SYNTAX_VALID: True
+FINAL_ACCEPTED: False
+
+===== RAW GENERATED CODE =====
+def triangle_area(a, b): return a * h / 2.0

@@ -1,0 +1,438 @@
+(base) dae-kyookim@Dae-Kyoos-MacBook-Pro experiments % /opt/anaconda3/envs/torch_env311/bin/python /Users/dae-kyookim/Library/CloudStorage/OneDrive-Personal/EMSE2026/experiments/agentic-transformer-v17-hu
+maneval.py
+[Main] Starting HumanEval experiment...
+[Data] Load HumanEval…
+
+====================
+PROMPT
+from typing import List
+
+
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+""" Check if in given list of numbers, are any two numbers closer to each other than
+given threshold.
+>>> has_close_elements([1.0, 2.0, 3.0], 0.5)
+False
+>>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)
+True
+"""
+
+
+SPEC TARGET
+<SPEC> <SIGNATURE> def has_close_elements(numbers: List[float], threshold: float) -> bool: </SIGNATURE> <DESCRIPTION> Check if in given list of numbers, are any two numbers closer to each other than given threshold. >>> has_close_elements([1.0, 2.0, 3.0], 0.5) False >>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3) True </DESCRIPTION> </SPEC>
+
+====================
+PROMPT
+from typing import List
+
+
+def separate_paren_groups(paren_string: str) -> List[str]:
+""" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to
+separate those group into separate strings and return the list of those.
+Separate groups are balanced (each open brace is properly closed) and not nested within each other
+Ignore any spaces in the input string.
+>>> separate_paren_groups('( ) (( )) (( )( ))')
+['()', '(())', '(()())']
+"""
+
+
+SPEC TARGET
+<SPEC> <SIGNATURE> def separate_paren_groups(paren_string: str) -> List[str]: </SIGNATURE> <DESCRIPTION> Input to this function is a string containing multiple groups of nested parentheses. Your goal is to separate those group into separate strings and return the list of those. Separate groups are balanced (each open brace is properly closed) and not nested within each other Ignore any spaces in the input string. >>> separate_paren_groups('( ) (( )) (( )( ))') ['()', '(())', '(()())'] </DESCRIPTION> </SPEC>
+
+====================
+PROMPT
+
+
+def truncate_number(number: float) -> float:
+""" Given a positive floating point number, it can be decomposed into
+and integer part (largest integer smaller than given number) and decimals
+(leftover part always smaller than 1).
+
+Return the decimal part of the number.
+>>> truncate_number(3.5)
+0.5
+"""
+
+
+SPEC TARGET
+<SPEC> <SIGNATURE> def truncate_number(number: float) -> float: </SIGNATURE> <DESCRIPTION> Given a positive floating point number, it can be decomposed into and integer part (largest integer smaller than given number) and decimals (leftover part always smaller than 1). Return the decimal part of the number. >>> truncate_number(3.5) 0.5 </DESCRIPTION> </SPEC>
+[Info] Train: 131 pairs, Test: 33 pairs
+
+[Initialization Diagnostic]
+/opt/anaconda3/envs/torch_env311/lib/python3.11/site-packages/torch/nn/modules/transformer.py:515: UserWarning: The PyTorch API of nested tensors is in prototype stage and will change in the near future. We recommend specifying layout=torch.jagged when constructing a nested tensor, as this layout receives active development, has better operator coverage, and works with torch.compile. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/NestedTensorImpl.cpp:182.)
+output = torch._nested_tensor_from_mask(
+
+--------------------------------------------------
+[Agentic][DEBUG][SPEC GENERATION GAP]
+--------------------------------------------------
+Teacher-forced SPEC CE=8.315 | tok_acc=0.001
+
+[Spec Debug Sample 0]
+generation_len=320 | hit_eos=False | gold_pred_overlap=0.263
+[GOLD SPEC]
+<SPEC> <SIGNATURE> def prime_fib(n: int): </SIGNATURE> <DESCRIPTION> prime_fib returns n-th number that is a Fibonacci number and it's also prime. >>> prime_fib(1) 2 >>> prime_fib(2) 3 >>> prime_fib(3) 5 >>> prime_fib(4) 13 >>> prime_fib(5) 89 </DESCRIPTION> </SPEC>
+
+[GENERATED SPEC - SIGNATURE FIXED]
+twotwotwotwo signed digittwotwotwo have to writeementntegerstwotwotwocount 2 have to writeementntegers8,two have to write both have to write both have to writeementntegers hav both have to write both In both have to write bothement 2 have to write both have to write "1". both have to write both an integer a both have to write boths in the list l both have to write both who have to write both have to writes in the list l both have to writeementdivisor en In both have to writeement and lstdivisor en In en In both In both In en In en both have to write both both have to writes in the list l In both have to writes in the list ltwo have to write both In en and lstdivisor en both In both an intege
+
+[Spec Debug Sample 1]
+generation_len=320 | hit_eos=False | gold_pred_overlap=0.316
+[GOLD SPEC]
+<SPEC> <SIGNATURE> def largest_divisor(n: int) -> int: </SIGNATURE> <DESCRIPTION> For a given number n, find the largest number that divides n evenly, smaller than n >>> largest_divisor(15) 5 </DESCRIPTION> </SPEC>
+
+[GENERATED SPEC - SIGNATURE FIXED]
+array by one vowels instrings in the list l return areaach ieep oprt for c in s both five1,21 for c in s both redefdefdefdef for c in s both re and lstdefdefdef redefdef for c in sof length k ahead of thatave students prime numbersr number oprt for c in sof length k ahead of thatdefdefdeftwo have to writedenom both redef redef re(3)Q signed digit redefdef re(3)defdefdef and lstdefdef re and lstdef re(3) and lstdefdef for c in s(0) == 0 re(3)def re(3) def f signed digit re(3)def for c in sof length k have to writedenom both and lstdefdef and lstn the both and lstdef redef for c in sof length k re(3)Q(0) == 0 re(3)Q and lstdefdef '(()) have to writedenom both who re(3)Q(2)overdefdefdef '(())ac
+
+[Spec Debug Sample 2]
+generation_len=320 | hit_eos=False | gold_pred_overlap=0.235
+[GOLD SPEC]
+<SPEC> <SIGNATURE> def flip_case(string: str) -> str: </SIGNATURE> <DESCRIPTION> For a given string, flip lowercase characters to uppercase and uppercase to lowercase. >>> flip_case('Hello') 'hELLO' </DESCRIPTION> </SPEC>
+
+[GENERATED SPEC - SIGNATURE FIXED]
+twotwotwotwocount('[]twotwotwo signed digittwotwotwo, 3, 3, 4, 4twotwotwo have to writeementhis iGSGSGSGS3, -2, 1GSGSGSding i buckettwotwotwofunction that re4,32,function that re4,32,function that retwotwotwoementord signed digittwotwo signed digityofunction that re4,32,function that resontwotwotwod withfunction that re4,32,function that reGSding i bucketGSding i bucket1, -12") ==> " signed digittwotwo, 3, 3, 4, 4 choose bothementord signed digityofunction that resontwo, 3, 3, 4, 4two, 3, 3, 4, 4two signed digittwo, 3, 3, 4, 4two have to writeprimeord signed digittwo, 3, 3, 4, 4 choosepowfunction that resontwo have to writeprime arri bothementfunction that resontwo signed digittwo signed dig
+[SPEC VALIDITY] valid=0/33 rate=0.0000
+[WARN] Fallback-free SPEC validity is low: 0.0000 < 0.9000. Continuing with validation repair/fallback for pipeline stability.
+
+[Fallback-Free SPEC Samples Before Training]
+
+====================
+[INIT SPEC SAMPLE 0]
+<SPEC> <SIGNATURE> def prime_fib(n: int): </SIGNATURE> <DESCRIPTION> </DESCRIPTION> </SPEC>
+
+====================
+[INIT SPEC SAMPLE 1]
+<SPEC> <SIGNATURE> def largest_divisor(n: int) -> int: </SIGNATURE> <DESCRIPTION> </DESCRIPTION> </SPEC>
+
+====================
+[INIT SPEC SAMPLE 2]
+<SPEC> <SIGNATURE> def flip_case(string: str) -> str: </SIGNATURE> <DESCRIPTION> </DESCRIPTION> </SPEC>
+
+[Agentic][Training] Stage 0: SPEC supervision
+[Agentic][Training][SPEC] starting
+[Agentic][Train][Spec] epoch=1/4 spec_ce=7.694 spec_acc=0.083
+[Agentic][Train][Spec] epoch=2/4 spec_ce=6.574 spec_acc=0.088
+[Agentic][Train][Spec] epoch=3/4 spec_ce=6.027 spec_acc=0.122
+[Agentic][Train][Spec] epoch=4/4 spec_ce=5.716 spec_acc=0.178
+[Agentic][Training][SPEC] done ✅
+
+[Stage 0 Diagnostic] SPEC generation after supervision
+
+--------------------------------------------------
+[Agentic][DEBUG][SPEC GENERATION GAP]
+--------------------------------------------------
+Teacher-forced SPEC CE=6.159 | tok_acc=0.183
+
+[Spec Debug Sample 0]
+generation_len=15 | hit_eos=True | gold_pred_overlap=0.316
+[GOLD SPEC]
+<SPEC> <SIGNATURE> def prime_fib(n: int): </SIGNATURE> <DESCRIPTION> prime_fib returns n-th number that is a Fibonacci number and it's also prime. >>> prime_fib(1) 2 >>> prime_fib(2) 3 >>> prime_fib(3) 5 >>> prime_fib(4) 13 >>> prime_fib(5) 89 </DESCRIPTION> </SPEC>
+
+[GENERATED SPEC - SIGNATURE FIXED]
+<SPEC>
+<SIGNATURE>
+def prime_fib(n: int):
+</SIGNATURE>
+<SIGNATURE> def____((((
+
+[Spec Debug Sample 1]
+generation_len=20 | hit_eos=True | gold_pred_overlap=0.316
+[GOLD SPEC]
+<SPEC> <SIGNATURE> def largest_divisor(n: int) -> int: </SIGNATURE> <DESCRIPTION> For a given number n, find the largest number that divides n evenly, smaller than n >>> largest_divisor(15) 5 </DESCRIPTION> </SPEC>
+
+[GENERATED SPEC - SIGNATURE FIXED]
+<SPEC>
+<SIGNATURE>
+def largest_divisor(n: int) -> int:
+</SIGNATURE>
+<SIGNATURE> def_(((( def_( def__((
+
+[Spec Debug Sample 2]
+generation_len=19 | hit_eos=True | gold_pred_overlap=0.353
+[GOLD SPEC]
+<SPEC> <SIGNATURE> def flip_case(string: str) -> str: </SIGNATURE> <DESCRIPTION> For a given string, flip lowercase characters to uppercase and uppercase to lowercase. >>> flip_case('Hello') 'hELLO' </DESCRIPTION> </SPEC>
+
+[GENERATED SPEC - SIGNATURE FIXED]
+<SPEC>
+<SIGNATURE>
+def flip_case(string: str) -> str:
+</SIGNATURE>
+<SIGNATURE> def_(((( def____((
+[SPEC VALIDITY] valid=0/33 rate=0.0000
+[Stage 0] SPEC validity=0.0000
+
+[Agentic][Training] Stage 1: Generated SPEC -> IMPL
+[Stage1] trainable=1,664,613 / total=25,301,194 (6.5792%)
+[Stage1] Frozen: Encoder + Decoder + Specification Agent
+[Stage1] Trainable: Implementation Agent
+[Agentic][Train][Stage1] epoch=1/20 impl_ce=8.086 impl_acc=0.025 impl_valid=0.000
+[Constraint] impl_seq=8.086 impl_constraint=0.049 ratio=0.006
+[Agentic][Train][Stage1] epoch=2/20 impl_ce=6.785 impl_acc=0.071 impl_valid=0.000
+[Constraint] impl_seq=6.785 impl_constraint=0.038 ratio=0.006
+[Agentic][Train][Stage1] epoch=3/20 impl_ce=5.706 impl_acc=0.072 impl_valid=0.000
+[Constraint] impl_seq=5.705 impl_constraint=0.037 ratio=0.007
+[Agentic][Train][Stage1] epoch=4/20 impl_ce=5.503 impl_acc=0.084 impl_valid=0.000
+[Constraint] impl_seq=5.503 impl_constraint=0.033 ratio=0.006
+[Agentic][Train][Stage1] epoch=5/20 impl_ce=5.391 impl_acc=0.088 impl_valid=0.000
+[Constraint] impl_seq=5.391 impl_constraint=0.033 ratio=0.006
+[Agentic][Train][Stage1] epoch=6/20 impl_ce=5.295 impl_acc=0.091 impl_valid=0.000
+[Constraint] impl_seq=5.295 impl_constraint=0.033 ratio=0.006
+[Agentic][Train][Stage1] epoch=7/20 impl_ce=5.201 impl_acc=0.099 impl_valid=0.000
+[Constraint] impl_seq=5.200 impl_constraint=0.033 ratio=0.006
+[Agentic][Train][Stage1] epoch=8/20 impl_ce=5.109 impl_acc=0.105 impl_valid=0.000
+[Constraint] impl_seq=5.108 impl_constraint=0.032 ratio=0.006
+[Agentic][Train][Stage1] epoch=9/20 impl_ce=5.016 impl_acc=0.112 impl_valid=0.000
+[Constraint] impl_seq=5.016 impl_constraint=0.032 ratio=0.006
+[Agentic][Train][Stage1] epoch=10/20 impl_ce=4.932 impl_acc=0.118 impl_valid=0.000
+[Constraint] impl_seq=4.932 impl_constraint=0.032 ratio=0.006
+[Agentic][Train][Stage1] epoch=11/20 impl_ce=4.856 impl_acc=0.124 impl_valid=0.000
+[Constraint] impl_seq=4.856 impl_constraint=0.031 ratio=0.006
+[Agentic][Train][Stage1] epoch=12/20 impl_ce=4.787 impl_acc=0.131 impl_valid=0.000
+[Constraint] impl_seq=4.786 impl_constraint=0.031 ratio=0.006
+[Agentic][Train][Stage1] epoch=13/20 impl_ce=4.723 impl_acc=0.139 impl_valid=0.000
+[Constraint] impl_seq=4.723 impl_constraint=0.031 ratio=0.007
+[Agentic][Train][Stage1] epoch=14/20 impl_ce=4.670 impl_acc=0.146 impl_valid=0.000
+[Constraint] impl_seq=4.670 impl_constraint=0.030 ratio=0.007
+[Agentic][Train][Stage1] epoch=15/20 impl_ce=4.618 impl_acc=0.156 impl_valid=0.000
+[Constraint] impl_seq=4.618 impl_constraint=0.030 ratio=0.007
+[Agentic][Train][Stage1] epoch=16/20 impl_ce=4.568 impl_acc=0.162 impl_valid=0.000
+[Constraint] impl_seq=4.568 impl_constraint=0.030 ratio=0.007
+[Agentic][Train][Stage1] epoch=17/20 impl_ce=4.522 impl_acc=0.164 impl_valid=0.000
+[Constraint] impl_seq=4.521 impl_constraint=0.030 ratio=0.007
+[Agentic][Train][Stage1] epoch=18/20 impl_ce=4.482 impl_acc=0.164 impl_valid=0.000
+[Constraint] impl_seq=4.482 impl_constraint=0.030 ratio=0.007
+[Agentic][Train][Stage1] epoch=19/20 impl_ce=4.439 impl_acc=0.166 impl_valid=0.000
+[Constraint] impl_seq=4.438 impl_constraint=0.029 ratio=0.007
+[Agentic][Train][Stage1] epoch=20/20 impl_ce=4.399 impl_acc=0.174 impl_valid=0.000
+[Constraint] impl_seq=4.399 impl_constraint=0.029 ratio=0.007
+
+[Stage 1 Diagnostic] SPEC generation after IMPL training
+
+--------------------------------------------------
+[Agentic][DEBUG][SPEC GENERATION GAP]
+--------------------------------------------------
+Teacher-forced SPEC CE=6.159 | tok_acc=0.183
+
+[Spec Debug Sample 0]
+generation_len=15 | hit_eos=True | gold_pred_overlap=0.316
+[GOLD SPEC]
+<SPEC> <SIGNATURE> def prime_fib(n: int): </SIGNATURE> <DESCRIPTION> prime_fib returns n-th number that is a Fibonacci number and it's also prime. >>> prime_fib(1) 2 >>> prime_fib(2) 3 >>> prime_fib(3) 5 >>> prime_fib(4) 13 >>> prime_fib(5) 89 </DESCRIPTION> </SPEC>
+
+[GENERATED SPEC - SIGNATURE FIXED]
+<SPEC>
+<SIGNATURE>
+def prime_fib(n: int):
+</SIGNATURE>
+<SIGNATURE> def____((((
+
+[Spec Debug Sample 1]
+generation_len=20 | hit_eos=True | gold_pred_overlap=0.316
+[GOLD SPEC]
+<SPEC> <SIGNATURE> def largest_divisor(n: int) -> int: </SIGNATURE> <DESCRIPTION> For a given number n, find the largest number that divides n evenly, smaller than n >>> largest_divisor(15) 5 </DESCRIPTION> </SPEC>
+
+[GENERATED SPEC - SIGNATURE FIXED]
+<SPEC>
+<SIGNATURE>
+def largest_divisor(n: int) -> int:
+</SIGNATURE>
+<SIGNATURE> def_(((( def_( def__((
+
+[Spec Debug Sample 2]
+generation_len=19 | hit_eos=True | gold_pred_overlap=0.353
+[GOLD SPEC]
+<SPEC> <SIGNATURE> def flip_case(string: str) -> str: </SIGNATURE> <DESCRIPTION> For a given string, flip lowercase characters to uppercase and uppercase to lowercase. >>> flip_case('Hello') 'hELLO' </DESCRIPTION> </SPEC>
+
+[GENERATED SPEC - SIGNATURE FIXED]
+<SPEC>
+<SIGNATURE>
+def flip_case(string: str) -> str:
+</SIGNATURE>
+<SIGNATURE> def_(((( def____((
+
+[Probe] SPEC generation on TRAIN samples after Stage 1
+[SIG MATCH] True
+
+====================
+[GOLD SPEC]
+<SPEC> <SIGNATURE> def prime_length(string): </SIGNATURE> <DESCRIPTION> Write a function that takes a string and returns True if the string length is a prime number or False otherwise Examples prime_length('Hello') == True prime_length('abcdcba') == True prime_length('kittens') == True prime_length('orange') == False </DESCRIPTION> </SPEC>
+
+[PRED SPEC]
+<SPEC> <SIGNATURE> def prime_length(string): </SIGNATURE> <DESCRIPTION> Write a function that takes a string and returns True if the string length is a prime number or False otherwise Examples prime_length('Hello') == True prime_length('abcdcba') == True prime_length('kittens') == True prime_length('orange') == False </DESCRIPTION> </SPEC>
+[SIG MATCH] True
+
+====================
+[GOLD SPEC]
+<SPEC> <SIGNATURE> def decimal_to_binary(decimal): </SIGNATURE> <DESCRIPTION> You will be given a number in decimal form and your task is to convert it to binary format. The function should return a string, with each character representing a binary number. Each character in the string will be '0' or '1'. There will be an extra couple of characters 'db' at the beginning and at the end of the string. The extra characters are there to help with the format. Examples: decimal_to_binary(15) # returns "db1111db" decimal_to_binary(32) # returns "db100000db" </DESCRIPTION> </SPEC>
+
+[PRED SPEC]
+<SPEC> <SIGNATURE> def decimal_to_binary(decimal): </SIGNATURE> <DESCRIPTION> You will be given a number in decimal form and your task is to convert it to binary format. The function should return a string, with each character representing a binary number. Each character in the string will be '0' or '1'. There will be an extra couple of characters 'db' at the beginning and at the end of the string. The extra characters are there to help with the format. Examples: decimal_to_binary(15) # returns "db1111db" decimal_to_binary(32) # returns "db100000db" </DESCRIPTION> </SPEC>
+[SIG MATCH] True
+
+====================
+[GOLD SPEC]
+<SPEC> <SIGNATURE> def next_smallest(lst): </SIGNATURE> <DESCRIPTION> You are given a list of integers. Write a function next_smallest() that returns the 2nd smallest element of the list. Return None if there is no such element. next_smallest([1, 2, 3, 4, 5]) == 2 next_smallest([5, 1, 4, 3, 2]) == 2 next_smallest([]) == None next_smallest([1, 1]) == None </DESCRIPTION> </SPEC>
+
+[PRED SPEC]
+<SPEC> <SIGNATURE> def next_smallest(lst): </SIGNATURE> <DESCRIPTION> You are given a list of integers. Write a function next_smallest() that returns the 2nd smallest element of the list. Return None if there is no such element. next_smallest([1, 2, 3, 4, 5]) == 2 next_smallest([5, 1, 4, 3, 2]) == 2 next_smallest([]) == None next_smallest([1, 1]) == None </DESCRIPTION> </SPEC>
+
+[Pipeline After Stage 1]
+[SPEC LEN] avg=22.0 min=15 max=28
+
+--------------------------------------------------
+[Agentic][PIPELINE EVALUATION]
+--------------------------------------------------
+GeneratedSpec->Impl  CE=5.591 ACC=0.172
+
+[Agentic][Eval][SPEC-STATS] Analysis agent quick stats
+{'sampled': 4.0, 'avg_tokens': 32.5, 'avg_lines': 8.0, 'impl_leak_lines': 0.0}
+
+[Agentic][Inference][PIPELINE-SAMPLES] Spec↔Patch examples
+
+=== Example 0 ===
+[SPEC]
+<SPEC> <SIGNATURE> def____((((
+
+[PATCH]
+def_to_to(n):_sum_sum(n:(n,(n(n)(n_sum: (n[i]: s): return s: return (i](n]: return)
+
+=== Example 1 ===
+[SPEC]
+<SPEC> <SIGNATURE> def_(((( def_( def__((
+
+[PATCH]
+def_to_to(n):_sum_sum(n:(n,(n(n)(n_sum: (n[i]: return s): return (lst): return)
+
+=== Example 2 ===
+[SPEC]
+<SPEC> <SIGNATURE> def_(((( def____((
+
+[PATCH]
+def_to_to(n):_sum_sum(n:(n,(n(n)(n_sum: (n[i]: s): return s: return (lst): return)
+
+[Agentic][Training] Stage 2A: Static specialization for SPEC agent (freeze backbone + IMPL agent; train SPEC agent on X -> P)
+[Agentic][Eval][SPEC@Before FT] CE=6.159 | tok_acc=0.183
+
+[Pipeline Before SPEC FT]
+[SPEC LEN] avg=22.0 min=15 max=28
+
+--------------------------------------------------
+[Agentic][PIPELINE EVALUATION]
+--------------------------------------------------
+GeneratedSpec->Impl  CE=5.591 ACC=0.172
+
+[Agentic][FT] Trainable parameter summary
+routing.agents.0.adapter.0.weight | shape=(384,) | params=384
+routing.agents.0.adapter.0.bias | shape=(384,) | params=384
+routing.agents.0.adapter.1.weight | shape=(124, 384) | params=47616
+routing.agents.0.adapter.1.bias | shape=(124,) | params=124
+routing.agents.0.adapter.3.weight | shape=(384, 124) | params=47616
+routing.agents.0.adapter.3.bias | shape=(384,) | params=384
+routing.agents.0.role_head.weight | shape=(4072, 384) | params=1563648
+routing.agents.0.role_head.bias | shape=(4072,) | params=4072
+routing.agents.0.router_head.weight | shape=(1, 384) | params=384
+routing.agents.0.router_head.bias | shape=(1,) | params=1
+
+Trainable=1,664,613 / Total=25,301,194 (6.5792%)
+[Agentic][Train][FT] epoch=1/4 train_ce=5.490 train_acc=0.208 val_ce=5.987 val_acc=0.157 train_valid=0.000
+[Agentic][Train][FT] epoch=2/4 train_ce=5.378 train_acc=0.216 val_ce=6.057 val_acc=0.172 train_valid=0.000
+[Agentic][Train][FT] epoch=3/4 train_ce=5.312 train_acc=0.219 val_ce=6.121 val_acc=0.171 train_valid=0.000
+[Agentic][Train][FT] epoch=4/4 train_ce=5.257 train_acc=0.222 val_ce=6.170 val_acc=0.176 train_valid=0.000
+[Agentic][Eval][SPEC@After FT]CE=6.261 | tok_acc=0.207 | ΔCE=+0.102 (+1.65%) | Δacc=+0.024 (+13.31%)
+
+[Fallback-Free SPEC Samples After SPEC FT]
+
+====================
+[POST-FT SPEC SAMPLE 0]
+<SPEC> <SIGNATURE> def prime_fib(n: int): </SIGNATURE> <DESCRIPTION> </DESCRIPTION> </SPEC>
+
+====================
+[POST-FT SPEC SAMPLE 1]
+<SPEC> <SIGNATURE> def largest_divisor(n: int) -> int: </SIGNATURE> <DESCRIPTION> <DESCRIPTION> </DESCRIPTION> </SPEC>
+
+====================
+[POST-FT SPEC SAMPLE 2]
+<SPEC> <SIGNATURE> def flip_case(string: str) -> str: </SIGNATURE> <DESCRIPTION> </DESCRIPTION> </SPEC>
+
+------------------------------------------------------------
+[Agentic][Adaptation-Cost][SPEC-FT]
+------------------------------------------------------------
+
+total_params=25301194
+trainable_params=1664613
+trainable_ratio=0.065792
+encoder_params=10583552
+decoder_params=12952064
+shared_params=23535616
+active_agent_params=1664613
+active_inference_params=25200229
+active_parameter_ratio=0.996009
+agent_0_params=1664613
+agent_1_params=1664613
+
+[Pipeline After SPEC FT]
+[SPEC LEN] avg=32.4 min=23 max=43
+
+--------------------------------------------------
+[Agentic][PIPELINE EVALUATION]
+--------------------------------------------------
+GeneratedSpec->Impl  CE=5.603 ACC=0.170
+[SPEC Evolution Impact] ΔCE=+0.013 | ΔACC=-0.002
+
+[Agentic][Training] Stage 2B: Static specialization for IMPL agent (freeze backbone + SPEC agent; train IMPL agent on generated SPEC input)
+[SPEC LEN] avg=32.4 min=23 max=43
+[Agentic][Eval][IMPL-ONLY ADAPTATION][Before FT] CE=5.603 | tok_acc=0.170
+
+[Agentic][FT] Trainable parameter summary
+routing.agents.1.adapter.0.weight | shape=(384,) | params=384
+routing.agents.1.adapter.0.bias | shape=(384,) | params=384
+routing.agents.1.adapter.1.weight | shape=(124, 384) | params=47616
+routing.agents.1.adapter.1.bias | shape=(124,) | params=124
+routing.agents.1.adapter.3.weight | shape=(384, 124) | params=47616
+routing.agents.1.adapter.3.bias | shape=(384,) | params=384
+routing.agents.1.role_head.weight | shape=(4072, 384) | params=1563648
+routing.agents.1.role_head.bias | shape=(4072,) | params=4072
+routing.agents.1.router_head.weight | shape=(1, 384) | params=384
+routing.agents.1.router_head.bias | shape=(1,) | params=1
+
+Trainable=1,664,613 / Total=25,301,194 (6.5792%)
+[SPEC LEN] avg=31.0 min=19 max=69
+[SPEC LEN] avg=34.7 min=24 max=50
+[Agentic][Train][FT] epoch=1/3 train_ce=4.389 train_acc=0.173 val_ce=4.203 val_acc=0.198 train_valid=0.000
+[SPEC LEN] avg=30.9 min=21 max=46
+[SPEC LEN] avg=33.8 min=27 max=48
+[Agentic][Train][FT] epoch=2/3 train_ce=4.360 train_acc=0.177 val_ce=4.255 val_acc=0.197 train_valid=0.000
+[SPEC LEN] avg=31.0 min=21 max=51
+[SPEC LEN] avg=32.3 min=23 max=40
+[Agentic][Train][FT] epoch=3/3 train_ce=4.348 train_acc=0.179 val_ce=4.279 val_acc=0.197 train_valid=0.000
+[Agentic][Static Routing] Early stopping triggered
+[SPEC LEN] avg=32.4 min=23 max=43
+[Agentic][Eval][IMPL-ONLY ADAPTATION][After FT] CE=5.620 | tok_acc=0.175 | ΔCE=+0.017 | Δacc=+0.005
+
+[Stage2 Diagnostic]
+[SPEC LEN] avg=32.4 min=23 max=43
+
+--------------------------------------------------
+[Agentic][PIPELINE EVALUATION]
+--------------------------------------------------
+GeneratedSpec->Impl  CE=5.620 ACC=0.175
+
+------------------------------------------------------------
+[Agentic][Adaptation-Cost][IMPL-FT]
+------------------------------------------------------------
+
+total_params=25301194
+trainable_params=1664613
+trainable_ratio=0.065792
+encoder_params=10583552
+decoder_params=12952064
+shared_params=23535616
+active_agent_params=1664613
+active_inference_params=25200229
+active_parameter_ratio=0.996009
+agent_0_params=1664613
+agent_1_params=1664613
+
+[Agentic][Inference] Generating validated samples
+
+[Inference Summary] accepted_rate=0.0000 | patch_valid_rate=0.0000 | syntax_valid_rate=1.0000 | consistency=0.3119
+[JSONL Export] saved -> outputs/humaneval/predictions.jsonl
+(base) dae-kyookim@Dae-Kyoos-MacBook-Pro experiments % 

@@ -1,0 +1,15 @@
+INSTANCE_ID: he-39
+ACCEPTED: False
+PATCH_VALID: False
+SYNTAX_VALID: True
+LEXICAL_OVERLAP: 0.0000
+
+===== PROMPT =====
+def prime_fib(n: int): """ prime_fib returns n-th number that is a Fibonacci number and it's also prime. >>> prime_fib(1) 2 >>> prime_fib(2) 3 >>> prime_fib(3) 5 >>> prime_fib(4) 13 >>> prime_fib(5) 89 """
+
+===== ISSUE_GIST =====
+<SPEC> <SIGNATURE> def_to_to__to_((((): </SIGNATURE> </SIGNATURE> <DESCRIPTION> <DESCRIPTION> </SPEC>
+
+===== GENERATED_PATCH =====
+def prime_fib(n: int):
+    return None

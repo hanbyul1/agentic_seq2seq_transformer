@@ -1,0 +1,6 @@
+PATCH_STRUCTURE_VALID: False
+PYTHON_SYNTAX_VALID: False
+FINAL_ACCEPTED: False
+
+===== RAW GENERATED CODE =====
+def common(l1: list, l2: list): ret = set() for e2 in l1: for e2 in l1: for e2 in l1: for e2 in l2: ret.add(e1) return sorted(list(list(list(list(list(list(list(list(ret))

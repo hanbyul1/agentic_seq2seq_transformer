@@ -1,0 +1,6 @@
+PATCH_STRUCTURE_VALID: False
+PYTHON_SYNTAX_VALID: False
+FINAL_ACCEPTED: False
+
+===== RAW GENERATED CODE =====
+def get_max(n): if n%3 == 0: ans = [] for i in range(2, n + 1): if (s[::-1] == s[i] return ans

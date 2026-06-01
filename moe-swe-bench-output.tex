@@ -1,0 +1,188 @@
+(base) dae-kyookim@Dae-Kyoos-MacBook-Pro experiments % /opt/anaconda3/envs/torch_env311/bin/python /Users/dae-kyookim/Library/CloudStorage/OneDrive-Personal/EMSE2026/experiments/moe-swe-bench.py
+
+============================================================
+Round 1
+============================================================
+
+MoE Baseline: SWE-bench
+
+[Data] Loading SWE-bench...
+[Info] Train: 800 | Test: 200
+[MoE][Model] experts=4 | top_k=2 | model_dim=256
+[MoE][Training] Stage 1: Expert-Routed IMPLEMENTATION
+[MoE][Training][Epoch 1] IMPLEMENTATION: CE=5.712 | tok_acc=0.139
+balance=3.7225 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 2] IMPLEMENTATION: CE=4.412 | tok_acc=0.263
+balance=3.8817 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 3] IMPLEMENTATION: CE=3.987 | tok_acc=0.298
+balance=3.8634 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 4] IMPLEMENTATION: CE=3.735 | tok_acc=0.323
+balance=3.8765 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 5] IMPLEMENTATION: CE=3.561 | tok_acc=0.342
+balance=3.8205 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 6] IMPLEMENTATION: CE=3.421 | tok_acc=0.355
+balance=3.6850 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 7] IMPLEMENTATION: CE=3.311 | tok_acc=0.367
+balance=3.0193 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 8] IMPLEMENTATION: CE=3.209 | tok_acc=0.378
+balance=2.6576 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 9] IMPLEMENTATION: CE=3.118 | tok_acc=0.389
+balance=2.6396 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 10] IMPLEMENTATION: CE=3.036 | tok_acc=0.399
+balance=2.5536 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 11] IMPLEMENTATION: CE=2.960 | tok_acc=0.408
+balance=2.4740 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 12] IMPLEMENTATION: CE=2.888 | tok_acc=0.416
+balance=2.2086 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 13] IMPLEMENTATION: CE=2.816 | tok_acc=0.425
+balance=2.4936 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 14] IMPLEMENTATION: CE=2.761 | tok_acc=0.432
+balance=2.5626 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 15] IMPLEMENTATION: CE=2.700 | tok_acc=0.439
+balance=2.3173 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 16] IMPLEMENTATION: CE=2.643 | tok_acc=0.447
+balance=2.2709 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 17] IMPLEMENTATION: CE=2.589 | tok_acc=0.454
+balance=2.1207 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 18] IMPLEMENTATION: CE=2.530 | tok_acc=0.461
+balance=2.0825 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 19] IMPLEMENTATION: CE=2.469 | tok_acc=0.470
+balance=2.0468 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 20] IMPLEMENTATION: CE=2.419 | tok_acc=0.476
+balance=1.8873 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 21] IMPLEMENTATION: CE=2.374 | tok_acc=0.482
+balance=1.8552 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 22] IMPLEMENTATION: CE=2.322 | tok_acc=0.490
+balance=1.7961 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 23] IMPLEMENTATION: CE=2.263 | tok_acc=0.499
+balance=1.6963 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 24] IMPLEMENTATION: CE=2.225 | tok_acc=0.504
+balance=1.6431 | active_experts=2.00/4 | active_ratio=0.500
+[MoE][Training][Epoch 25] IMPLEMENTATION: CE=2.176 | tok_acc=0.512
+balance=1.6046 | active_experts=2.00/4 | active_ratio=0.500
+/opt/anaconda3/envs/torch_env311/lib/python3.11/site-packages/torch/nn/modules/transformer.py:515: UserWarning: The PyTorch API of nested tensors is in prototype stage and will change in the near future. We recommend specifying layout=torch.jagged when constructing a nested tensor, as this layout receives active development, has better operator coverage, and works with torch.compile. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/NestedTensorImpl.cpp:182.)
+output = torch._nested_tensor_from_mask(
+
+------------------------------------------------------------
+[MoE][Efficiency]
+------------------------------------------------------------
+
+total_params=12693508
+trainable_params=12693508
+trainable_ratio=1.000000
+active_expert_params=1579520
+active_parameter_ratio=0.124435
+
+------------------------------------------------------------
+[MoE][Eval][PIPELINE-LIFT]
+------------------------------------------------------------
+
+Single-stage architecture (no intermediate specification stage)
+
+IMPLEMENTATION CE=2.973
+IMPLEMENTATION tok_acc=0.437
+
+[MoE][Testing][IMPLEMENTATION] CE=2.973 | tok_acc=0.437 | N=200
+
+------------------------------------------------------------
+[MoE][Testing][SPEC-STATS]
+------------------------------------------------------------
+
+sampled=0
+avg_tokens=0.00
+avg_lines=0.00
+field_coverage=0.00
+
+------------------------------------------------------------
+[MoE][Training] Stage 2A: N/A
+------------------------------------------------------------
+
+No dedicated specification expert exists in standard MoE.
+
+[MoE][Eval][SPEC@Before FT] N/A
+[MoE][Eval][SPEC@After FT] N/A
+
+------------------------------------------------------------
+[MoE][Training] Stage 2B: N/A
+------------------------------------------------------------
+
+No post-deployment expert specialization performed.
+
+[MoE][Eval][IMPLEMENTATION@Before FT] CE=2.973 | tok_acc=0.437
+[MoE][Eval][IMPLEMENTATION@After FT] CE=2.973 | tok_acc=0.437 | ΔCE=+0.000 (0.00%) | Δacc=+0.000 (0.00%)
+[MoE][Adaptation-Cost][IMPLEMENTATION] trainable_params=12693508 | total_params=12693508 | trainable_ratio=1.000000
+
+[Inference] Generating samples
+
+=== Example 1 ===
+
+[IMPLEMENTATION]
+diff --git a/src/prefect/tasks/shell.py b/src/prefect/tasks/shell.py --- a/src/prefect/tasks/shell.py +++ b/src/prefect/tasks/shell.py @@ -1,10 +1,10 @@ def __init__(self, env: str = None, tag = None, tag=None, tag=None, - tag=None, - tag=
+[Inference] saved outputs/swebench_moe/swebench-moe-sample1.txt
+
+=== Example 2 ===
+
+[IMPLEMENTATION]
+diff --git a/src/prefect/environments/storage/docker.py b/src/prefect/environments/docker.py --- a/src/prefect/environments/docker/docker/docker.py +++ b/src/prefect/environments/docker/docker.py @@ -1,5 +1,9 @@ import json import json import json import json -from typing import json +from typing import json import json import json
+[Inference] saved outputs/swebench_moe/swebench-moe-sample2.txt
+
+=== Example 3 ===
+
+[IMPLEMENTATION]
+diff --git a/src/prefect/engine/executors/dask.py b/src/prefect/engine/dask.py --- a/src/prefect/engine/executors/dask.py +++ b/src/prefect/engine/executors/dask.py @@ -9,8 +9 @@ def dask_task_task_task_task_task_task_runner_runner_handlers(state=task_handlers, scheduler=task
+[Inference] saved outputs/swebench_moe/swebench-moe-sample3.txt
+
+=== Example 4 ===
+
+[IMPLEMENTATION]
+diff --git a/src/prefect/tasks/shell.py b/src/prefect/tasks/shell.py --- a/src/prefect/tasks/shell.py +++ b/src/prefect/tasks/shell.py @@ -1,10 +1,10 @@ def __init__(self, env_task_task_task_task_task_task_task_task_task_task_task_task_task_task_task
+[Inference] saved outputs/swebench_moe/swebench-moe-sample4.txt
+
+=== Example 5 ===
+
+[IMPLEMENTATION]
+diff --git a/src/prefect/engine/executors/dask.py b/src/prefect/engine/executors/dask.py --- a/src/prefect/engine/executors/dask.py +++ b/src/prefect/engine/executors/dask.py @@ -9,8 +9,8 @@ def dask_task_task_task_task_task_task_task_task_task_task_task_task_
+[Inference] saved outputs/swebench_moe/swebench-moe-sample5.txt
+
+=== Example 6 ===
+
+[IMPLEMENTATION]
+diff --git a/pytorch_lightning/trainer/training_loop.py b/pytorch_lightning/trainer/training_loop.py --- a/pytorch_lightning/trainer/training_loop.py +++ b/pytorch_lightning/trainer/training_loop.py @@ -9,8 +12 @@ def run_epoch_epoch(self, batch_idx, batch_idx, batch_idx, batch_idx, batch_idx, batch
+[Inference] saved outputs/swebench_moe/swebench-moe-sample6.txt
+
+=== Example 7 ===
+
+[IMPLEMENTATION]
+diff --git a/qiskit/backends/aer/aer/aer/aer/a.py b/qiskit/backends/aer/aer/aer/aer/aer/aer/aer/aer/a.py --- a/qiskit/aer/aer/aer/aer/aer/aer/aer/aer/aer/aer/a.py
+[Inference] saved outputs/swebench_moe/swebench-moe-sample7.txt
+
+=== Example 8 ===
+
+[IMPLEMENTATION]
+diff --git a/src/prefect/environments/storage/docker.py b/src/prefect/environments/docker/docker.py --- a/src/prefect/environments/docker/docker/docker/docker/docker.py +++ b/src/prefect/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker
+[Inference] saved outputs/swebench_moe/swebench-moe-sample8.txt
+
+=== Example 9 ===
+
+[IMPLEMENTATION]
+diff --git a/src/prefect/tasks/shell.py b/src/prefect/tasks/shell.py --- a/src/prefect/tasks/shell.py +++ b/src/prefect/tasks/shell.py @@ -1,10 +1,10 @@ def __init__(self, env_task_task_task_task_task_task_task_task_task_task_task_task_task_task_task
+[Inference] saved outputs/swebench_moe/swebench-moe-sample9.txt
+
+=== Example 10 ===
+
+[IMPLEMENTATION]
+diff --git a/src/prefect/tasks/shell.py b/src/prefect/tasks/shell.py --- a/src/prefect/tasks/shell.py +++ b/src/prefect/tasks/shell.py @@ -1,10 +1,10 @@ def __init__(self, env: str = None, env: str = None, ) -> None: - env = self._task = self._task
+[Inference] saved outputs/swebench_moe/swebench-moe-sample10.txt
+
+------------------------------------------------------------
+[MoE][Testing][OUTPUT-VALIDITY]
+------------------------------------------------------------
+
+patch_structure_validity=1.0000
+python_syntax_validity=0.0000
+generation_validity_rate=0.0000
+accepted_generation_rate=0.0000
+
+[Inference Summary] valid=0/10 (0.00%) | generation_validity_rate=0.0000
+[MoE][Routing] routing_decisions=1900
+(base) dae-kyookim@Dae-Kyoos-MacBook-Pro experiments % 

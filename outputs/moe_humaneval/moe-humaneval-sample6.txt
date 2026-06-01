@@ -1,0 +1,6 @@
+PATCH_STRUCTURE_VALID: False
+PYTHON_SYNTAX_VALID: False
+FINAL_ACCEPTED: False
+
+===== RAW GENERATED CODE =====
+def reverse_delete(s,c): s = ''.join([char for char in s if char not in c]) return (s,s[::-1] == s)

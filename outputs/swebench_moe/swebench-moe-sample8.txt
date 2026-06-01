@@ -1,0 +1,5 @@
+PATCH_STRUCTURE_VALID: True
+PYTHON_SYNTAX_VALID: False
+
+===== GENERATED PATCH =====
+diff --git a/src/prefect/environments/storage/docker.py b/src/prefect/environments/docker/docker.py --- a/src/prefect/environments/docker/docker/docker/docker/docker.py +++ b/src/prefect/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker/docker

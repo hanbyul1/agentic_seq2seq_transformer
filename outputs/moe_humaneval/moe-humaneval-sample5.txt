@@ -1,0 +1,6 @@
+PATCH_STRUCTURE_VALID: False
+PYTHON_SYNTAX_VALID: False
+FINAL_ACCEPTED: False
+
+===== RAW GENERATED CODE =====
+def get_max_triples(n): if n%3 == 0: return sorted(n): return sorted(list(list(list(n): if (s[::-1] == e2: if i % 2 == 0: return len(list(list(list(list(list(n): return len(n): return len(n): return len(n): return len(n): return len(n): return len(n): return len(n): return len(n): return len(n - 2))

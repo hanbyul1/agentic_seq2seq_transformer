@@ -1,0 +1,240 @@
+(base) dae-kyookim@Dae-Kyoos-MacBook-Pro experiments % /opt/anaconda3/envs/torch_env311/bin/python /Users/dae-kyookim/Library/CloudStorage/OneDrive-Personal/EMSE2026/experiments/moe-humaneval.py
+[MoE] Starting HumanEval baseline...
+
+============================================================
+Round 1
+============================================================
+
+MoE Baseline: HumanEval
+[Data] Load HumanEval…
+
+====================
+PROMPT
+from typing import List
+
+
+def has_close_elements(numbers: List[float], threshold: float) -> bool:
+""" Check if in given list of numbers, are any two numbers closer to each other than
+given threshold.
+>>> has_close_elements([1.0, 2.0, 3.0], 0.5)
+False
+>>> has_close_elements([1.0, 2.8, 3.0, 4.0, 5.0, 2.0], 0.3)
+True
+"""
+
+
+TARGET
+def has_close_elements(numbers: List[float], threshold: float) -> bool: for idx, elem in enumerate(numbers): for idx2, elem2 in enumerate(numbers): if idx != idx2: distance = abs(elem - elem2) if distance < threshold: return True return False
+
+====================
+PROMPT
+from typing import List
+
+
+def separate_paren_groups(paren_string: str) -> List[str]:
+""" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to
+separate those group into separate strings and return the list of those.
+Separate groups are balanced (each open brace is properly closed) and not nested within each other
+Ignore any spaces in the input string.
+>>> separate_paren_groups('( ) (( )) (( )( ))')
+['()', '(())', '(()())']
+"""
+
+
+TARGET
+def separate_paren_groups(paren_string: str) -> List[str]: result = [] current_string = [] current_depth = 0 for c in paren_string: if c == '(': current_depth += 1 current_string.append(c) elif c == ')': current_depth -= 1 current_string.append(c) if current_depth == 0: result.append(''.join(current_string)) current_string.clear() return result
+
+====================
+PROMPT
+
+
+def truncate_number(number: float) -> float:
+""" Given a positive floating point number, it can be decomposed into
+and integer part (largest integer smaller than given number) and decimals
+(leftover part always smaller than 1).
+
+Return the decimal part of the number.
+>>> truncate_number(3.5)
+0.5
+"""
+
+
+TARGET
+def truncate_number(number: float) -> float: return number % 1.0
+[Info] Train: 131 pairs, Test: 33 pairs
+[MoE][Model] experts=2 | top_k=1 | model_dim=384
+
+------------------------------------------------------------
+[MoE][Efficiency][INITIAL]
+------------------------------------------------------------
+
+total_params=23409725
+trainable_params=23409725
+trainable_ratio=1.000000
+active_expert_params=96508
+active_parameter_ratio=0.004123
+expert_0_params=96508
+expert_1_params=96508
+
+[MoE][Training] Joint Expert-Routed IMPLEMENTATION
+[MoE][Training][Epoch 1] IMPLEMENTATION: CE=7.106 | tok_acc=0.061
+balance=0.0045 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.5114504098892212, 0.4885496199131012]
+[MoE][Training][Epoch 2] IMPLEMENTATION: CE=6.080 | tok_acc=0.067
+balance=0.0012 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.4885496199131012, 0.5114504098892212]
+[MoE][Training][Epoch 3] IMPLEMENTATION: CE=5.486 | tok_acc=0.125
+balance=0.0010 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.3664122223854065, 0.6335877776145935]
+[MoE][Training][Epoch 4] IMPLEMENTATION: CE=4.868 | tok_acc=0.199
+balance=0.0002 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.7175572514533997, 0.28244274854660034]
+[MoE][Training][Epoch 5] IMPLEMENTATION: CE=4.367 | tok_acc=0.249
+balance=0.0003 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.42748090624809265, 0.572519063949585]
+[MoE][Training][Epoch 6] IMPLEMENTATION: CE=3.972 | tok_acc=0.302
+balance=0.0012 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.4885496199131012, 0.5114504098892212]
+[MoE][Training][Epoch 7] IMPLEMENTATION: CE=3.655 | tok_acc=0.335
+balance=0.0010 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.7251908183097839, 0.2748091518878937]
+[MoE][Training][Epoch 8] IMPLEMENTATION: CE=3.334 | tok_acc=0.385
+balance=0.0013 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.40458014607429504, 0.5954198241233826]
+[MoE][Training][Epoch 9] IMPLEMENTATION: CE=3.051 | tok_acc=0.428
+balance=0.0004 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.3358778655529022, 0.6641221642494202]
+[MoE][Training][Epoch 10] IMPLEMENTATION: CE=2.825 | tok_acc=0.456
+balance=0.0004 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.6870229244232178, 0.3129771053791046]
+[MoE][Training][Epoch 11] IMPLEMENTATION: CE=2.576 | tok_acc=0.496
+balance=0.0007 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.442748099565506, 0.5572519302368164]
+[MoE][Training][Epoch 12] IMPLEMENTATION: CE=2.357 | tok_acc=0.520
+balance=0.0003 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.3893129825592041, 0.6106870174407959]
+[MoE][Training][Epoch 13] IMPLEMENTATION: CE=2.128 | tok_acc=0.556
+balance=0.0002 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.5572519302368164, 0.442748099565506]
+[MoE][Training][Epoch 14] IMPLEMENTATION: CE=1.933 | tok_acc=0.586
+balance=0.0001 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.40458014607429504, 0.5954198241233826]
+[MoE][Training][Epoch 15] IMPLEMENTATION: CE=1.779 | tok_acc=0.614
+balance=0.0002 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.5954198241233826, 0.40458014607429504]
+[MoE][Training][Epoch 16] IMPLEMENTATION: CE=1.617 | tok_acc=0.639
+balance=0.0002 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.4122137427330017, 0.5877862572669983]
+[MoE][Training][Epoch 17] IMPLEMENTATION: CE=1.449 | tok_acc=0.676
+balance=0.0002 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.572519063949585, 0.42748090624809265]
+[MoE][Training][Epoch 18] IMPLEMENTATION: CE=1.313 | tok_acc=0.699
+balance=0.0001 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.42748090624809265, 0.572519063949585]
+[MoE][Training][Epoch 19] IMPLEMENTATION: CE=1.198 | tok_acc=0.722
+balance=0.0002 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.5114504098892212, 0.4885496199131012]
+[MoE][Training][Epoch 20] IMPLEMENTATION: CE=1.104 | tok_acc=0.743
+balance=0.0005 | active_experts=1.00/2 | active_ratio=0.500 | route=[0.5419847369194031, 0.4580152630805969]
+
+------------------------------------------------------------
+[MoE][Efficiency][AFTER-JOINT-TRAINING]
+------------------------------------------------------------
+
+total_params=23409725
+trainable_params=23409725
+trainable_ratio=1.000000
+active_expert_params=96508
+active_parameter_ratio=0.004123
+expert_0_params=96508
+expert_1_params=96508
+
+[MoE][Eval After Joint Training]
+/opt/anaconda3/envs/torch_env311/lib/python3.11/site-packages/torch/nn/modules/transformer.py:515: UserWarning: The PyTorch API of nested tensors is in prototype stage and will change in the near future. We recommend specifying layout=torch.jagged when constructing a nested tensor, as this layout receives active development, has better operator coverage, and works with torch.compile. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/NestedTensorImpl.cpp:182.)
+output = torch._nested_tensor_from_mask(
+
+------------------------------------------------------------
+[MoE][Eval][PIPELINE-LIFT]
+------------------------------------------------------------
+
+Single-stage architecture (no intermediate specification stage)
+
+IMPLEMENTATION CE=4.954
+IMPLEMENTATION tok_acc=0.306
+expert_0_route_share=0.090909
+expert_1_route_share=0.909091
+
+[MoE][Testing][IMPLEMENTATION] CE=4.954 | tok_acc=0.306 | N=33
+
+[MoE][Testing][SPEC-STATS]
+sampled=0
+avg_tokens=0.00
+avg_lines=0.00
+field_coverage=0.00
+
+[MoE][Training] Stage 2A: N/A
+No dedicated specification expert exists in standard MoE.
+[MoE][Eval][SPEC@Before FT] N/A
+[MoE][Eval][SPEC@After FT] N/A
+
+[MoE][Training] Stage 2B: N/A
+No post-deployment expert specialization performed.
+[MoE][Eval][IMPLEMENTATION@Before FT] CE=4.954 | tok_acc=0.306
+[MoE][Eval][IMPLEMENTATION@After FT] CE=4.954 | tok_acc=0.306 | ΔCE=+0.000 (0.00%) | Δacc=+0.000 (0.00%)
+[MoE][Adaptation-Cost][IMPLEMENTATION] trainable_params=23409725 | total_params=23409725 | trainable_ratio=1.000000
+
+[Inference] Generating samples
+
+=== Example 1 ===
+
+[IMPLEMENTATION]
+def reverse_delete(s,c): s = ''.join([char for char in s if char not in c]) return (s[::-1] == s)
+[Inference] saved outputs/moe_humaneval/moe-humaneval-sample1.txt (valid=False)
+
+=== Example 2 ===
+
+[IMPLEMENTATION]
+def triangle_area(a, b): return a * h / 2.0
+[Inference] saved outputs/moe_humaneval/moe-humaneval-sample2.txt (valid=False)
+
+=== Example 3 ===
+
+[IMPLEMENTATION]
+def get_max_triples(n): if n < 0: n: return sorted(n): return sorted(n - 2))
+[Inference] saved outputs/moe_humaneval/moe-humaneval-sample3.txt (valid=False)
+
+=== Example 4 ===
+
+[IMPLEMENTATION]
+def get_max(n): if n%3 == 0: ans = [] for i in range(2, n + 1): if (s[::-1] == s[i] return ans
+[Inference] saved outputs/moe_humaneval/moe-humaneval-sample4.txt (valid=False)
+
+=== Example 5 ===
+
+[IMPLEMENTATION]
+def get_max_triples(n): if n%3 == 0: return sorted(n): return sorted(list(list(list(n): if (s[::-1] == e2: if i % 2 == 0: return len(list(list(list(list(list(n): return len(n): return len(n): return len(n): return len(n): return len(n): return len(n): return len(n): return len(n): return len(n - 2))
+[Inference] saved outputs/moe_humaneval/moe-humaneval-sample5.txt (valid=False)
+
+=== Example 6 ===
+
+[IMPLEMENTATION]
+def reverse_delete(s,c): s = ''.join([char for char in s if char not in c]) return (s,s[::-1] == s)
+[Inference] saved outputs/moe_humaneval/moe-humaneval-sample6.txt (valid=False)
+
+=== Example 7 ===
+
+[IMPLEMENTATION]
+def reverse_delete(s,c): s = ''.join([char for char in s if char not in c]) return (s[::-1] == s)
+[Inference] saved outputs/moe_humaneval/moe-humaneval-sample7.txt (valid=False)
+
+=== Example 8 ===
+
+[IMPLEMENTATION]
+def reverse_delete(s,c): s = ''.join([char for char in s if char not in c]) return (s,s[::-1] == s)
+[Inference] saved outputs/moe_humaneval/moe-humaneval-sample8.txt (valid=False)
+
+=== Example 9 ===
+
+[IMPLEMENTATION]
+def get_max_triples(n): A = [i + 1 for i in range(n): for j in range(n): if n%3 == 0: if not is_prime = len(n): if i % 2 == 0: if not is_prime = len(j + 1): if i.append(j + 1): if i % 2 == 0: if not is_sum(j + 1): if (s[j],A[j],A[j],A[j],A[j],A[j],A[j],A[k]: ans = len(ans) return ans
+[Inference] saved outputs/moe_humaneval/moe-humaneval-sample9.txt (valid=False)
+
+=== Example 10 ===
+
+[IMPLEMENTATION]
+def common(l1: list, l2: list): ret = set() for e2 in l1: for e2 in l1: for e2 in l1: for e2 in l2: ret.add(e1) return sorted(list(list(list(list(list(list(list(list(ret))
+[Inference] saved outputs/moe_humaneval/moe-humaneval-sample10.txt (valid=False)
+
+------------------------------------------------------------
+[MoE][Testing][OUTPUT-VALIDITY]
+------------------------------------------------------------
+
+patch_structure_validity=0.0000
+python_syntax_validity=0.1000
+generation_validity_rate=0.0000
+accepted_generation_rate=0.0000
+
+[Inference Summary] valid=0/10 (0.00%) | generation_validity_rate=0.0000 | unique_outputs=8/10 | pairwise_similarity=0.3460
+[MoE][JSONL Export] saved -> outputs/moe_humaneval/predictions.jsonl
+(base) dae-kyookim@Dae-Kyoos-MacBook-Pro experiments % 

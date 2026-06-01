@@ -1,0 +1,237 @@
+(base) dae-kyookim@Dae-Kyoos-MacBook-Pro experiments % /opt/anaconda3/envs/torch_env311/bin/python /Users/dae-kyookim/Library/CloudStorage/OneDrive-Personal/EMSE2026/experiments/agentic-transformer-v17-sw
+e-bench.py
+
+============================================================
+Round 1
+============================================================
+
+[Data] Loading SWE-bench...
+[Constraint Tokens] [885, 1733, 401, 497, 982, 1896, 32, 34, 35]
+[Info] Train: 265 | Test: 67
+
+------------------------------------------------------------
+[Agentic][Efficiency]
+------------------------------------------------------------
+
+total_params=10718976
+active_inference_params=11243264
+active_parameter_ratio=1.048912
+[Agentic][Training] Stage 1: Interleaved SPEC↔IMPLEMENTATION
+/opt/anaconda3/envs/torch_env311/lib/python3.11/site-packages/torch/nn/modules/transformer.py:515: UserWarning: The PyTorch API of nested tensors is in prototype stage and will change in the near future. We recommend specifying layout=torch.jagged when constructing a nested tensor, as this layout receives active development, has better operator coverage, and works with torch.compile. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/NestedTensorImpl.cpp:182.)
+output = torch._nested_tensor_from_mask(
+[Agentic][Training][Epoch 1] SPEC: CE=6.756 | tok_acc=0.135  ||  IMPLEMENTATION: CE=6.799 | tok_acc=0.068
+[Agentic][Training][Epoch 2] SPEC: CE=5.595 | tok_acc=0.144  ||  IMPLEMENTATION: CE=5.731 | tok_acc=0.084
+[Agentic][Training][Epoch 3] SPEC: CE=5.093 | tok_acc=0.184  ||  IMPLEMENTATION: CE=5.473 | tok_acc=0.119
+[Agentic][Training][Epoch 4] SPEC: CE=4.704 | tok_acc=0.242  ||  IMPLEMENTATION: CE=5.223 | tok_acc=0.147
+[Agentic][Training][Epoch 5] SPEC: CE=4.404 | tok_acc=0.275  ||  IMPLEMENTATION: CE=4.973 | tok_acc=0.172
+[Agentic][Training][Epoch 6] SPEC: CE=4.167 | tok_acc=0.300  ||  IMPLEMENTATION: CE=4.756 | tok_acc=0.188
+[Agentic][Training][Epoch 7] SPEC: CE=3.989 | tok_acc=0.316  ||  IMPLEMENTATION: CE=4.590 | tok_acc=0.201
+[Agentic][Training][Epoch 8] SPEC: CE=3.846 | tok_acc=0.332  ||  IMPLEMENTATION: CE=4.462 | tok_acc=0.211
+[Agentic][Training][Epoch 9] SPEC: CE=3.722 | tok_acc=0.351  ||  IMPLEMENTATION: CE=4.343 | tok_acc=0.225
+[Agentic][Training][Epoch 10] SPEC: CE=3.615 | tok_acc=0.363  ||  IMPLEMENTATION: CE=4.249 | tok_acc=0.234
+[Agentic][Training][Epoch 11] SPEC: CE=3.500 | tok_acc=0.380  ||  IMPLEMENTATION: CE=4.143 | tok_acc=0.243
+[Agentic][Training][Epoch 12] SPEC: CE=3.436 | tok_acc=0.387  ||  IMPLEMENTATION: CE=4.075 | tok_acc=0.250
+[Agentic][Training][Epoch 13] SPEC: CE=3.334 | tok_acc=0.401  ||  IMPLEMENTATION: CE=3.971 | tok_acc=0.262
+[Agentic][Training][Epoch 14] SPEC: CE=3.300 | tok_acc=0.404  ||  IMPLEMENTATION: CE=3.926 | tok_acc=0.264
+[Agentic][Training][Epoch 15] SPEC: CE=3.190 | tok_acc=0.418  ||  IMPLEMENTATION: CE=3.814 | tok_acc=0.279
+[Agentic][Training][Epoch 16] SPEC: CE=3.142 | tok_acc=0.423  ||  IMPLEMENTATION: CE=3.736 | tok_acc=0.287
+[Agentic][Training][Epoch 17] SPEC: CE=3.133 | tok_acc=0.421  ||  IMPLEMENTATION: CE=3.710 | tok_acc=0.289
+[Agentic][Training][Epoch 18] SPEC: CE=3.040 | tok_acc=0.432  ||  IMPLEMENTATION: CE=3.599 | tok_acc=0.304
+[Agentic][Training][Epoch 19] SPEC: CE=3.018 | tok_acc=0.434  ||  IMPLEMENTATION: CE=3.553 | tok_acc=0.310
+[Agentic][Training][Epoch 20] SPEC: CE=2.980 | tok_acc=0.438  ||  IMPLEMENTATION: CE=3.511 | tok_acc=0.312
+[Agentic][Training][Epoch 21] SPEC: CE=2.876 | tok_acc=0.454  ||  IMPLEMENTATION: CE=3.360 | tok_acc=0.334
+[Agentic][Training][Epoch 22] SPEC: CE=2.894 | tok_acc=0.447  ||  IMPLEMENTATION: CE=3.362 | tok_acc=0.330
+[Agentic][Training][Epoch 23] SPEC: CE=2.843 | tok_acc=0.454  ||  IMPLEMENTATION: CE=3.283 | tok_acc=0.340
+[Agentic][Training][Epoch 24] SPEC: CE=2.802 | tok_acc=0.458  ||  IMPLEMENTATION: CE=3.203 | tok_acc=0.350
+[Agentic][Training][Epoch 25] SPEC: CE=2.760 | tok_acc=0.465  ||  IMPLEMENTATION: CE=3.141 | tok_acc=0.359
+
+------------------------------------------------------------
+[Agentic][Eval][PIPELINE-LIFT]
+------------------------------------------------------------
+
+Teacher-forced implementation comparison (structured-context input vs raw-input evaluation)
+
+IMPLEMENTATION CE(raw-input)=5.080
+IMPLEMENTATION CE(gist-conditioned)=5.100
+ΔCE=0.020
+
+acc(raw-input)=0.196
+acc(gist-conditioned)=0.194
+[Agentic][Testing][IMPLEMENTATION@GIST] CE=5.100 | tok_acc=0.194 | N=67
+
+------------------------------------------------------------
+[Agentic][Testing][SPEC-STATS]
+------------------------------------------------------------
+
+sampled=8
+avg_tokens=116.25
+avg_lines=1.00
+field_coverage=1.00
+
+------------------------------------------------------------
+[Agentic][Training] Stage 2A: Static specialization for SPEC agent
+------------------------------------------------------------
+
+Freeze:
+- backbone
+- Implementation agent
+
+Train:
+- Spec agent on original X with P targets
+
+[Agentic][Eval][SPEC@Before FT] CE=3.842 | tok_acc=0.372
+[Agentic][Static Routing][Specification Agent FT] Epoch 1 | TrainCE=2.724 | TrainAcc=0.469 | DevCE=2.439 | DevAcc=0.521
+[Agentic][Static Routing][Specification Agent FT] Epoch 2 | TrainCE=2.679 | TrainAcc=0.473 | DevCE=2.459 | DevAcc=0.522
+[Agentic][Static Routing][Specification Agent FT] Epoch 3 | TrainCE=2.662 | TrainAcc=0.475 | DevCE=2.473 | DevAcc=0.521
+[FT] Early stopping
+[Agentic][Eval][SPEC@After FT] CE=3.810 | tok_acc=0.382 | ΔCE=-0.031 (-0.82%) | Δacc=+0.011 (+2.91%)
+[Agentic][Adaptation-Cost][SPEC] trainable_params=592768 | total_params=10718976 | trainable_ratio=0.055301
+
+------------------------------------------------------------
+[Agentic][Training] Stage 2B: Static specialization for IMPLEMENTATION agent
+------------------------------------------------------------
+
+Freeze:
+- backbone
+- Spec agent
+
+Train:
+- Implementation agent on spec-only input
+
+[Agentic][Eval][IMPLEMENTATION@Before FT] CE=5.121 | tok_acc=0.192
+[Agentic][Static Routing][Implementation Agent FT] Epoch 1 | TrainCE=3.066 | TrainAcc=0.364 | DevCE=2.927 | DevAcc=0.401
+[Agentic][Static Routing][Implementation Agent FT] Epoch 2 | TrainCE=3.010 | TrainAcc=0.373 | DevCE=2.967 | DevAcc=0.398
+[Agentic][Static Routing][Implementation Agent FT] Epoch 3 | TrainCE=2.982 | TrainAcc=0.375 | DevCE=2.995 | DevAcc=0.396
+[FT] Early stopping
+[Agentic][Eval][IMPLEMENTATION@After FT] CE=5.121 | tok_acc=0.199 | ΔCE=+0.000 (+0.00%) | Δacc=+0.007 (+3.62%)
+[Agentic][Adaptation-Cost][IMPLEMENTATION] trainable_params=592768 | total_params=10718976 | trainable_ratio=0.055301
+
+[Inference] Generating samples
+
+=== Example 0 ===
+
+[SPEC]
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> API expression support </FAULT_TYPE> <FAULT_LOCATION> SwitchCaseOp WhileLoopOp IfElseOp WhileLoopOp.condition </FAULT_LOCATION> <EXPECTED_BEHAVIOR> we add? This tracks the work labelled "PR 2" in [the initial classical-expression design document](https://github.com/Qi </EXPECTED_BEHAVIOR> <PATCH_HINT> propagate expression/register mapping logic </PATCH_HINT> <DETAILS> <ISSUE_DESC> Add support for classical expressions to `SwitchCaseOp`, `WhileLoopOp` and `IfElseOp` ### What should we add? This tracks the work labelled "PR 2" in [the initial classical-expression design document](https://github.com/Qiskit/RFCs/blob/master/0010-simple-classical-representations.md). Depends on #10223. Brief overview: -
+
+[IMPLEMENTATION]
+def generated_patch(value):
+if hasattr(value, 'condition'):
+return value.condition
+return value
+[Inference] saved outputs/swebench/swebench-sample1.txt (valid=False, repairs=0)
+
+=== Example 1 ===
+
+[SPEC]
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> logging side effect </FAULT_TYPE> <FAULT_LOCATION> ISSUE_DESC global_step Bug The global_step e.g. Tensorboard Only </FAULT_LOCATION> <EXPECTED_BEHAVIOR> avoid unnecessary mutation or side effect </EXPECTED_BEHAVIOR> <PATCH_HINT> avoid mutating shared metric dictionary </PATCH_HINT> <DETAILS> <ISSUE_DESC> wandb logger 'global_step' affects other logger ## Bug The wandb logger adds a 'global_step' to the metric dict which appears in all other loggers (e.g. Tensorboard). Only the wandb logger is adding 'global_step' to metric and I think it is not necessary. Another side effect of that is, that </DETAILS>
+
+[IMPLEMENTATION]
+def generated_patch(metrics):
+metrics = dict(metrics)
+metrics.pop('global_step', None)
+return metrics
+[Inference] saved outputs/swebench/swebench-sample2.txt (valid=True, repairs=0)
+
+=== Example 2 ===
+
+[SPEC]
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> runtime crash </FAULT_TYPE> <FAULT_LOCATION> ISSUE_DESC Envoy Istio Envoy Output docs.datadoghq.com Getting agent. </FAULT_LOCATION> <EXPECTED_BEHAVIOR> avoid crash and handle missing or malformed values </EXPECTED_BEHAVIOR> <PATCH_HINT> guard missing fields before metric collection </PATCH_HINT> <DETAILS> <ISSUE_DESC> Envoy check crashes when collecting metrics from Istio Envoy **Output of the [info page](https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information)** ```text Getting the status from the agent. =============== Agent (v6.20.0) =============== Status date: 2020-09-30 03:44:21.621801 UTC Agent start: 2020-09-30 03:41:33.917383 UTC Pid: 347 Go Version: go1.13.
+
+[IMPLEMENTATION]
+def generated_patch(value):
+if value is None:
+return None
+return value
+[Inference] saved outputs/swebench/swebench-sample3.txt (valid=False, repairs=0)
+
+=== Example 3 ===
+
+[SPEC]
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> gradient computation behavior </FAULT_TYPE> <FAULT_LOCATION> gradient_clip_val clipping_gradient </FAULT_LOCATION> <EXPECTED_BEHAVIOR> preserve intended behavior without side effects </EXPECTED_BEHAVIOR> <PATCH_HINT> apply clipping without unnecessary slow path </PATCH_HINT> <DETAILS> <ISSUE_DESC> Performance drop when activating gradient clipping Hello all, I experienced a substantial drop in computation time when activating gradient clipping (by passing a non-zero value to the keyword argument `gradient_clip_val` when initializing the Trainer). I noticed that in the current implementation of the `clipping_gradient` method in pytorch-lightning/trainer/training_tricks.py redundant computations </DETAILS>
+
+[IMPLEMENTATION]
+def generated_patch(optimizer):
+if optimizer is None:
+return None
+return optimizer
+[Inference] saved outputs/swebench/swebench-sample4.txt (valid=False, repairs=0)
+
+=== Example 4 ===
+
+[SPEC]
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> logging side effect </FAULT_TYPE> <FAULT_LOCATION> FileLogger </FAULT_LOCATION> <EXPECTED_BEHAVIOR> preserve intended behavior without side effects </EXPECTED_BEHAVIOR> <PATCH_HINT> avoid mutating shared metric dictionary </PATCH_HINT> <DETAILS> Add a basic logger which does not require ports ## Feature It would be great to have a basic logger that does not require opening ports. ### Motivation At this time, all loggers supported by Lightning requires to use ports. There are some environments where I don't have total control </DETAILS>
+
+[IMPLEMENTATION]
+def generated_patch(metrics):
+metrics = dict(metrics)
+metrics.pop('global_step', None)
+return metrics
+[Inference] saved outputs/swebench/swebench-sample5.txt (valid=False, repairs=0)
+
+=== Example 5 ===
+
+[SPEC]
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> logging side effect </FAULT_TYPE> <FAULT_LOCATION> validation_end training_end </FAULT_LOCATION> <EXPECTED_BEHAVIOR> preserve intended behavior without side effects </EXPECTED_BEHAVIOR> <PATCH_HINT> avoid mutating shared metric dictionary </PATCH_HINT> <DETAILS> <ISSUE_DESC> Log training metrics for each epoch Currently, I am able to log training metrics to Tensorboard using: ``` import pytorch_lightning as pl from pytorch_lightning.loggers import TensorBoardLogger logger = TensorBoardLogger(save_dir=save_dir, name="my_model") [...] trainer = pl.Trainer(logger=logger) ``` This logs training metrics (loss, for instance) after each batch. I would like to </DETAILS>
+
+[IMPLEMENTATION]
+def generated_patch(metrics):
+metrics = dict(metrics)
+metrics.pop('global_step', None)
+return metrics
+[Inference] saved outputs/swebench/swebench-sample6.txt (valid=False, repairs=0)
+
+=== Example 6 ===
+
+[SPEC]
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> retry error handling </FAULT_TYPE> <FAULT_LOCATION> checkpoint=True </FAULT_LOCATION> <EXPECTED_BEHAVIOR> raise an informative error during the Docker health check. Similarly, if a user has tasks with `checkpoint=True` that do </EXPECTED_BEHAVIOR> <PATCH_HINT> retry when payload contains recoverable errors </PATCH_HINT> <DETAILS> Update Docker healthcheck to include result handlers There are certain situations that we can catch prior to deployment that would result in a Flow not behaving as expected. In particular, if a user tries to deploy a Flow which: - has a task with retry settings - that task also </DETAILS>
+
+[IMPLEMENTATION]
+def generated_patch(value):
+return value
+[Inference] saved outputs/swebench/swebench-sample7.txt (valid=False, repairs=0)
+
+=== Example 7 ===
+
+[SPEC]
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> behavioral defect </FAULT_TYPE> <FAULT_LOCATION> prefect </FAULT_LOCATION> <EXPECTED_BEHAVIOR> preserve intended behavior without side effects </EXPECTED_BEHAVIOR> <PATCH_HINT> modify localized behavior using existing API </PATCH_HINT> <DETAILS> CLI Cloud Preparation The `prefect` CLI needs some enhancements to handle communication with the execution cluster (all which route through the client). - [x] Build environment from flow env - [x] Serialized flow from serialized registry - [x] Container shipment to registry - [x] Configuration / Access permissions - [x] </DETAILS>
+
+[IMPLEMENTATION]
+def generated_patch(value):
+return value
+[Inference] saved outputs/swebench/swebench-sample8.txt (valid=False, repairs=0)
+
+=== Example 8 ===
+
+[SPEC]
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> runtime dependency constraint </FAULT_TYPE> <FAULT_LOCATION> on_train_start on_train_end Also, it seems that </FAULT_LOCATION> <EXPECTED_BEHAVIOR> preserve intended behavior without side effects </EXPECTED_BEHAVIOR> <PATCH_HINT> write metrics locally without opening server port </PATCH_HINT> <DETAILS> Fix callback signature on trainer.html ## Documentation According to [callbacks.html][1], `on_train_start` and `on_train_end` receive three arguments, but the callback example on [trainer.html][2] has only one: ``` from pytorch_lightning.callbacks import Callback class PrintCallback(Callback): def on_train_start(self): print("Training is started!") def on_train_end(self): print(f"Training is done. The logs are: {self.trainer.logs}") ``` Also, it seems </DETAILS>
+
+[IMPLEMENTATION]
+def generated_patch(path, metrics):
+with open(path, 'a', encoding='utf-8') as f:
+f.write(str(metrics) + '\n')
+return path
+[Inference] saved outputs/swebench/swebench-sample9.txt (valid=True, repairs=0)
+
+=== Example 9 ===
+
+[SPEC]
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> runtime dependency constraint </FAULT_TYPE> <FAULT_LOCATION> ISSUE_DESC Explore Coveralls coveralls.io repositories. We github.com PrefectHQ </FAULT_LOCATION> <EXPECTED_BEHAVIOR> preserve intended behavior without side effects </EXPECTED_BEHAVIOR> <PATCH_HINT> write metrics locally without opening server port </PATCH_HINT> <DETAILS> <ISSUE_DESC> Explore using coveralls [Coveralls](https://coveralls.io/) is a service for hosting coverage reports of repositories. We currently create a custom website for displaying our coverage here: https://github.com/PrefectHQ/prefect/blob/master/docs/generate_docs.py#L259 and hosted here: https://docs.prefect.io/api/unreleased/coverage.html This is fine, but routinely causes warnings in our netlify builds. In addition to not
+
+[IMPLEMENTATION]
+def generated_patch(path, metrics):
+with open(path, 'a', encoding='utf-8') as f:
+f.write(str(metrics) + '\n')
+return path
+[Inference] saved outputs/swebench/swebench-sample10.txt (valid=True, repairs=0)
+
+------------------------------------------------------------
+[Agentic][Testing][OUTPUT-VALIDITY]
+------------------------------------------------------------
+
+patch_structure_validity=0.8000
+python_syntax_validity=1.0000
+generation_validity_rate=0.3000
+accepted_generation_rate=0.3000
+
+[Inference Summary] valid=3/10 (30.00%) | generation_validity_rate=0.3000 | pairwise_similarity=0.3919
+(base) dae-kyookim@Dae-Kyoos-MacBook-Pro experiments % 

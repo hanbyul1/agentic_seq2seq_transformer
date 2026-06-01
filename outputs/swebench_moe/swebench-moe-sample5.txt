@@ -1,0 +1,5 @@
+PATCH_STRUCTURE_VALID: True
+PYTHON_SYNTAX_VALID: False
+
+===== GENERATED PATCH =====
+diff --git a/src/prefect/engine/executors/dask.py b/src/prefect/engine/executors/dask.py --- a/src/prefect/engine/executors/dask.py +++ b/src/prefect/engine/executors/dask.py @@ -9,8 +9,8 @@ def dask_task_task_task_task_task_task_task_task_task_task_task_task_

@@ -1,0 +1,15 @@
+PATCH_STRUCTURE_VALID: True
+PYTHON_SYNTAX_VALID: True
+LEXICAL_OVERLAP_SCORE: 0.0000
+PATCH_SANITY_SCORE: 1.0000
+FINAL_ACCEPTED: False
+REPAIR_ATTEMPTS: 0
+
+===== ISSUE ANALYSIS =====
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> runtime crash </FAULT_TYPE> <FAULT_LOCATION> ISSUE_DESC Envoy Istio Envoy Output docs.datadoghq.com Getting agent. </FAULT_LOCATION> <EXPECTED_BEHAVIOR> avoid crash and handle missing or malformed values </EXPECTED_BEHAVIOR> <PATCH_HINT> guard missing fields before metric collection </PATCH_HINT> <DETAILS> <ISSUE_DESC> Envoy check crashes when collecting metrics from Istio Envoy **Output of the [info page](https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information)** ```text Getting the status from the agent. =============== Agent (v6.20.0) =============== Status date: 2020-09-30 03:44:21.621801 UTC Agent start: 2020-09-30 03:41:33.917383 UTC Pid: 347 Go Version: go1.13.
+
+===== GENERATED PATCH =====
+def generated_patch(value):
+    if value is None:
+        return None
+    return value

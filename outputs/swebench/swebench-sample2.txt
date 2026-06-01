@@ -1,0 +1,15 @@
+PATCH_STRUCTURE_VALID: True
+PYTHON_SYNTAX_VALID: True
+LEXICAL_OVERLAP_SCORE: 0.0385
+PATCH_SANITY_SCORE: 1.0000
+FINAL_ACCEPTED: True
+REPAIR_ATTEMPTS: 0
+
+===== ISSUE ANALYSIS =====
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> logging side effect </FAULT_TYPE> <FAULT_LOCATION> ISSUE_DESC global_step Bug The global_step e.g. Tensorboard Only </FAULT_LOCATION> <EXPECTED_BEHAVIOR> avoid unnecessary mutation or side effect </EXPECTED_BEHAVIOR> <PATCH_HINT> avoid mutating shared metric dictionary </PATCH_HINT> <DETAILS> <ISSUE_DESC> wandb logger 'global_step' affects other logger ## Bug The wandb logger adds a 'global_step' to the metric dict which appears in all other loggers (e.g. Tensorboard). Only the wandb logger is adding 'global_step' to metric and I think it is not necessary. Another side effect of that is, that </DETAILS>
+
+===== GENERATED PATCH =====
+def generated_patch(metrics):
+    metrics = dict(metrics)
+    metrics.pop('global_step', None)
+    return metrics

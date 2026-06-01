@@ -1,0 +1,15 @@
+INSTANCE_ID: he-27
+ACCEPTED: False
+PATCH_VALID: False
+SYNTAX_VALID: True
+LEXICAL_OVERLAP: 0.0000
+
+===== PROMPT =====
+def flip_case(string: str) -> str: """ For a given string, flip lowercase characters to uppercase and uppercase to lowercase. >>> flip_case('Hello') 'hELLO' """
+
+===== ISSUE_GIST =====
+<SPEC> <SIGNATURE> def_to_to_((((): </SIGNATURE> </SIGNATURE> <DESCRIPTION> <DESCRIPTION> </SPEC>
+
+===== GENERATED_PATCH =====
+def flip_case(string: str) -> str:
+    return ''

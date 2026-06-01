@@ -1,0 +1,13 @@
+PATCH_STRUCTURE_VALID: False
+PYTHON_SYNTAX_VALID: True
+LEXICAL_OVERLAP_SCORE: 0.0000
+PATCH_SANITY_SCORE: 1.0000
+FINAL_ACCEPTED: False
+REPAIR_ATTEMPTS: 0
+
+===== ISSUE ANALYSIS =====
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> retry error handling </FAULT_TYPE> <FAULT_LOCATION> checkpoint=True </FAULT_LOCATION> <EXPECTED_BEHAVIOR> raise an informative error during the Docker health check. Similarly, if a user has tasks with `checkpoint=True` that do </EXPECTED_BEHAVIOR> <PATCH_HINT> retry when payload contains recoverable errors </PATCH_HINT> <DETAILS> Update Docker healthcheck to include result handlers There are certain situations that we can catch prior to deployment that would result in a Flow not behaving as expected. In particular, if a user tries to deploy a Flow which: - has a task with retry settings - that task also </DETAILS>
+
+===== GENERATED PATCH =====
+def generated_patch(value):
+    return value

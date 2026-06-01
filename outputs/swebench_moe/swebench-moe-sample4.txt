@@ -1,0 +1,5 @@
+PATCH_STRUCTURE_VALID: True
+PYTHON_SYNTAX_VALID: False
+
+===== GENERATED PATCH =====
+diff --git a/src/prefect/tasks/shell.py b/src/prefect/tasks/shell.py --- a/src/prefect/tasks/shell.py +++ b/src/prefect/tasks/shell.py @@ -1,10 +1,10 @@ def __init__(self, env_task_task_task_task_task_task_task_task_task_task_task_task_task_task_task
