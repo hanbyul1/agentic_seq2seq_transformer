@@ -3654,6 +3654,45 @@ def generate_validated_samples(
         f"| pairwise_similarity={overall_similarity:.4f}"
     )
 
+def save_deployment_checkpoint(
+    model,
+    tok,
+    cfg,
+    split_info,
+):
+
+    checkpoint_dir = os.path.join(
+        cfg.out_dir,
+        "checkpoints",
+    )
+
+    os.makedirs(
+        checkpoint_dir,
+        exist_ok=True,
+    )
+
+    checkpoint_path = os.path.join(
+        checkpoint_dir,
+        "deployed_joint.pt",
+    )
+
+    torch.save(
+        {
+            "model_state_dict": model.state_dict(),
+
+            "config": cfg.__dict__,
+
+            "split_info": split_info,
+
+            "tokenizer_vocab_size": tok.vocab_size,
+        },
+        checkpoint_path,
+    )
+
+    print(
+        f"[Checkpoint] Saved deployed model: "
+        f"{checkpoint_path}"
+    )
 
 # ============================================================
 # Main
@@ -3757,20 +3796,62 @@ def run_all(cfg: Config = CFG):
     Y = Y[perm]
     P = P[perm]
 
-    split = int(N * 0.8)
+    # --------------------------------------------------------
+    # Split current surviving dataset
+    #
+    # 70% -> deployment training
+    # 15% -> reserved post-deployment adaptation
+    # 15% -> reserved final evaluation
+    # --------------------------------------------------------
 
-    X_train = X[:split]
-    X_test = X[split:]
-
-    Y_train = Y[:split]
-    Y_test = Y[split:]
-
-    P_train = P[:split]
-    P_test = P[split:]
+    joint_train_size = int(0.70 * N)
+    adapt_size = int(0.15 * N)
+    final_test_size = N - joint_train_size - adapt_size
 
     print(
-        f"[Info] Train: {split} "
-        f"| Test: {N - split}"
+        f"[Split] N={N} "
+        f"| train={joint_train_size} "
+        f"| adapt={adapt_size} "
+        f"| final_test={final_test_size}"
+    )
+
+    joint_train_end = joint_train_size
+    adapt_end = joint_train_size + adapt_size
+    final_test_end = joint_train_size + adapt_size + final_test_size
+
+    joint_train_idx = list(range(0, joint_train_end))
+    adapt_idx = list(range(joint_train_end, adapt_end))
+    final_test_idx = list(range(adapt_end, final_test_end))
+
+    X_train = X[joint_train_idx]
+    Y_train = Y[joint_train_idx]
+    P_train = P[joint_train_idx]
+
+    X_test = X[final_test_idx]
+    Y_test = Y[final_test_idx]
+    P_test = P[final_test_idx]
+
+    split_info = {
+        "seed": cfg.seed,
+        "perm": perm.tolist(),
+
+        "joint_train_size": joint_train_size,
+        "adapt_size": adapt_size,
+        "final_test_size": final_test_size,
+
+        "joint_train_idx": joint_train_idx,
+        "adapt_idx": adapt_idx,
+        "final_test_idx": final_test_idx,
+
+        "joint_train_ids": ids[0:joint_train_end],
+        "adapt_ids": ids[joint_train_end:adapt_end],
+        "final_test_ids": ids[adapt_end:final_test_end],
+    }
+
+    print(
+        f"[Info] Joint train: {joint_train_size} "
+        f"| Adapt: {adapt_size} "
+        f"| Final test: {final_test_size}"
     )
 
     # --------------------------------------------------------
@@ -3847,6 +3928,12 @@ def run_all(cfg: Config = CFG):
         max_in_len=cfg.max_in_len,
     )
 
+    save_deployment_checkpoint(
+        model,
+        data.tok,
+        cfg,
+        split_info,
+    )
     # --------------------------------------------------------
     # PIPELINE-LIFT
     # --------------------------------------------------------
@@ -3904,6 +3991,19 @@ def run_all(cfg: Config = CFG):
         avg_lines,
         field_coverage,
     )
+
+    # --------------------------------------------------------
+    # DEPLOYED MODEL CHECKPOINT
+    # --------------------------------------------------------
+
+    print(
+        "\n[Deployment] Joint training complete. "
+        "Checkpoint saved. "
+        "Skipping post-deployment adaptation."
+    )
+
+    return model, data, (ids, X, Y, P)
+   
     # --------------------------------------------------------
     # Stage 2A — ISSUE FT
     # --------------------------------------------------------

@@ -28,6 +28,7 @@ import ast
 import random
 import tempfile
 import json
+from pathlib import Path
 
 import numpy as np
 
@@ -99,6 +100,7 @@ class Config:
 
     # outputs
     out_dir: str = "outputs/humaneval"
+    deployed_checkpoint: str = "outputs/humaneval/deployed_joint.pt"
 
     spec_validity_threshold: float = 0.90
     spec_gate_samples: int = 33
@@ -106,6 +108,48 @@ class Config:
     lambda_constraint: float = 0.01
 
 CFG = Config()
+
+def dataclass_to_dict(obj):
+    return dict(obj.__dict__)
+
+
+def get_tokenizer_proto(tok):
+    sp = getattr(tok, "sp", None)
+
+    if sp is None:
+        return None
+
+    if hasattr(sp, "serialized_model_proto"):
+        try:
+            return sp.serialized_model_proto()
+        except Exception:
+            return None
+
+    if hasattr(sp, "SerializeToString"):
+        try:
+            return sp.SerializeToString()
+        except Exception:
+            return None
+
+    return None
+
+
+def save_deployed_checkpoint(path, model, cfg, data, meta=None):
+    ckpt_path = Path(path).expanduser().resolve()
+    ckpt_path.parent.mkdir(parents=True, exist_ok=True)
+
+    torch.save(
+        {
+            "model_state_dict": model.state_dict(),
+            "config": dataclass_to_dict(cfg),
+            "tokenizer_model_proto": get_tokenizer_proto(data.tok),
+            "meta": meta or {},
+        },
+        ckpt_path,
+    )
+
+    print(f"[Checkpoint] saved deployed HumanEval checkpoint: {ckpt_path}")
+
 DEBUG_CTX = False
 DEBUG_CTX_ONCE = True
 
@@ -3719,20 +3763,37 @@ def run_all(cfg: Config = CFG):
     Y = Y[perm]
     P = P[perm]
 
-    split = int(N * 0.8)
+    # ==========================================================
+    # Deployment / Adaptation split
+    # ==========================================================
 
-    X_train = X[:split]
-    X_test = X[split:]
+    ADAPT_HOLDOUT = 33
 
-    Y_train = Y[:split]
-    Y_test = Y[split:]
+    deploy_N = N - ADAPT_HOLDOUT
 
-    P_train = P[:split]
-    P_test = P[split:]
+    X_deploy = X[:deploy_N]
+    Y_deploy = Y[:deploy_N]
+    P_deploy = P[:deploy_N]
+
+    X_adapt = X[deploy_N:]
+    Y_adapt = Y[deploy_N:]
+    P_adapt = P[deploy_N:]
+
+    split = int(deploy_N * 0.8)
+
+    X_train = X_deploy[:split]
+    X_test  = X_deploy[split:]
+
+    Y_train = Y_deploy[:split]
+    Y_test  = Y_deploy[split:]
+
+    P_train = P_deploy[:split]
+    P_test  = P_deploy[split:]
 
     print(
-        f"[Info] Train: {split} pairs, "
-        f"Test: {N - split} pairs"
+        f"[Info] DeployTrain={split} "
+        f"DeployTest={deploy_N - split} "
+        f"AdaptHoldout={ADAPT_HOLDOUT}"
     )
 
     # ==========================================================
@@ -3901,6 +3962,24 @@ def run_all(cfg: Config = CFG):
         max_in_len=cfg.max_in_len,
     )
 
+    # ==========================================================
+    # Save deployed checkpoint BEFORE post-deployment adaptation
+    # ==========================================================
+
+    save_deployed_checkpoint(
+        cfg.deployed_checkpoint,
+        model,
+        cfg,
+        data,
+        meta={
+            "meaning": "HumanEval deployed checkpoint after Stage 0 SPEC training and Stage 1 IMPL training",
+            "train_size": int(X_train.size(0)),
+            "test_size": int(X_test.size(0)),
+            "adapt_size": int(X_adapt.size(0)),
+            "stage": "after_stage1_before_stage2_adaptation",
+        },
+    )
+
     print(
         "\n[Stage 1 Diagnostic] "
         "SPEC generation after IMPL training"
@@ -4010,6 +4089,18 @@ def run_all(cfg: Config = CFG):
     )
 
     # ==========================================================
+    # DEPLOYED MODEL CHECKPOINT
+    # ==========================================================
+
+    print(
+        "\n[Deployment] Stage 0 + Stage 1 complete. "
+        "Checkpoint already saved. "
+        "Skipping post-deployment adaptation."
+    )
+
+    return model, data, (ids, X, Y, P)
+
+    # ==========================================================
     # Local SPEC eval helper
     # ==========================================================
 
@@ -4095,8 +4186,8 @@ def run_all(cfg: Config = CFG):
 
     fine_tune_static(
         model,
-        X_train,
-        Y_train,
+        X_adapt,
+        Y_adapt,
         user_id=AGENT_SPECIFICATION,
         epochs=cfg.ft_epochs,
         batch_size=cfg.ft_batch,
@@ -4108,7 +4199,7 @@ def run_all(cfg: Config = CFG):
         idxs=None,
         device=DEVICE,
         tok=data.tok,
-        P=P_train,
+        P=P_adapt,
         gist_ctx_fn=None,
         max_in_len=cfg.max_in_len,
         patience=5,
@@ -4217,8 +4308,8 @@ def run_all(cfg: Config = CFG):
 
     fine_tune_static(
         model,
-        X_train,
-        Y_train,
+        X_adapt,
+        Y_adapt,
         user_id=AGENT_IMPLEMENTATION,
         epochs=3,
         batch_size=cfg.ft_batch,
