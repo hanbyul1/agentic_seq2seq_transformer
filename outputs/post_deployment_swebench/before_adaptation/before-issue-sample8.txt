@@ -1,0 +1,15 @@
+PATCH_STRUCTURE_VALID: True
+PYTHON_SYNTAX_VALID: True
+LEXICAL_OVERLAP_SCORE: 0.0333
+PATCH_SANITY_SCORE: 1.0000
+FINAL_ACCEPTED: True
+REPAIR_ATTEMPTS: 0
+
+===== ISSUE ANALYSIS =====
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> runtime dependency constraint </FAULT_TYPE> <FAULT_LOCATION> /v3alpha/maintenance/status /v3/... /v3alpha/... /v3/... </FAULT_LOCATION> <EXPECTED_BEHAVIOR> be updated to use the `/v3/...` endpoint, since that is available on 3.4.0 (https://github.com/hexfusion/etcd/blob/v3.4. </EXPECTED_BEHAVIOR> <PATCH_HINT> write metrics locally without opening server port </PATCH_HINT> <DETAILS> <ISSUE_DESC> etcd leader check uses unsupported endpoint The etcd integration currently uses the `/v3alpha/maintenance/status` endpoint when determining whether the instance it's checking is the leader: https://github.com/DataDog/integrations-core/blame/7ab36d84f116ccbdef71ed12b84e81462ca38113/etcd/datadog_checks/etcd
+
+===== GENERATED PATCH =====
+def generated_patch(path, metrics):
+    with open(path, 'a', encoding='utf-8') as f:
+        f.write(str(metrics) + '\n')
+    return path

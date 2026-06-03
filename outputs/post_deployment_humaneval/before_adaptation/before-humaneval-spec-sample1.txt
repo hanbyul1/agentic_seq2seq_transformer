@@ -1,0 +1,15 @@
+INSTANCE_ID: he-75
+ACCEPTED: False
+PATCH_VALID: False
+SYNTAX_VALID: True
+LEXICAL_OVERLAP: 0.1111
+
+===== PROMPT =====
+def is_multiply_prime(a): """Write a function that returns true if the given number is the multiplication of 3 prime numbers and false otherwise. Knowing that (a) is less then 100. Example: is_multiply_prime(30) == True 30 = 2 * 3 * 5 """
+
+===== ISSUE_GIST =====
+<SPEC> <SPEC> <SIGNATURE> def____<SIGNATURE> def_<SIGNATURE> def(___(__((__<SIGNATURE>(__: </SIGNATURE> </SIGNATURE> <DESCRIPTION>___:___to___.___>>___<SPEC> </SIGNATURE> </SPEC>
+
+===== GENERATED_PATCH =====
+def is_multiply_prime(a):
+    return None

@@ -1,0 +1,15 @@
+PATCH_STRUCTURE_VALID: True
+PYTHON_SYNTAX_VALID: True
+LEXICAL_OVERLAP_SCORE: 0.0000
+PATCH_SANITY_SCORE: 1.0000
+FINAL_ACCEPTED: False
+REPAIR_ATTEMPTS: 0
+
+===== ISSUE ANALYSIS =====
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> runtime crash </FAULT_TYPE> <FAULT_LOCATION> ISSUE_DESC LightningModule.load_from_checkpoint Bug Trying ModelCheckpoint val_loss load. To </FAULT_LOCATION> <EXPECTED_BEHAVIOR> preserve intended behavior without side effects </EXPECTED_BEHAVIOR> <PATCH_HINT> modify localized behavior using existing API </PATCH_HINT> <DETAILS> <ISSUE_DESC> LightningModule.load_from_checkpoint not working with .ckpt from 0.7.6 ## Bug Trying to use an old experiment .ckpt (generated with ModelCheckpoint(monitor="val_loss", mode="min') in 0.7.6) results in an error when trying to load. ### To Reproduce Steps to reproduce the behavior: 1. Train something with 0.7.6 and save checkpoint with the checkpoint </DETAILS>
+
+===== GENERATED PATCH =====
+def generated_patch(value):
+    if value is None:
+        return None
+    return value

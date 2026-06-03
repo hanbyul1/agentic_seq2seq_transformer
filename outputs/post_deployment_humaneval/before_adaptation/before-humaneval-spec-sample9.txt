@@ -1,0 +1,15 @@
+INSTANCE_ID: he-102
+ACCEPTED: False
+PATCH_VALID: False
+SYNTAX_VALID: True
+LEXICAL_OVERLAP: 0.1111
+
+===== PROMPT =====
+def choose_num(x, y): """This function takes two positive numbers x and y and returns the biggest even integer number that is in the range [x, y] inclusive. If there's no such number, then the function should return -1. For example: choose_num(12, 15) = 14 choose_num(13, 12) = -1 """
+
+===== ISSUE_GIST =====
+<SPEC> <SPEC> <SIGNATURE> def____<SIGNATURE> def_(___((__(_(_<SIGNATURE> def(__: </SIGNATURE> </SIGNATURE> <DESCRIPTION> </SIGNATURE> </SPEC>
+
+===== GENERATED_PATCH =====
+def choose_num(x, y):
+    return None

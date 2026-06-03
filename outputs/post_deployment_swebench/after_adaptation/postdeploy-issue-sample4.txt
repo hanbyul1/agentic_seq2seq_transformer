@@ -1,0 +1,13 @@
+PATCH_STRUCTURE_VALID: False
+PYTHON_SYNTAX_VALID: True
+LEXICAL_OVERLAP_SCORE: 0.0000
+PATCH_SANITY_SCORE: 1.0000
+FINAL_ACCEPTED: False
+REPAIR_ATTEMPTS: 0
+
+===== ISSUE ANALYSIS =====
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> behavioral defect </FAULT_TYPE> <FAULT_LOCATION> Automatic I I I easier. Let PyTorch Anyone </FAULT_LOCATION> <EXPECTED_BEHAVIOR> preserve intended behavior without side effects </EXPECTED_BEHAVIOR> <PATCH_HINT> modify localized behavior using existing API </PATCH_HINT> <DETAILS> Automatic docs I know it was proposed before and I tabled it but I think it's time to reconsider so docs can scale easier. Let's use whatever PyTorch uses and do documentation in the code (i assume that's how it's done?). Anyone want to take a stab at this? @Borda </DETAILS>
+
+===== GENERATED PATCH =====
+def generated_patch(value):
+    return value

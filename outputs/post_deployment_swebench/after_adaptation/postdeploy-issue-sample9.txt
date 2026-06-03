@@ -1,0 +1,13 @@
+PATCH_STRUCTURE_VALID: False
+PYTHON_SYNTAX_VALID: True
+LEXICAL_OVERLAP_SCORE: 0.0000
+PATCH_SANITY_SCORE: 1.0000
+FINAL_ACCEPTED: False
+REPAIR_ATTEMPTS: 0
+
+===== ISSUE ANALYSIS =====
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> behavioral defect </FAULT_TYPE> <FAULT_LOCATION> ValidationFailed Result.validate ValidationFailed </FAULT_LOCATION> <EXPECTED_BEHAVIOR> preserve intended behavior without side effects </EXPECTED_BEHAVIOR> <PATCH_HINT> modify localized behavior using existing API </PATCH_HINT> <DETAILS> PIN 16: Implement `ValidationFailed` State ## Use Case See [PIN 16](https://github.com/PrefectHQ/prefect/pull/2134) for background. In particular, this blocks full implementation of `Result.validate`. ## Solution Implement a new State, `ValidationFailed`, similar to [other Prefect states](https://github.com/PrefectHQ/prefect/blob/66703e5f0a2d0d035d4d48af013b87d24a7a2a56/src/prefect/engine/state.py), that can be utilized during Result validation. - [x] add new state - [x] add new signal </DETAILS>
+
+===== GENERATED PATCH =====
+def generated_patch(value):
+    return value

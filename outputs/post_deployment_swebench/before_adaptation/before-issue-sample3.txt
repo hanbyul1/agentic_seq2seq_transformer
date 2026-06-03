@@ -1,0 +1,15 @@
+PATCH_STRUCTURE_VALID: True
+PYTHON_SYNTAX_VALID: True
+LEXICAL_OVERLAP_SCORE: 0.0656
+PATCH_SANITY_SCORE: 1.0000
+FINAL_ACCEPTED: True
+REPAIR_ATTEMPTS: 0
+
+===== ISSUE ANALYSIS =====
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> runtime dependency constraint </FAULT_TYPE> <FAULT_LOCATION> ISSUE_DESC TLS local_cert_path PEM Note If docs.datadoghq.com tracked. </FAULT_LOCATION> <EXPECTED_BEHAVIOR> [contact support](https://docs.datadoghq.com/help/) so the request can be properly tracked. **Output of the [info page]( </EXPECTED_BEHAVIOR> <PATCH_HINT> write metrics locally without opening server port </PATCH_HINT> <DETAILS> <ISSUE_DESC> [TLS: local_cert_path] unable to load PEM certs with .crt extensions **Note:** If you have a feature request, you should [contact support](https://docs.datadoghq.com/help/) so the request can be properly tracked. **Output of the [info page](https://docs.datadoghq.com/agent/guide/agent-commands/#agent-status-and-information)**
+
+===== GENERATED PATCH =====
+def generated_patch(path, metrics):
+    with open(path, 'a', encoding='utf-8') as f:
+        f.write(str(metrics) + '\n')
+    return path

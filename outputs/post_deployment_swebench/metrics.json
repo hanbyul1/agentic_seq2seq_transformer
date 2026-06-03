@@ -1,0 +1,82 @@
+{
+  "target_agent": "issue",
+  "target_agent_id": 0,
+  "config": {
+    "seed": 42,
+    "limit": 1000,
+    "max_in_len": 256,
+    "max_out_len": 320,
+    "spm_vocab": 2048,
+    "decode_max_len": 96,
+    "demo_data": false,
+    "n_agents": 2,
+    "model_dim": 256,
+    "n_heads": 4,
+    "n_layers_enc": 3,
+    "n_layers_dec": 3,
+    "max_len_cap": 640,
+    "pipe_epochs": 25,
+    "pipe_batch": 8,
+    "pipe_lr": 0.0002,
+    "ft_epochs": 8,
+    "ft_batch": 8,
+    "ft_lr": 0.0001,
+    "ft_unfreeze_adapters": true,
+    "max_repair_attempts": 3,
+    "n_validation_samples": 10,
+    "out_dir": "/Users/dae-kyookim/Library/CloudStorage/OneDrive-Personal/EMSE2026/experiments/outputs/post_deployment_swebench"
+  },
+  "before": {
+    "issue_ce": 3.856276035308838,
+    "issue_tok_acc": 0.3749883770942688,
+    "code_raw_ce": 5.100632190704346,
+    "code_raw_tok_acc": 0.1939186155796051,
+    "code_gold_gist_ce": 5.110848426818848,
+    "code_gold_gist_tok_acc": 0.1968996822834015,
+    "code_generated_gist_ce": 5.112156867980957,
+    "code_generated_gist_tok_acc": 0.19376955926418304
+  },
+  "after": {
+    "issue_ce": 3.814650058746338,
+    "issue_tok_acc": 0.37675631046295166,
+    "code_raw_ce": 5.100632190704346,
+    "code_raw_tok_acc": 0.1939186155796051,
+    "code_gold_gist_ce": 5.110848426818848,
+    "code_gold_gist_tok_acc": 0.1968996822834015,
+    "code_generated_gist_ce": 5.119311332702637,
+    "code_generated_gist_tok_acc": 0.19481293857097626
+  },
+  "delta": {
+    "delta_issue_ce": -0.0416259765625,
+    "delta_issue_tok_acc": 0.0017679333686828613,
+    "delta_code_raw_ce": 0.0,
+    "delta_code_raw_tok_acc": 0.0,
+    "delta_code_gold_gist_ce": 0.0,
+    "delta_code_gold_gist_tok_acc": 0.0,
+    "delta_code_generated_gist_ce": 0.0071544647216796875,
+    "delta_code_generated_gist_tok_acc": 0.0010433793067932129
+  },
+  "adaptation_cost": {
+    "trainable_params": 592768,
+    "total_params": 10718976,
+    "AC_trainable_ratio": 0.05530080485300088
+  },
+  "parameter_locality": {
+    "changed_tensor_count": 8,
+    "unchanged_tensor_count": 101,
+    "max_abs_parameter_delta": 0.0053015053272247314,
+    "target_changed_count": 8,
+    "non_target_changed_count": 0,
+    "target_changed_tensors": [
+      "routing.agents.0.adapter.0.weight",
+      "routing.agents.0.adapter.0.bias",
+      "routing.agents.0.adapter.1.weight",
+      "routing.agents.0.adapter.1.bias",
+      "routing.agents.0.adapter.3.weight",
+      "routing.agents.0.adapter.3.bias",
+      "routing.agents.0.role_head.weight",
+      "routing.agents.0.role_head.bias"
+    ],
+    "non_target_changed_tensors": []
+  }
+}

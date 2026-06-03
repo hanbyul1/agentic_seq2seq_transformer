@@ -1,0 +1,13 @@
+PATCH_STRUCTURE_VALID: False
+PYTHON_SYNTAX_VALID: True
+LEXICAL_OVERLAP_SCORE: 0.0000
+PATCH_SANITY_SCORE: 1.0000
+FINAL_ACCEPTED: False
+REPAIR_ATTEMPTS: 0
+
+===== ISSUE ANALYSIS =====
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> behavioral defect </FAULT_TYPE> <FAULT_LOCATION> bash prefect agent start </FAULT_LOCATION> <EXPECTED_BEHAVIOR> ship with Prefect Core, in order to minimize frictions to getting started with Prefect Cloud. For a user who had already </EXPECTED_BEHAVIOR> <PATCH_HINT> modify localized behavior using existing API </PATCH_HINT> <DETAILS> Release local agent as part of Prefect Core Rather than a separate repo, the local Agent should ship with Prefect Core, in order to minimize frictions to getting started with Prefect Cloud. For a user who had already set an auth token, connecting to the Prefect Cloud platform could be </DETAILS>
+
+===== GENERATED PATCH =====
+def generated_patch(value):
+    return value

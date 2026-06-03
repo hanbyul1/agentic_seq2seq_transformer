@@ -1,0 +1,13 @@
+PATCH_STRUCTURE_VALID: False
+PYTHON_SYNTAX_VALID: True
+LEXICAL_OVERLAP_SCORE: 0.0000
+PATCH_SANITY_SCORE: 1.0000
+FINAL_ACCEPTED: False
+REPAIR_ATTEMPTS: 0
+
+===== ISSUE ANALYSIS =====
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> behavioral defect </FAULT_TYPE> <FAULT_LOCATION> Make To Failed ClientError Unknown field. </FAULT_LOCATION> <EXPECTED_BEHAVIOR> preserve intended behavior without side effects </EXPECTED_BEHAVIOR> <PATCH_HINT> modify localized behavior using existing API </PATCH_HINT> <DETAILS> Make sure old versions of serializers ignore new fields To avoid issues such as `Failed to set flow state with error: ClientError("{0: {'metadata': ['Unknown field.']}}")` </DETAILS>
+
+===== GENERATED PATCH =====
+def generated_patch(value):
+    return value

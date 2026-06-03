@@ -1,0 +1,15 @@
+INSTANCE_ID: he-6
+ACCEPTED: False
+PATCH_VALID: False
+SYNTAX_VALID: True
+LEXICAL_OVERLAP: 0.1111
+
+===== PROMPT =====
+from typing import List def parse_nested_parens(paren_string: str) -> List[int]: """ Input to this function is a string represented multiple groups for nested parentheses separated by spaces. For each of the group, output the deepest level of nesting of parentheses. E.g. (()()) has maximum two levels of nesting while ((())) has three. >>> parse_nested_parens('(()()) ((())) () ((())()())') [2, 3, 1, 3] """
+
+===== ISSUE_GIST =====
+<SPEC> <SPEC> <SIGNATURE> def____<SIGNATURE> def_(___(_(_<SIGNATURE> def(__((__: </SIGNATURE> </SIGNATURE> <DESCRIPTION> </SIGNATURE> </SPEC>
+
+===== GENERATED_PATCH =====
+def parse_nested_parens(paren_string: str) -> List[int]:
+    return []

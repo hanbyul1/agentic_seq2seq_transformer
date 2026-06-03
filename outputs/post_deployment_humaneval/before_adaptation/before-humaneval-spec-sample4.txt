@@ -1,0 +1,15 @@
+INSTANCE_ID: he-132
+ACCEPTED: False
+PATCH_VALID: False
+SYNTAX_VALID: True
+LEXICAL_OVERLAP: 0.1000
+
+===== PROMPT =====
+def is_nested(string): ''' Create a function that takes a string as input which contains only square brackets. The function should return True if and only if there is a valid subsequence of brackets where at least one bracket in the subsequence is nested. is_nested('[[]]') ➞ True is_nested('[]]]]]]][[[[[]') ➞ False is_nested('[][]') ➞ False is_nested('[]') ➞ False is_nested('[[][]]') ➞ True is_nested('[[]][[') ➞ True '''
+
+===== ISSUE_GIST =====
+<SPEC> <SPEC> <SIGNATURE> def____<SIGNATURE> def_(___(_(_<SIGNATURE> def(__((__: </SIGNATURE> </SIGNATURE> <DESCRIPTION>___:___to___.___>>___<SPEC> </SIGNATURE> </SPEC>
+
+===== GENERATED_PATCH =====
+def is_nested(string):
+    return None

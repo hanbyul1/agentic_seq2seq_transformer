@@ -1,0 +1,15 @@
+PATCH_STRUCTURE_VALID: True
+PYTHON_SYNTAX_VALID: True
+LEXICAL_OVERLAP_SCORE: 0.0000
+PATCH_SANITY_SCORE: 1.0000
+FINAL_ACCEPTED: False
+REPAIR_ATTEMPTS: 0
+
+===== ISSUE ANALYSIS =====
+<PROBLEM> software behavior issue </PROBLEM> <FAULT_TYPE> logging side effect </FAULT_TYPE> <FAULT_LOCATION> print print log_stdout True </FAULT_LOCATION> <EXPECTED_BEHAVIOR> introduce a new keyword argument on all Tasks `log_stdout` which defaults to `True`. When `True`, all standard out is co </EXPECTED_BEHAVIOR> <PATCH_HINT> modify localized behavior using existing API </PATCH_HINT> <DETAILS> <ISSUE_DESC> Add optional stdout logging for tasks ## Current behavior Currently, `print` statements or any other stdout is not treated in any special way. This has two consequences: - users who use `print` statements locally and can see the output are surprised when the output doesn't appear in the Cloud </DETAILS>
+
+===== GENERATED PATCH =====
+def generated_patch(metrics):
+    metrics = dict(metrics)
+    metrics.pop('global_step', None)
+    return metrics
